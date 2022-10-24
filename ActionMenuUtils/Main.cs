@@ -22,7 +22,6 @@ namespace ActionMenuUtils
         {
             try
             {
-                if (string.IsNullOrEmpty(ID)) return;
                 //Adapted from knah's JoinNotifier mod found here: https://github.com/knah/VRCMods/blob/master/JoinNotifier/JoinNotifierMod.cs 
                 using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("ActionMenuUtils.icons"))
                 {
@@ -93,7 +92,5 @@ namespace ActionMenuUtils
 
         public override void OnPreferencesLoaded() => ModSettings.Apply();
         public override void OnPreferencesSaved() => ModSettings.Apply();
-
-        private static string ID = "gompo";
     }
 }

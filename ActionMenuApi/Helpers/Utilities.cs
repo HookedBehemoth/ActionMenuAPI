@@ -14,12 +14,7 @@ using Vector2 = System.Numerics.Vector2;
 
 using ActionMenuDriver = MonoBehaviourPublicObGaObAcMeObEmExObPeUnique;
 using ActionMenuOpener = MonoBehaviourPublicObBoSiObObObUnique;
-using ActionMenuType = MonoBehaviourPublicObBoSiObObObUnique.EnumNPublicSealedvaLeRi3vUnique;
 using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
-using ActionMenuPage = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique.ObjectNPublicAcTeAcStGaUnique;
-using RadialPuppetMenu = MonoBehaviour2PublicObGaTeGaBoSiSiSiSiSiUnique;
-using AxisPuppetMenu = MonoBehaviour2PublicGaObBoObSiBoObSiObObUnique;
-using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
 
 namespace ActionMenuApi.Helpers
 {

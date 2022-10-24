@@ -30,7 +30,6 @@ namespace ActionMenuApi
         {
             while (ActionMenuDriver.prop_MonoBehaviourPublicObGaObAcMeObEmExObPeUnique_0 == null) //VRCUIManager Init is too early 
                 yield return null;
-            if (string.IsNullOrEmpty(ID)) yield break;
             ResourcesManager.InitLockGameObject();
             RadialPuppetManager.Setup();
             FourAxisPuppetManager.Setup();

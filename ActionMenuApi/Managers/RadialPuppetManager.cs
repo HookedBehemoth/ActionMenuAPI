@@ -2,16 +2,10 @@
 using ActionMenuApi.Helpers;
 using ActionMenuApi.Types;
 using MelonLoader;
-using UnhollowerBaseLib;
 using UnityEngine;
 using UnityEngine.XR;
-using VRC.SDK3.Avatars.ScriptableObjects;
 
-using ActionMenuDriver = MonoBehaviourPublicObGaObAcMeObEmExObPeUnique;
-using ActionMenuOpener = MonoBehaviourPublicObBoSiObObObUnique;
-using ActionMenuPage = MonoBehaviourPublicObGaObAcMeObEmExObPeUnique.ObjectNPublicPaInSiBoSiBoUnique;
 using RadialPuppetMenu = MonoBehaviour2PublicObGaTeGaBoSiSiSiSiSiUnique;
-using AxisPuppetMenu = MonoBehaviour2PublicGaObBoObSiBoObSiObObUnique;
 using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
 
 namespace ActionMenuApi.Managers
