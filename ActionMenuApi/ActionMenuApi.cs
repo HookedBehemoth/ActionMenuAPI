@@ -3,6 +3,8 @@ using System.Collections;
 using ActionMenuApi.Managers;
 using MelonLoader;
 
+using ActionMenuDriver = MonoBehaviourPublicObGaObAcMeObEmExObPeUnique;
+
 #pragma warning disable 1591
 
 namespace ActionMenuApi
@@ -10,7 +12,7 @@ namespace ActionMenuApi
     public partial class ActionMenuApi : MelonMod
     {
         
-        public override void OnApplicationStart()
+        public override void OnInitializeMelon()
         {
             ResourcesManager.LoadTextures();
             MelonCoroutines.Start(WaitForActionMenuInit());
@@ -26,7 +28,7 @@ namespace ActionMenuApi
 
         private IEnumerator WaitForActionMenuInit()
         {
-            while (ActionMenuDriver.prop_ActionMenuDriver_0 == null) //VRCUIManager Init is too early 
+            while (ActionMenuDriver.prop_MonoBehaviourPublicObGaObAcMeObEmExObPeUnique_0 == null) //VRCUIManager Init is too early 
                 yield return null;
             if (string.IsNullOrEmpty(ID)) yield break;
             ResourcesManager.InitLockGameObject();
@@ -39,7 +41,5 @@ namespace ActionMenuApi
             RadialPuppetManager.OnUpdate();
             FourAxisPuppetManager.OnUpdate();
         }
-
-        private static string ID = "gompo";
     }
 }

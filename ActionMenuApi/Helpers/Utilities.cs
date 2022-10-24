@@ -12,6 +12,15 @@ using UnityEngine.XR;
 using Object = UnityEngine.Object;
 using Vector2 = System.Numerics.Vector2;
 
+using ActionMenuDriver = MonoBehaviourPublicObGaObAcMeObEmExObPeUnique;
+using ActionMenuOpener = MonoBehaviourPublicObBoSiObObObUnique;
+using ActionMenuType = MonoBehaviourPublicObBoSiObObObUnique.EnumNPublicSealedvaLeRi3vUnique;
+using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
+using ActionMenuPage = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique.ObjectNPublicAcTeAcStGaUnique;
+using RadialPuppetMenu = MonoBehaviour2PublicObGaTeGaBoSiSiSiSiSiUnique;
+using AxisPuppetMenu = MonoBehaviour2PublicGaObBoObSiBoObSiObObUnique;
+using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
+
 namespace ActionMenuApi.Helpers
 {
     internal static class Utilities
@@ -28,11 +37,11 @@ namespace ActionMenuApi.Helpers
                     m =>
                         m.Name.StartsWith("Method_Private_Void_PDM_")
                         && !m.HasStringLiterals()
-                        && m.SameClassMethodCallCount(1) 
+                        && m.SameClassMethodCallCount(1)
                         && m.HasMethodCallWithName("ThrowArgumentOutOfRangeException")
                         && !m.HasMethodWithDeclaringType(typeof(ActionMenuDriver))
                 );
-                refreshAMDelegate = (RefreshAMDelegate) Delegate.CreateDelegate(
+                refreshAMDelegate = (RefreshAMDelegate)Delegate.CreateDelegate(
                     typeof(RefreshAMDelegate),
                     null,
                     refreshAMMethod);
@@ -87,7 +96,7 @@ namespace ActionMenuApi.Helpers
                 if (!pedalStruct.shouldAdd) continue;
                 var pedalOption = instance.AddOption();
                 pedalOption.SetText(pedalStruct.text);
-                if (!pedalStruct.locked) pedalOption.SetPedalAction(delegate {pedalStruct.triggerEvent.Invoke(instance);  });
+                if (!pedalStruct.locked) pedalOption.SetPedalAction(delegate { pedalStruct.triggerEvent.Invoke(instance); });
                 else pedalOption.Lock();
                 //Additional setup for pedals
                 switch (pedalStruct.Type)
@@ -96,14 +105,14 @@ namespace ActionMenuApi.Helpers
                         pedalOption.SetPedalTypeIcon(GetExpressionsIcons().typeFolder);
                         break;*/
                     case PedalType.RadialPuppet:
-                        var pedalRadial = (PedalRadial) pedalStruct;
+                        var pedalRadial = (PedalRadial)pedalStruct;
                         pedalOption.SetPedalTypeIcon(GetExpressionsIcons().typeRadial);
                         pedalOption.SetButtonPercentText($"{Math.Round(pedalRadial.currentValue)}%");
                         pedalRadial.pedal = pedalOption;
                         pedalOption.SetBackgroundIcon(pedalStruct.icon);
                         break;
                     case PedalType.Toggle:
-                        var pedalToggle = (PedalToggle) pedalStruct;
+                        var pedalToggle = (PedalToggle)pedalStruct;
                         if (pedalToggle.toggled)
                             pedalOption.SetPedalTypeIcon(GetExpressionsIcons().typeToggleOn);
                         else
@@ -141,27 +150,32 @@ namespace ActionMenuApi.Helpers
             return 0;
         }
 
-        public static GameObject CloneGameObject(string pathToGameObject, string pathToParent)
+        public static GameObject CloneActionMenuGameObject(string pathToGameObject, string pathToParent)
         {
+            var driver = GetDriver().transform;
+            var go = driver.Find(pathToGameObject);
+            var parent = driver.Find(pathToParent);
             return Object
-                .Instantiate(GameObject.Find(pathToGameObject).transform, GameObject.Find(pathToParent).transform)
+                .Instantiate(go, parent)
                 .gameObject;
         }
 
         public static ActionMenuDriver.ExpressionIcons GetExpressionsIcons()
         {
-            return ActionMenuDriver.prop_ActionMenuDriver_0.field_Public_ExpressionIcons_0;
+            var driver = GetDriver();
+            return driver.field_Public_ExpressionIcons_0;
         }
 
         // Didnt know what to name this function
         public static ActionMenuHand GetActionMenuHand()
         {
-            if (!ActionMenuDriver.prop_ActionMenuDriver_0.GetLeftOpener().isOpen() &&
-                ActionMenuDriver.prop_ActionMenuDriver_0.GetRightOpener().isOpen())
+            var driver = GetDriver();
+            if (!driver.GetLeftOpener().isOpen() &&
+                driver.GetRightOpener().isOpen())
                 return ActionMenuHand.Right;
 
-            if (ActionMenuDriver.prop_ActionMenuDriver_0.GetLeftOpener().isOpen() &&
-                !ActionMenuDriver.prop_ActionMenuDriver_0.GetRightOpener().isOpen())
+            if (driver.GetLeftOpener().isOpen() &&
+                !driver.GetRightOpener().isOpen())
                 return ActionMenuHand.Left;
 
             return ActionMenuHand.Invalid;
@@ -169,15 +183,14 @@ namespace ActionMenuApi.Helpers
 
         public static ActionMenuOpener GetActionMenuOpener()
         {
-            if (!ActionMenuDriver.prop_ActionMenuDriver_0.GetLeftOpener().isOpen() &&
-                ActionMenuDriver.prop_ActionMenuDriver_0.GetRightOpener().isOpen())
-                return ActionMenuDriver.prop_ActionMenuDriver_0.GetRightOpener();
+            var driver = GetDriver();
+            if (!driver.GetLeftOpener().isOpen() &&
+                driver.GetRightOpener().isOpen())
+                return driver.GetRightOpener();
 
-            if (ActionMenuDriver.prop_ActionMenuDriver_0.GetLeftOpener().isOpen() &&
-                !ActionMenuDriver.prop_ActionMenuDriver_0.GetRightOpener().isOpen())
-                return ActionMenuDriver.prop_ActionMenuDriver_0.GetLeftOpener();
-            
-            
+            if (driver.GetLeftOpener().isOpen() &&
+                !driver.GetRightOpener().isOpen())
+                return driver.GetLeftOpener();
 
             return null;
             /*
@@ -234,39 +247,46 @@ namespace ActionMenuApi.Helpers
 
         public static void RefreshAM()
         {
-            if (ActionMenuDriver.prop_ActionMenuDriver_0 == null)
+            var driver = GetDriver();
+            if (driver == null)
             {
                 Logger.LogWarning("Refresh called before driver init");
                 return;
             }
 
-            var leftOpener = ActionMenuDriver.prop_ActionMenuDriver_0.GetLeftOpener();
+            var leftOpener = driver.GetLeftOpener();
             GetRefreshAMDelegate(leftOpener.GetActionMenu());
-            var rightOpener = ActionMenuDriver.prop_ActionMenuDriver_0.GetRightOpener();
+            var rightOpener = driver.GetRightOpener();
             GetRefreshAMDelegate(rightOpener.GetActionMenu());
         }
 
         public static void ResetMenu()
         {
-            if (ActionMenuDriver.prop_ActionMenuDriver_0 == null)
+            var driver = GetDriver();
+            if (driver == null)
             {
                 Logger.LogWarning("Reset called before driver init");
                 return;
             }
 
-            var leftOpener = ActionMenuDriver.prop_ActionMenuDriver_0.GetLeftOpener();
+            var leftOpener = driver.GetLeftOpener();
             leftOpener.GetActionMenu().Reset();
 
-            var rightOpener = ActionMenuDriver.prop_ActionMenuDriver_0.GetRightOpener();
+            var rightOpener = driver.GetRightOpener();
             rightOpener.GetActionMenu().Reset();
-            
+
         }
-        
+
+        public static ActionMenuDriver GetDriver()
+        {
+            return ActionMenuDriver.field_Public_Static_MonoBehaviourPublicObGaObAcMeObEmExObPeUnique_0;
+        }
+
         public static (double x1, double y1, double x2, double y2) GetIntersection(float x, float y, float r)
         {
             var tmp = Math.Pow(y / x, 2);
-            var c4 = -Math.Pow(r, 2)*-4;
-            var x1 = Math.Sqrt(c4 + c4*tmp) / (2+2*tmp);
+            var c4 = -Math.Pow(r, 2) * -4;
+            var x1 = Math.Sqrt(c4 + c4 * tmp) / (2 + 2 * tmp);
             var x2 = -x1;
             return (x1, x1 * (y / x), x2, x2 * (y / x));
         }

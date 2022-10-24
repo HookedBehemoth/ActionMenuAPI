@@ -3,7 +3,6 @@ using System.IO;
 using System.Reflection;
 using ActionMenuApi.Api;
 using MelonLoader;
-using UIExpansionKit.API;
 using UnhollowerRuntimeLib;
 using UnityEngine;
 using VRC;
@@ -19,7 +18,7 @@ namespace ActionMenuUtils
         private static Texture2D resetAvatarIcon;
         private static Texture2D rejoinInstanceIcon;
 
-        public override void OnApplicationStart()
+        public override void OnInitializeMelon()
         {
             try
             {
@@ -45,40 +44,17 @@ namespace ActionMenuUtils
                 rejoinInstanceIcon = iconsAssetBundle.LoadAsset_Internal("Assets/Resources/Pin.png", Il2CppType.Of<Texture2D>()).Cast<Texture2D>();
                 rejoinInstanceIcon.hideFlags |= HideFlags.DontUnloadUnusedAsset;
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 MelonLogger.Warning("Consider checking for newer version as mod possibly no longer working, Exception occured OnAppStart(): " + e.Message);
             }
             ModSettings.RegisterSettings();
             ModSettings.Apply();
             SetupAMAPIButtons();
-            SetupUIXButtons();
-        }
-        
-        private static void SetupUIXButtons()
-        {
-            ExpansionKitApi.GetExpandedMenu(ExpandedMenu.AvatarMenu).AddSimpleButton("Set AMU Reset Avatar", 
-                () =>
-                {
-                    var avatarId = GameObject.Find("UserInterface/MenuContent/Screens/Avatar/AvatarPreviewBase/MainRoot/MainModel").GetComponent<SimpleAvatarPedestal>().field_Internal_ApiAvatar_0.id;
-                    var fallbackAvatarId = GameObject.Find("UserInterface/MenuContent/Screens/Avatar/AvatarPreviewBase/FallbackRoot/FallbackModel").GetComponent<SimpleAvatarPedestal>().field_Internal_ApiAvatar_0?.id;
-                    ModSettings.customAvatarId = avatarId;
-                    ModSettings.fallbackAvatarId = fallbackAvatarId;
-                    ModSettings.Save();
-#if DEBUG
-                    MelonLogger.Msg($"{avatarId},{fallbackAvatarId}");
-#endif
-
-                },
-                g =>
-                {
-                    UIXAvatarMenuButton = g;
-                    UIXAvatarMenuButton.active = ModSettings.enableCustomAvatarReset;
-                });
-            
         }
 
         public static GameObject UIXAvatarMenuButton;
-        
+
         private static void SetupAMAPIButtons()
         {
             VRCActionMenuPage.AddSubMenu(ActionMenuPage.Options, "SOS",
@@ -86,39 +62,30 @@ namespace ActionMenuUtils
                 {
                     //Respawn
                     if (ModSettings.confirmRespawn)
-                        CustomSubMenu.AddSubMenu("Respawn", 
+                        CustomSubMenu.AddSubMenu("Respawn",
                             () => CustomSubMenu.AddButton("Confirm Respawn", Utils.Respawn, respawnIcon),
                             respawnIcon
                         );
                     else
                         CustomSubMenu.AddButton("Respawn", Utils.Respawn, respawnIcon);
 
-                    //Reset Avatar
-                    if (ModSettings.confirmAvatarReset)
-                        CustomSubMenu.AddSubMenu("Reset Avatar",
-                            () => CustomSubMenu.AddButton("Confirm Reset Avatar", Utils.ResetAvatar, resetAvatarIcon), 
-                            resetAvatarIcon
-                        );
-                    else
-                        CustomSubMenu.AddButton("Reset Avatar", Utils.ResetAvatar, resetAvatarIcon);
-                   
                     //Instance Rejoin
                     if (ModSettings.confirmInstanceRejoin)
-                        CustomSubMenu.AddSubMenu("Rejoin Instance", 
-                            () => CustomSubMenu.AddButton("Confirm Instance Rejoin", Utils.RejoinInstance, rejoinInstanceIcon), 
+                        CustomSubMenu.AddSubMenu("Rejoin Instance",
+                            () => CustomSubMenu.AddButton("Confirm Instance Rejoin", Utils.RejoinInstance, rejoinInstanceIcon),
                             rejoinInstanceIcon
                         );
                     else
                         CustomSubMenu.AddButton("Rejoin Instance", Utils.RejoinInstance, rejoinInstanceIcon);
-                    
+
                     //Go Home
                     if (ModSettings.confirmGoHome)
-                        CustomSubMenu.AddSubMenu("Go Home", 
-                            () => CustomSubMenu.AddButton("Confirm Go Home",Utils.Home, goHomeIcon), 
+                        CustomSubMenu.AddSubMenu("Go Home",
+                            () => CustomSubMenu.AddButton("Confirm Go Home", Utils.Home, goHomeIcon),
                             goHomeIcon
                         );
                     else
-                        CustomSubMenu.AddButton("Go Home",Utils.Home, goHomeIcon);
+                        CustomSubMenu.AddButton("Go Home", Utils.Home, goHomeIcon);
 
                 }, helpIcon
             );
@@ -126,7 +93,7 @@ namespace ActionMenuUtils
 
         public override void OnPreferencesLoaded() => ModSettings.Apply();
         public override void OnPreferencesSaved() => ModSettings.Apply();
-        
+
         private static string ID = "gompo";
     }
 }

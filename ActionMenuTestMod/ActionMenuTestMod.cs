@@ -1,11 +1,12 @@
 ﻿using System.IO;
 using System.Reflection;
-using ActionMenuApi;
 using ActionMenuApi.Api;
 using ActionMenuApi.Pedals;
 using MelonLoader;
 using UnhollowerRuntimeLib;
 using UnityEngine;
+
+using VRCPlayer = MonoBehaviour1PublicOb_pOb_c_pStTeObBoStUnique;
 
 [assembly: MelonInfo(typeof(ActionMenuTestMod.ActionMenuTestMod), "ActionMenuTestMod", "1.0.0", "gompo")]
 [assembly: MelonGame("VRChat", "VRChat")]
@@ -15,14 +16,8 @@ namespace ActionMenuTestMod
     // Icons from https://uxwing.com/
     public partial class ActionMenuTestMod : MelonMod
     {
-
-        private float testFloatValue = 50;
-        private float testFloatValue2 = 50;
-        private bool testBool = false;
         private bool testBool2 = false;
         private bool riskyFunctionsAllowed = false;
-        private Vector2 testVector = new ();
-        private Vector2 testVector2 = new ();
         private static float x = 0;
         private static float y = 0;
         private static float z = 0;
@@ -32,7 +27,7 @@ namespace ActionMenuTestMod
         private static Texture2D subMenuIcon;
         private static Texture2D buttonIcon;
         
-        public override void OnApplicationStart()
+        public override void OnInitializeMelon()
         {
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("ActionMenuTestMod.customicons"))
             using (var tempStream = new MemoryStream((int) stream.Length))
@@ -91,7 +86,7 @@ namespace ActionMenuTestMod
                     CustomSubMenu.AddRadialPuppet("Y",RotateCubeY, y,radialIcon);
                     CustomSubMenu.AddRadialPuppet("Z",RotateCubeZ, z,radialIcon);
                     CustomSubMenu.AddButton("Spawn Cube", CreateCube, buttonIcon);
-                    CustomSubMenu.AddButton("Tp Cube To Player",() => _controllingGameObject.transform.localPosition = VRCPlayer.field_Internal_Static_VRCPlayer_0.transform.localPosition, buttonIcon);
+                    CustomSubMenu.AddButton("Tp Cube To Player",() => _controllingGameObject.transform.localPosition = VRCPlayer.field_Internal_Static_MonoBehaviour1PublicOb_pOb_c_pStTeObBoStUnique_0.transform.localPosition, buttonIcon);
                 },
                 subMenuIcon,
                 false

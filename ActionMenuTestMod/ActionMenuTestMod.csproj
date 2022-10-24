@@ -10,7 +10,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\ActionMenuApi\ActionMenuApi.csproj" />
-        <ProjectReference Include="..\Tools\ModJsonGenerator\ModJsonGenerator.csproj" />
     </ItemGroup>
 
     <ItemGroup>

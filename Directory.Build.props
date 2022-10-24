@@ -1,237 +1,159 @@
 <Project>
-    <PropertyGroup>
-        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-        <ClearOutputDirectory>False</ClearOutputDirectory>
-        <DOCKERVAR>$(DOCKER_RUNNING)</DOCKERVAR>
-        <VRChatFolder>$(VRC_DIRECTORY)</VRChatFolder>
-        <ModRefs>$(VRChatFolder)\Mods</ModRefs>
-        <MelonManaged>$(VRChatFolder)\MelonLoader\Managed</MelonManaged>
-        <MelonLoader>$(VRChatFolder)\MelonLoader</MelonLoader>
-        <LangVersion>10</LangVersion>
-        <GithubRepoUrl>https://github.com/gompoc/VRChatMods</GithubRepoUrl>
-        <CIVAR>$(CI)</CIVAR>
+    <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
+        <VRChatPath>C:\Program Files (x86)\Steam\steamapps\common\VRChat</VRChatPath>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(CIVAR)'!=''">
-        <MelonManaged>$(MsBuildThisFileDirectory)Libs\</MelonManaged>
-        <MelonLoader>$(MsBuildThisFileDirectory)Libs\</MelonLoader>
-        <ModRefs>$(MsBuildThisFileDirectory)Libs\</ModRefs>
+    <PropertyGroup Condition=" '$(OS)' == 'Unix' ">
+        <VRChatPath>$(HOME)/.steam/steam/steamapps/common/VRChat</VRChatPath>
     </PropertyGroup>
-    
-    <ItemGroup Condition="'$(VrcReferences)' == 'true'">
-        <EmbeddedResource Include="$(MsBuildThisFileDirectory)Common\_dummy_.dll"/>
-        <EmbeddedResource Include="$(MsBuildThisFileDirectory)Common\_dummy2_.dll"/>
-        <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UnityEngine.dll</HintPath>
+
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <LangVersion>latest</LangVersion>
+
+        <AssemblySearchPaths>$(AssemblySearchPaths);$(VRChatPath)\MelonLoader;$(VRChatPath)\MelonLoader\Managed</AssemblySearchPaths>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="System"/>
+        <Reference Include="MelonLoader">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UnityEngine.AssetBundleModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UnityEngine.AssetBundleModule.dll</HintPath>
+        <Reference Include="0Harmony">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UnityEngine.AudioModule.dll</HintPath>
+        <!-- Il2Cpp -->
+        <Reference Include="Il2Cppmscorlib">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="DataModel, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\DataModel.dll</HintPath>
+        <Reference Include="Il2CppSystem">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UnityEngine.AnimationModule.dll</HintPath>
+        <Reference Include="Il2CppSystem.Core">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UnityEngine.InputLegacyModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UnityEngine.InputLegacyModule.dll</HintPath>
+        <Reference Include="Il2CppSystem.Runtime">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UnityEngine.ClothModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UnityEngine.ClothModule.dll</HintPath>
+        <Reference Include="UnhollowerBaseLib">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UnityEngine.CoreModule.dll</HintPath>
+        <Reference Include="UnhollowerRuntimeLib">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UnityEngine.UI.dll</HintPath>
+        <!-- Game assemblies -->
+        <Reference Include="Assembly-CSharp">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UnityEngine.UIModule.dll</HintPath>
+        <Reference Include="VRC.Udon">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UnityEngine.TextRenderingModule.dll</HintPath>
+        <Reference Include="VRCSDKBase">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UnityEngine.ParticleSystemModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UnityEngine.ParticleSystemModule.dll</HintPath>
+        <Reference Include="VRCSDK2">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UnityEngine.PhysicsModule.dll</HintPath>
+        <Reference Include="VRCSDK3">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="Unity.TextMeshPro, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\Unity.TextMeshPro.dll</HintPath>
+        <Reference Include="VRCSDK3A">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UnityEngine.UnityWebRequestModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UnityEngine.UnityWebRequestModule.dll</HintPath>
+        <Reference Include="VRCCore-Standalone">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UnityEngine.UnityWebRequestWWWModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+        <Reference Include="VRCCore-Editor">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UnityEngine.VRModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UnityEngine.VRModule.dll</HintPath>
+        <!-- Game libraries -->
+        <Reference Include="Newtonsoft.Json">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UnityEngine.XRModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UnityEngine.XRModule.dll</HintPath>
+        <!-- Unity -->
+        <Reference Include="UnityEngine.CoreModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UniTask, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UniTask.dll</HintPath>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UnhollowerBaseLib, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\UnhollowerBaseLib.dll</HintPath>
+        <Reference Include="UnityEngine.UI">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="Il2Cppmscorlib, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\Il2Cppmscorlib.dll</HintPath>
+        <Reference Include="UnityEngine.UIModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="Il2CppSystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\Il2CppSystem.dll</HintPath>
+        <Reference Include="UnityEngine.AnimationModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="Il2CppSystem.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\Il2CppSystem.Core.dll</HintPath>
+        <Reference Include="UnityEngine.PhysicsModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="MelonLoader, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonLoader)\MelonLoader.dll</HintPath>
+        <Reference Include="UnityEngine.ParticleSystemModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="0Harmony, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonLoader)\0Harmony.dll</HintPath>
+        <Reference Include="UnityEngine.AudioModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\Assembly-CSharp.dll</HintPath>
+        <Reference Include="UnityEngine.AssetBundleModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\Assembly-CSharp-firstpass.dll</HintPath>
+        <Reference Include="Unity.Postprocessing.Runtime">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="DOTween, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\DOTween.dll</HintPath>
+        <Reference Include="UnityEngine.InputLegacyModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="Transmtn, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\Transmtn.dll</HintPath>
+        <Reference Include="UnityEngine.VRModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="UIExpansionKit, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(ModRefs)\UIExpansionKit.dll</HintPath>
+        <Reference Include="UnityEngine.XRModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="VRCCore-Standalone, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\VRCCore-Standalone.dll</HintPath>
-        </Reference>
-        <Reference Include="VRCCore-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\VRCCore-Editor.dll</HintPath>
-        </Reference>
-        <Reference Include="VRCSDK2, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\VRCSDK2.dll</HintPath>
-        </Reference>
-        <Reference Include="VRCSDK3A, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\VRCSDK3A.dll</HintPath>
-        </Reference>
-        <Reference Include="VRCSDKBase, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\VRCSDKBase.dll</HintPath>
-        </Reference>
-        <Reference Include="VRCSDKBase, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\VRCSDKBase.dll</HintPath>
-        </Reference>
-        <Reference Include="VRC.UI.Elements, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\VRC.UI.Elements.dll</HintPath>
-        </Reference>
-        <Reference Include="Facepunch.Steamworks.Win64, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <SpecificVersion>false</SpecificVersion>
-            <Private>false</Private>
-            <HintPath>$(MelonManaged)\Facepunch.Steamworks.Win64.dll</HintPath>
+        <Reference Include="Unity.TextMeshPro">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
         </Reference>
     </ItemGroup>
-
+    
     <PropertyGroup>
         <OutputPath>$(MsBuildThisFileDirectory)\Output\$(Configuration)\</OutputPath>
+        <LangVersion>preview</LangVersion>
     </PropertyGroup>
-    <ItemGroup Condition="'$(VrcReferences)' == 'true'">
-        <ProjectReference Include="$(MsBuildThisFileDirectory)/Tools/IntegrityCheckGenerator/IntegrityCheckGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-        <ProjectReference Include="$(MsBuildThisFileDirectory)Tools\IntegrityCheckWeaver\IntegrityCheckWeaver.csproj" PrivateAssets="all"/>
-        <ProjectReference Include="$(MsBuildThisFileDirectory)Tools\MDBGenerator\MDBGenerator.csproj" PrivateAssets="all"/>
-    </ItemGroup>
-    <Target Name="MDBGenerator" AfterTargets="PostBuildEvent" Condition="'$(NoModReferences)' != 'true'">
-        <Exec Command="$(MsBuildThisFileDirectory)\Output\$(Configuration)\MDBGenerator.exe $(OutputPath)/$(AssemblyName).dll" />
-    </Target>
-    <Target Name="RandomizeIntegrityChecks" AfterTargets="MDBGenerator" Condition="'$(NoModReferences)' != 'true'">
-       <Exec Command="$(MsBuildThisFileDirectory)\Output\$(Configuration)\IntegrityCheckWeaver.exe $(OutputPath)/$(AssemblyName).dll" />
-    </Target>
-    <Target Name="GenerateModJson" AfterTargets="RandomizeIntegrityChecks" Condition="'$(GenerateJson)' == 'true'"> 
-        <Exec Command="$(MsBuildThisFileDirectory)\Output\$(Configuration)\ModJsonGenerator.exe $(OutputPath)/$(AssemblyName).dll $(VRChatFolder) $(MsBuildThisFileDirectory) $(GithubRepoUrl) '$(CIVAR)'" />
-    </Target>
-    <Target Name="CopyModToModsFolder" AfterTargets="GenerateModJson" Condition="'$(CopyToMods)' == 'true' And '$(CIVAR)'==''">
-        <Exec Command="xcopy /c /f /y $(OutputPath)\$(AssemblyName).dll $(VRChatFolder)\Mods" />
-        <Exec Command="xcopy /c /f /y $(OutputPath)\$(AssemblyName).dll.mdb $(VRChatFolder)\Mods" />
+
+    <Target Name="PostClean" AfterTargets="Clean">
+        <RemoveDir Directories="$(MsBuildThisFileDirectory)\Output"/>
+        <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
+        <RemoveDir Directories="$(BaseOutputPath)" />
     </Target>
 </Project>

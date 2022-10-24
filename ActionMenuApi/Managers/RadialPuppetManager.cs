@@ -7,6 +7,13 @@ using UnityEngine;
 using UnityEngine.XR;
 using VRC.SDK3.Avatars.ScriptableObjects;
 
+using ActionMenuDriver = MonoBehaviourPublicObGaObAcMeObEmExObPeUnique;
+using ActionMenuOpener = MonoBehaviourPublicObBoSiObObObUnique;
+using ActionMenuPage = MonoBehaviourPublicObGaObAcMeObEmExObPeUnique.ObjectNPublicPaInSiBoSiBoUnique;
+using RadialPuppetMenu = MonoBehaviour2PublicObGaTeGaBoSiSiSiSiSiUnique;
+using AxisPuppetMenu = MonoBehaviour2PublicGaObBoObSiBoObSiObObUnique;
+using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
+
 namespace ActionMenuApi.Managers
 {
     internal static class RadialPuppetManager
@@ -25,11 +32,11 @@ namespace ActionMenuApi.Managers
         public static void Setup()
         {
             radialPuppetMenuLeft = Utilities
-                .CloneGameObject("UserInterface/ActionMenu/Container/MenuL/ActionMenu/RadialPuppetMenu",
-                    "UserInterface/ActionMenu/Container/MenuL/ActionMenu").GetComponent<RadialPuppetMenu>();
+                .CloneActionMenuGameObject("Container/MenuL/ActionMenu/RadialPuppetMenu",
+                    "Container/MenuL/ActionMenu").GetComponent<RadialPuppetMenu>();
             radialPuppetMenuRight = Utilities
-                .CloneGameObject("UserInterface/ActionMenu/Container/MenuR/ActionMenu/RadialPuppetMenu",
-                    "UserInterface/ActionMenu/Container/MenuR/ActionMenu").GetComponent<RadialPuppetMenu>();
+                .CloneActionMenuGameObject("Container/MenuR/ActionMenu/RadialPuppetMenu",
+                    "Container/MenuR/ActionMenu").GetComponent<RadialPuppetMenu>();
         }
 
         public static void OnUpdate()
@@ -84,7 +91,7 @@ namespace ActionMenuApi.Managers
                     hand = ActionMenuHand.Right;
                     open = true;
                     break;
-                   
+
             }
 
             RadialPuppetManager.restricted = restricted;
@@ -94,7 +101,7 @@ namespace ActionMenuApi.Managers
             current.GetFill().SetFillAngle(startingValue * 360); //Please dont break
             RadialPuppetManager.onUpdate = onUpdate;
             currentValue = startingValue;
-            
+
             current.GetTitle().text = title;
             current.GetCenterText().text = $"{Mathf.Round(startingValue * 100f)}%";
             current.GetFill().UpdateGeometry();

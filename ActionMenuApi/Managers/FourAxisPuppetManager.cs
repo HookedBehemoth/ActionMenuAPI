@@ -5,6 +5,9 @@ using MelonLoader;
 using UnityEngine;
 using UnityEngine.XR;
 
+using AxisPuppetMenu = MonoBehaviour2PublicGaObBoObSiBoObSiObObUnique;
+using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
+
 namespace ActionMenuApi.Managers
 {
     internal static class FourAxisPuppetManager
@@ -22,11 +25,11 @@ namespace ActionMenuApi.Managers
         public static void Setup()
         {
             fourAxisPuppetMenuLeft = Utilities
-                .CloneGameObject("UserInterface/ActionMenu/Container/MenuL/ActionMenu/AxisPuppetMenu",
-                    "UserInterface/ActionMenu/Container/MenuL/ActionMenu").GetComponent<AxisPuppetMenu>();
+                .CloneActionMenuGameObject("Container/MenuL/ActionMenu/AxisPuppetMenu",
+                    "Container/MenuL/ActionMenu").GetComponent<AxisPuppetMenu>();
             fourAxisPuppetMenuRight = Utilities
-                .CloneGameObject("UserInterface/ActionMenu/Container/MenuR/ActionMenu/AxisPuppetMenu",
-                    "UserInterface/ActionMenu/Container/MenuR/ActionMenu").GetComponent<AxisPuppetMenu>();
+                .CloneActionMenuGameObject("Container/MenuR/ActionMenu/AxisPuppetMenu",
+                    "Container/MenuR/ActionMenu").GetComponent<AxisPuppetMenu>();
         }
 
         public static void OnUpdate()

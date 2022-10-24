@@ -183,9 +183,10 @@ namespace ActionMenuApi.Api
                 case ActionMenuPage.MenuSize:
                     MelonLogger.Warning(
                         "Adding to the MenuSize page hasn't been implemented yet. Please use a different page");
-                    return;
+                #if false
                     if (insertion == Insertion.Pre) Patches.menuSizePagePre.Add(customPedal);
                     else if (insertion == Insertion.Post) Patches.menuSizePagePost.Add(customPedal);
+                #endif
                     return;
                 case ActionMenuPage.Nameplates:
                     if (insertion == Insertion.Pre) Patches.nameplatesPagePre.Add(customPedal);
@@ -198,9 +199,10 @@ namespace ActionMenuApi.Api
                 case ActionMenuPage.NameplatesSize:
                     MelonLogger.Warning(
                         "Adding to the Nameplates size page isn't supported currently. Please use a different page");
-                    return;
+                #if false
                     if (insertion == Insertion.Pre) Patches.nameplatesSizePagePre.Add(customPedal);
                     else if (insertion == Insertion.Post) Patches.nameplatesSizePagePost.Add(customPedal);
+                #endif
                     return;
                 case ActionMenuPage.NameplatesVisibilty:
                     if (insertion == Insertion.Pre) Patches.nameplatesVisibilityPagePre.Add(customPedal);

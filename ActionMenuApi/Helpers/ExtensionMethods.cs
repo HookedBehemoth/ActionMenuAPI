@@ -8,8 +8,19 @@ using TMPro;
 using UnhollowerRuntimeLib;
 using UnhollowerRuntimeLib.XrefScans;
 using UnityEngine;
-using ActionMenuPage = ActionMenu.Page; //Will this change?, ¯\_(ツ)_/¯x2
 using Object = UnityEngine.Object;
+
+using ActionMenuDriver = MonoBehaviourPublicObGaObAcMeObEmExObPeUnique;
+using ActionMenuOpener = MonoBehaviourPublicObBoSiObObObUnique;
+using ActionMenuType = MonoBehaviourPublicObBoSiObObObUnique.EnumNPublicSealedvaLeRi3vUnique;
+using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
+using ActionMenuPage = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique.ObjectNPublicAcTeAcStGaUnique;
+using RadialPuppetMenu = MonoBehaviour2PublicObGaTeGaBoSiSiSiSiSiUnique;
+using AxisPuppetMenu = MonoBehaviour2PublicGaObBoObSiBoObSiObObUnique;
+using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
+using ActionButton = MonoBehaviourPublicTrRaTeRaGaTeAcRaGaBoUnique;
+using PedalGraphic = MaskableGraphicPublicSiTeSi_tSiTeSiTeSiUnique;
+using PuppetMenu = MonoBehaviour1PublicTeCaObSiUnique;
 
 namespace ActionMenuApi.Helpers
 {
@@ -75,51 +86,6 @@ namespace ActionMenuApi.Helpers
 
         private static Func<AxisPuppetMenu, ActionButton> getAxisPuppetButtonLeftDelegate;
 
-        private static AddOptionDelegate GetAddOptionDelegate
-        {
-            get
-            {
-                //Build 1088 menu.Method_Private_PedalOption_0()
-                if (addOptionDelegate != null) return addOptionDelegate;
-                var addOptionMethod = typeof(ActionMenu).GetMethods(BindingFlags.Public | BindingFlags.Instance)
-                    .First(
-                        m => m.GetParameters().Length == 0 && m.Name.StartsWith("Method_Private_PedalOption_") &&
-                             !m.Name.Contains("PDM"));
-
-                addOptionDelegate = (AddOptionDelegate) Delegate.CreateDelegate(
-                    typeof(AddOptionDelegate),
-                    null,
-                    addOptionMethod);
-                return addOptionDelegate;
-            }
-        }
-
-
-        private static PushPageDelegate GetPushPageDelegate
-        {
-            get
-            {
-                //Build 1088 menu.Method_Public_ObjectNPublicAcTeAcStGaUnique_Action_Action_Texture2D_String_0(openFunc, closeFunc, icon, text);
-                if (pushPageDelegate != null) return pushPageDelegate;
-                var pushPageMethod = typeof(ActionMenu).GetMethods(BindingFlags.Public | BindingFlags.Instance)
-                    .First( //Not scuffed I swear (theres only 1 of these methods( ignoring pdms))
-                        m => m.GetParameters().Length == 4
-                             && m.ReturnType == typeof(ActionMenuPage)
-                             && m.GetParameters()[0].ParameterType == typeof(Il2CppSystem.Action)
-                             && m.GetParameters()[1].ParameterType == typeof(Il2CppSystem.Action)
-                             && m.GetParameters()[2].ParameterType == typeof(Texture2D)
-                             && m.GetParameters()[3].ParameterType == typeof(string)
-                             && !m.Name.Contains("PDM")
-                    );
-
-                pushPageDelegate = (PushPageDelegate) Delegate.CreateDelegate(
-                    typeof(PushPageDelegate),
-                    null,
-                    pushPageMethod);
-                return pushPageDelegate;
-            }
-        }
-
         private static ClosePuppetMenusDelegate GetClosePuppetMenusDelegate
         {
             get
@@ -140,31 +106,9 @@ namespace ActionMenuApi.Helpers
             }
         }
 
-        private static DestroyPageDelegate GetDestroyPageDelegate
-        {
-            get
-            {
-                //Build 1088 menu.Method_Private_Void_ObjectNPublicAcTeAcStGaUnique_0()
-                if (destroyPageDelegate != null) return destroyPageDelegate;
-                var destroyPageMethod = typeof(ActionMenu).GetMethods().Single(
-                    m =>
-                        m.Name.StartsWith("Method_Private_Void_ObjectNPublicAcTeAcStGaUnique_")
-                        && m.GetParameters().Length == 1
-                        && !m.Name.Contains("PDM")
-                        && m.CheckStringsCount(1)
-                );
-                destroyPageDelegate = (DestroyPageDelegate) Delegate.CreateDelegate(
-                    typeof(DestroyPageDelegate),
-                    null,
-                    destroyPageMethod);
-                return destroyPageDelegate;
-            }
-        }
-
         public static PedalOption AddOption(this ActionMenu menu)
         {
-            return
-                GetAddOptionDelegate.Invoke(menu); //Honestly I have no idea how or why this works but hey... it works
+            return menu.Method_Public_MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique_0();
         }
 
 
@@ -181,7 +125,7 @@ namespace ActionMenuApi.Helpers
 
         public static void PushPage(this ActionMenu menu, Action openFunc, Action closeFunc = null, Texture2D icon = null, string text = null)
         {
-            GetPushPageDelegate.Invoke(menu, openFunc, closeFunc, icon, text);
+            menu.Method_Public_ObjectNPublicAcTeAcStGaUnique_Action_Action_Texture2D_String_0(openFunc, closeFunc, icon, text);
         }
 
 
@@ -221,7 +165,7 @@ namespace ActionMenuApi.Helpers
 
         public static ActionButton GetActionButton(this PedalOption pedalOption)
         {
-            return pedalOption.field_Public_ActionButton_0; //only one
+            return pedalOption.field_Public_MonoBehaviourPublicTrRaTeRaGaTeAcRaGaBoUnique_0; //only one
         }
 
         private static void SetPedalTriggerEvent(this PedalOption pedalOption, Func<bool> triggerEvent)
@@ -240,22 +184,29 @@ namespace ActionMenuApi.Helpers
 
         public static ActionMenuOpener GetLeftOpener(this ActionMenuDriver actionMenuDriver)
         {
-            if (actionMenuDriver.field_Public_ActionMenuOpener_0.field_Public_Hand_0 ==
-                ActionMenuOpener.Hand.Left)
-                return actionMenuDriver.field_Public_ActionMenuOpener_0;
-            return actionMenuDriver.field_Public_ActionMenuOpener_1;
+            var opener = actionMenuDriver.field_Public_MonoBehaviourPublicObBoSiObObObUnique_0;
+            if (opener.GetActionMenuType() ==
+                ActionMenuType.Left)
+                return opener;
+            return actionMenuDriver.field_Public_MonoBehaviourPublicObBoSiObObObUnique_1;
         }
 
         public static ActionMenuOpener GetRightOpener(this ActionMenuDriver actionMenuDriver)
         {
-            if (actionMenuDriver.field_Public_ActionMenuOpener_1.field_Public_Hand_0 == ActionMenuOpener.Hand.Right)
-                return actionMenuDriver.field_Public_ActionMenuOpener_1;
-            return actionMenuDriver.field_Public_ActionMenuOpener_0;
+            var opener = actionMenuDriver.field_Public_MonoBehaviourPublicObBoSiObObObUnique_1;
+            if (opener.GetActionMenuType() == ActionMenuType.Right)
+                return opener;
+            return actionMenuDriver.field_Public_MonoBehaviourPublicObBoSiObObObUnique_0;
+        }
+
+        public static ActionMenuType GetActionMenuType(this ActionMenuOpener opener)
+        {
+            return opener.field_Public_EnumNPublicSealedvaLeRi3vUnique_0;
         }
 
         public static ActionMenu GetActionMenu(this ActionMenuOpener actionMenuOpener)
         {
-            return actionMenuOpener.field_Public_ActionMenu_0;
+            return actionMenuOpener.field_Public_MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique_0;
         }
 
         private static GameObject
@@ -325,7 +276,7 @@ namespace ActionMenuApi.Helpers
 
         public static PedalGraphic GetFill(this RadialPuppetMenu radialPuppetMenu)
         {
-            return radialPuppetMenu.field_Public_PedalGraphic_0; //only one
+            return radialPuppetMenu.field_Public_MaskableGraphicPublicSiTeSi_tSiTeSiTeSiUnique_0; //only one
         }
 
         public static TextMeshProUGUI GetTitle(this RadialPuppetMenu radialPuppetMenu)
@@ -555,7 +506,7 @@ namespace ActionMenuApi.Helpers
 
         public static void DestroyPage(this ActionMenu actionMenu, ActionMenuPage page)
         {
-            GetDestroyPageDelegate(actionMenu, page);
+            actionMenu.Method_Private_Void_ObjectNPublicAcTeAcStGaUnique_0(page);
         }
 
         public static void ResetMenu(this ActionMenu actionMenu)
@@ -563,9 +514,10 @@ namespace ActionMenuApi.Helpers
             RadialPuppetManager.CloseRadialMenu();
             FourAxisPuppetManager.CloseFourAxisMenu();
             actionMenu.ClosePuppetMenus(true);
-            for (var i = 0; i < actionMenu.field_Private_List_1_Page_0.Count; i++)
-                actionMenu.DestroyPage(actionMenu.field_Private_List_1_Page_0._items[i]);
-            actionMenu.field_Private_List_1_Page_0?.Clear();
+            var list = actionMenu.field_Private_List_1_ObjectNPublicAcTeAcStGaUnique_0;
+            for (var i = 0; i < list?.Count; i++)
+                actionMenu.DestroyPage(list._items[i]);
+            list?.Clear();
             //actionMenu.field_Public_List_1_ObjectNPublicPaSiAcObUnique_0?.Clear();
         }
 

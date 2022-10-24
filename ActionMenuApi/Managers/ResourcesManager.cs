@@ -6,6 +6,9 @@ using UnhollowerRuntimeLib;
 using UnityEngine;
 using UnityEngine.UI;
 
+using ActionMenuDriver = MonoBehaviourPublicObGaObAcMeObEmExObPeUnique;
+using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
+
 namespace ActionMenuApi.Managers
 {
     internal static class ResourcesManager
@@ -66,7 +69,7 @@ namespace ActionMenuApi.Managers
 
         public static void InitLockGameObject()
         {
-            lockPrefab = Object.Instantiate(ActionMenuDriver.prop_ActionMenuDriver_0.GetRightOpener().GetActionMenu()
+            lockPrefab = Object.Instantiate(Utilities.GetDriver().GetRightOpener().GetActionMenu()
                 .GetPedalOptionPrefab().GetComponent<PedalOption>().GetActionButton().gameObject.GetChild("Inner")
                 .GetChild("Folder Icon"));
             Object.DontDestroyOnLoad(lockPrefab);

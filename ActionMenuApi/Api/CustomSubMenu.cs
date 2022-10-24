@@ -5,6 +5,8 @@ using MelonLoader;
 using UnityEngine;
 using VRC.SDK3.Avatars.ScriptableObjects;
 
+using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
+
 // ReSharper disable HeuristicUnreachableCode
 
 namespace ActionMenuApi.Api
