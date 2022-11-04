@@ -8,11 +8,9 @@ using HarmonyLib;
 using MelonLoader;
 using UnhollowerRuntimeLib.XrefScans;
 using UnityEngine;
-using UnityEngine.XR;
 using Object = UnityEngine.Object;
-using Vector2 = System.Numerics.Vector2;
 
-using ActionMenuDriver = MonoBehaviourPublicObGaObAcMeObEmExObPeUnique;
+using ActionMenuDriver = MonoBehaviourPublicObGaObAcCoObMeEmObExUnique;
 using ActionMenuOpener = MonoBehaviourPublicObBoSiObObObUnique;
 using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
 
@@ -274,7 +272,7 @@ namespace ActionMenuApi.Helpers
 
         public static ActionMenuDriver GetDriver()
         {
-            return ActionMenuDriver.field_Public_Static_MonoBehaviourPublicObGaObAcMeObEmExObPeUnique_0;
+            return ActionMenuDriver.field_Public_Static_MonoBehaviourPublicObGaObAcCoObMeEmObExUnique_0;
         }
 
         public static (double x1, double y1, double x2, double y2) GetIntersection(float x, float y, float r)

@@ -10,7 +10,7 @@ using UnhollowerRuntimeLib.XrefScans;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-using ActionMenuDriver = MonoBehaviourPublicObGaObAcMeObEmExObPeUnique;
+using ActionMenuDriver = MonoBehaviourPublicObGaObAcCoObMeEmObExUnique;
 using ActionMenuOpener = MonoBehaviourPublicObBoSiObObObUnique;
 using ActionMenuType = MonoBehaviourPublicObBoSiObObObUnique.EnumNPublicSealedvaLeRi3vUnique;
 using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;

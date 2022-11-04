@@ -10,7 +10,7 @@ using HarmonyLib;
 using MelonLoader;
 using UnhollowerBaseLib;
 
-using ActionMenuDriver = MonoBehaviourPublicObGaObAcMeObEmExObPeUnique;
+using ActionMenuDriver = MonoBehaviourPublicObGaObAcCoObMeEmObExUnique;
 using ActionMenuOpener = MonoBehaviourPublicObBoSiObObObUnique;
 using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
 
