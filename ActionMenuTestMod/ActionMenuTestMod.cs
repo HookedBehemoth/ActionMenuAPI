@@ -6,7 +6,7 @@ using MelonLoader;
 using UnhollowerRuntimeLib;
 using UnityEngine;
 
-using VRCPlayer = MonoBehaviour1PublicOb_pOb_c_pStTeObBoStUnique;
+using VRCPlayer = MonoBehaviour1PublicOb_pObGa_pStTeObBoStUnique;
 
 [assembly: MelonInfo(typeof(ActionMenuTestMod.ActionMenuTestMod), "ActionMenuTestMod", "1.0.0", "gompo")]
 [assembly: MelonGame("VRChat", "VRChat")]
@@ -86,7 +86,7 @@ namespace ActionMenuTestMod
                     CustomSubMenu.AddRadialPuppet("Y",RotateCubeY, y,radialIcon);
                     CustomSubMenu.AddRadialPuppet("Z",RotateCubeZ, z,radialIcon);
                     CustomSubMenu.AddButton("Spawn Cube", CreateCube, buttonIcon);
-                    CustomSubMenu.AddButton("Tp Cube To Player",() => _controllingGameObject.transform.localPosition = VRCPlayer.field_Internal_Static_MonoBehaviour1PublicOb_pOb_c_pStTeObBoStUnique_0.transform.localPosition, buttonIcon);
+                    CustomSubMenu.AddButton("Tp Cube To Player",() => _controllingGameObject.transform.localPosition = VRCPlayer.field_Internal_Static_MonoBehaviour1PublicOb_pObGa_pStTeObBoStUnique_0.transform.localPosition, buttonIcon);
                 },
                 subMenuIcon,
                 false
