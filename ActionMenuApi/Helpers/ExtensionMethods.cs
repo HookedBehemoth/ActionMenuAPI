@@ -10,17 +10,8 @@ using UnhollowerRuntimeLib.XrefScans;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-using ActionMenuDriver = MonoBehaviourPublicObGaObAcCoObMeEmObExUnique;
-using ActionMenuOpener = MonoBehaviourPublicObBoSiObObObUnique;
-using ActionMenuType = MonoBehaviourPublicObBoSiObObObUnique.EnumNPublicSealedvaLeRi3vUnique;
-using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
-using ActionMenuPage = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique.ObjectNPublicAcTeAcStGaUnique;
-using RadialPuppetMenu = MonoBehaviour2PublicObGaTeGaBoSiSiSiSiSiUnique;
-using AxisPuppetMenu = MonoBehaviour2PublicGaObBoObSiBoObSiObObUnique;
-using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
-using ActionButton = MonoBehaviourPublicTrRaTeRaGaTeAcRaGaBoUnique;
-using PedalGraphic = MaskableGraphicPublicSiTeSi_tSiTeSiTeSiUnique;
-using PuppetMenu = MonoBehaviour1PublicTeCaObSiUnique;
+using ActionMenuType = ActionMenuOpener.EnumNPublicSealedvaLeRi3vUnique;
+using ActionMenuPage = ActionMenu.ObjectNPublicAcTeAcStGaUnique;
 
 namespace ActionMenuApi.Helpers
 {
@@ -108,7 +99,7 @@ namespace ActionMenuApi.Helpers
 
         public static PedalOption AddOption(this ActionMenu menu)
         {
-            return menu.Method_Public_MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique_0();
+            return menu.Method_Public_PedalOption_0();
         }
 
 
@@ -165,7 +156,7 @@ namespace ActionMenuApi.Helpers
 
         public static ActionButton GetActionButton(this PedalOption pedalOption)
         {
-            return pedalOption.field_Public_MonoBehaviourPublicTrRaTeRaGaTeAcRaGaBoUnique_0; //only one
+            return pedalOption.field_Public_ActionButton_0; //only one
         }
 
         private static void SetPedalTriggerEvent(this PedalOption pedalOption, Func<bool> triggerEvent)
@@ -184,19 +175,19 @@ namespace ActionMenuApi.Helpers
 
         public static ActionMenuOpener GetLeftOpener(this ActionMenuDriver actionMenuDriver)
         {
-            var opener = actionMenuDriver.field_Public_MonoBehaviourPublicObBoSiObObObUnique_0;
+            var opener = actionMenuDriver.field_Public_ActionMenuOpener_0;
             if (opener.GetActionMenuType() ==
                 ActionMenuType.Left)
                 return opener;
-            return actionMenuDriver.field_Public_MonoBehaviourPublicObBoSiObObObUnique_1;
+            return actionMenuDriver.field_Public_ActionMenuOpener_1;
         }
 
         public static ActionMenuOpener GetRightOpener(this ActionMenuDriver actionMenuDriver)
         {
-            var opener = actionMenuDriver.field_Public_MonoBehaviourPublicObBoSiObObObUnique_1;
+            var opener = actionMenuDriver.field_Public_ActionMenuOpener_1;
             if (opener.GetActionMenuType() == ActionMenuType.Right)
                 return opener;
-            return actionMenuDriver.field_Public_MonoBehaviourPublicObBoSiObObObUnique_0;
+            return actionMenuDriver.field_Public_ActionMenuOpener_0;
         }
 
         public static ActionMenuType GetActionMenuType(this ActionMenuOpener opener)
@@ -206,7 +197,7 @@ namespace ActionMenuApi.Helpers
 
         public static ActionMenu GetActionMenu(this ActionMenuOpener actionMenuOpener)
         {
-            return actionMenuOpener.field_Public_MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique_0;
+            return actionMenuOpener.field_Public_ActionMenu_0;
         }
 
         private static GameObject
@@ -276,12 +267,12 @@ namespace ActionMenuApi.Helpers
 
         public static PedalGraphic GetFill(this RadialPuppetMenu radialPuppetMenu)
         {
-            return radialPuppetMenu.field_Public_MaskableGraphicPublicSiTeSi_tSiTeSiTeSiUnique_0; //only one
+            return radialPuppetMenu.field_Public_PedalGraphic_0; //only one
         }
 
         public static TextMeshProUGUI GetTitle(this RadialPuppetMenu radialPuppetMenu)
         {
-            return ((PuppetMenu) radialPuppetMenu).field_Public_TextMeshProUGUI_0; //only one
+            return ((VRC.SDK.Internal.ModularPieces.ConveyorBelt) radialPuppetMenu).field_Public_TextMeshProUGUI_0; //only one
         }
 
         public static TextMeshProUGUI GetTitle(this AxisPuppetMenu axisPuppetMenu)

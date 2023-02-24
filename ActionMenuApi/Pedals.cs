@@ -4,9 +4,6 @@ using ActionMenuApi.Managers;
 using ActionMenuApi.Types;
 using UnityEngine;
 
-using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
-using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
-
 namespace ActionMenuApi.Pedals
 {
     public abstract class PedalStruct

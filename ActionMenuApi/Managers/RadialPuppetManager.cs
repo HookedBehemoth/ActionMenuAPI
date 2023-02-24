@@ -5,9 +5,6 @@ using MelonLoader;
 using UnityEngine;
 using UnityEngine.XR;
 
-using RadialPuppetMenu = MonoBehaviour2PublicObGaTeGaBoSiSiSiSiSiUnique;
-using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
-
 namespace ActionMenuApi.Managers
 {
     internal static class RadialPuppetManager

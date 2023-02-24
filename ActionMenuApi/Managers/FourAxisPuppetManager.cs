@@ -5,9 +5,6 @@ using MelonLoader;
 using UnityEngine;
 using UnityEngine.XR;
 
-using AxisPuppetMenu = MonoBehaviour2PublicGaObBoObSiBoObSiObObUnique;
-using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
-
 namespace ActionMenuApi.Managers
 {
     internal static class FourAxisPuppetManager

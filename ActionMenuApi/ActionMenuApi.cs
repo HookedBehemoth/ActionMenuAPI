@@ -3,8 +3,6 @@ using System.Collections;
 using ActionMenuApi.Managers;
 using MelonLoader;
 
-using ActionMenuDriver = MonoBehaviourPublicObGaObAcCoObMeEmObExUnique;
-
 #pragma warning disable 1591
 
 namespace ActionMenuApi
@@ -28,7 +26,7 @@ namespace ActionMenuApi
 
         private IEnumerator WaitForActionMenuInit()
         {
-            while (ActionMenuDriver.prop_MonoBehaviourPublicObGaObAcCoObMeEmObExUnique_0 == null) //VRCUIManager Init is too early 
+            while (ActionMenuDriver.prop_ActionMenuDriver_0 == null) //VRCUIManager Init is too early 
                 yield return null;
             ResourcesManager.InitLockGameObject();
             RadialPuppetManager.Setup();

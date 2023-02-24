@@ -10,10 +10,6 @@ using HarmonyLib;
 using MelonLoader;
 using UnhollowerBaseLib;
 
-using ActionMenuDriver = MonoBehaviourPublicObGaObAcCoObMeEmObExUnique;
-using ActionMenuOpener = MonoBehaviourPublicObBoSiObObObUnique;
-using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
-
 namespace ActionMenuApi
 {
     [SuppressMessage("ReSharper", "Unity.IncorrectMonoBehaviourInstantiation")]
