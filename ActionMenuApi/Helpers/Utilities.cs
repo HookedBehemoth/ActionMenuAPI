@@ -10,8 +10,8 @@ using UnhollowerRuntimeLib.XrefScans;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-using ActionMenuDriver = MonoBehaviourPublicObGaObAcCoObMeEmObExUnique;
-using ActionMenuOpener = MonoBehaviourPublicObBoSiObObObUnique;
+using ActionMenuDriver = MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
+using ActionMenuOpener = MonoBehaviourPublicObAc1BoSiBoObObObUnique;
 using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
 
 namespace ActionMenuApi.Helpers
@@ -272,7 +272,8 @@ namespace ActionMenuApi.Helpers
 
         public static ActionMenuDriver GetDriver()
         {
-            return ActionMenuDriver.field_Public_Static_MonoBehaviourPublicObGaObAcCoObMeEmObExUnique_0;
+            // return ActionMenuDriver.field_Public_Static_MonoBehaviourPublicObGaObAcCoObMeEmObExUnique_0;
+            return ActionMenuDriver.field_Public_Static_MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique_0;
         }
 
         public static (double x1, double y1, double x2, double y2) GetIntersection(float x, float y, float r)
