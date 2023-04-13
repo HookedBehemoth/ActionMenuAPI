@@ -10,17 +10,20 @@ using UnhollowerRuntimeLib.XrefScans;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-using ActionMenuDriver = MonoBehaviourPublicObGaObAcCoObMeEmObExUnique;
-using ActionMenuOpener = MonoBehaviourPublicObBoSiObObObUnique;
-using ActionMenuType = MonoBehaviourPublicObBoSiObObObUnique.EnumNPublicSealedvaLeRi3vUnique;
+using ActionMenuDriver = MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
+using ActionMenuOpener = MonoBehaviourPublicObAc1BoSiBoObObObUnique;
+using ActionMenuType = MonoBehaviourPublicObAc1BoSiBoObObObUnique.EnumNPublicSealedvaLeRi3vUnique;
 using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
 using ActionMenuPage = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique.ObjectNPublicAcTeAcStGaUnique;
-using RadialPuppetMenu = MonoBehaviour2PublicObGaTeGaBoSiSiSiSiSiUnique;
-using AxisPuppetMenu = MonoBehaviour2PublicGaObBoObSiBoObSiObObUnique;
+// using RadialPuppetMenu = MonoBehaviour2PublicObGaTeGaBoSiSiSiSiSiUnique;
+using RadialPuppetMenu = MonoBehaviour2PublicObGaTeGaBoSiVeSiSiSiUnique;
+// using AxisPuppetMenu = MonoBehaviour2PublicGaObBoObSiBoObSiObObUnique;
+using AxisPuppetMenu = MonoBehaviour2PublicGaObBoObSiBoVeObSiObUnique;
 using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
 using ActionButton = MonoBehaviourPublicTrRaTeRaGaTeAcRaGaBoUnique;
 using PedalGraphic = MaskableGraphicPublicSiTeSi_tSiTeSiTeSiUnique;
-using PuppetMenu = MonoBehaviour1PublicTeCaObSiUnique;
+// using PuppetMenu = MonoBehaviour1PublicTeCaObSiUnique;
+using PuppetMenu = MonoBehaviour1PublicTeGaTeCaObSiUnique;
 
 namespace ActionMenuApi.Helpers
 {
@@ -184,19 +187,21 @@ namespace ActionMenuApi.Helpers
 
         public static ActionMenuOpener GetLeftOpener(this ActionMenuDriver actionMenuDriver)
         {
-            var opener = actionMenuDriver.field_Public_MonoBehaviourPublicObBoSiObObObUnique_0;
+            // var opener = actionMenuDriver.field_Public_MonoBehaviourPublicObBoSiObObObUnique_0;
+            var opener = actionMenuDriver.field_Public_MonoBehaviourPublicObAc1BoSiBoObObObUnique_0;
             if (opener.GetActionMenuType() ==
                 ActionMenuType.Left)
                 return opener;
-            return actionMenuDriver.field_Public_MonoBehaviourPublicObBoSiObObObUnique_1;
+            // return actionMenuDriver.field_Public_MonoBehaviourPublicObBoSiObObObUnique_1;
+            return actionMenuDriver.field_Public_MonoBehaviourPublicObAc1BoSiBoObObObUnique_1;
         }
 
         public static ActionMenuOpener GetRightOpener(this ActionMenuDriver actionMenuDriver)
         {
-            var opener = actionMenuDriver.field_Public_MonoBehaviourPublicObBoSiObObObUnique_1;
+            var opener = actionMenuDriver.field_Public_MonoBehaviourPublicObAc1BoSiBoObObObUnique_1;
             if (opener.GetActionMenuType() == ActionMenuType.Right)
                 return opener;
-            return actionMenuDriver.field_Public_MonoBehaviourPublicObBoSiObObObUnique_0;
+            return actionMenuDriver.field_Public_MonoBehaviourPublicObAc1BoSiBoObObObUnique_0;
         }
 
         public static ActionMenuType GetActionMenuType(this ActionMenuOpener opener)
