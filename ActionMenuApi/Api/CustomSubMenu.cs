@@ -208,27 +208,35 @@ namespace ActionMenuApi.Api
         public static PedalOption AddToggle(string text, bool startingState, Action<bool> onToggle,
             Texture2D icon = null, bool locked = false)
         {
+            return AddToggle(text, () => startingState, (val) => { startingState = val; onToggle(startingState); }, icon, locked);
+        }
+
+        public static PedalOption AddToggle(string text, Func<bool> getState, Action<bool> onToggle,
+            Texture2D icon = null, bool locked = false)
+        {
             var actionMenuOpener = Utilities.GetActionMenuOpener();
             if (actionMenuOpener == null) return null;
             var pedalOption = actionMenuOpener.GetActionMenu().AddOption();
             pedalOption.SetText(text);
             pedalOption.SetBackgroundIcon(icon);
-            if (startingState) pedalOption.SetPedalTypeIcon(Utilities.GetExpressionsIcons().typeToggleOn);
-            else pedalOption.SetPedalTypeIcon(Utilities.GetExpressionsIcons().typeToggleOff);
+
+            pedalOption.SetActiveNoCallback(getState());
             if (!locked)
                 pedalOption.SetPedalAction(
                     delegate
                     {
-                        startingState = !startingState;
-                        if (startingState)
-                            pedalOption.SetPedalTypeIcon(Utilities.GetExpressionsIcons().typeToggleOn);
-                        else
-                            pedalOption.SetPedalTypeIcon(Utilities.GetExpressionsIcons().typeToggleOff);
-                        onToggle(startingState);
+                        onToggle(!getState());
+                        pedalOption.SetActiveNoCallback(getState());
                     }
                 );
             else pedalOption.Lock();
             return pedalOption;
+        }
+
+        public static void SetActiveNoCallback(this PedalOption pedalOption, bool active) {
+            pedalOption.SetPedalTypeIcon(
+                active ? Utilities.GetExpressionsIcons().typePlayOn : Utilities.GetExpressionsIcons().typePlayOff);
+            pedalOption.SetPlaying(active);
         }
     }
 }

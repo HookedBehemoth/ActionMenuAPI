@@ -55,10 +55,9 @@ namespace ActionMenuTestMod
                 "Test Stuff",
                 delegate
                 {
-                    CustomSubMenu.AddToggle("Risky Functions", !riskyFunctionsAllowed, (b) =>
+                    CustomSubMenu.AddToggle("Risky Functions", () => !riskyFunctionsAllowed, (b) =>
                     {
                         riskyFunctionsAllowed = !b;
-                        AMUtils.RefreshActionMenu(); //Refresh menu to update the locked state of the pedal
                     });
                     //No properties here are saved because I'm lazy af
                     CustomSubMenu.AddToggle("Enable Hax", false, b => { }, buttonIcon,riskyFunctionsAllowed);
@@ -82,7 +81,7 @@ namespace ActionMenuTestMod
                     CustomSubMenu.AddFourAxisPuppet("Reposition cube Z/Y", RePositionCubeZY, toggleIcon);
                     CustomSubMenu.AddFourAxisPuppet("Reposition cube X/Z", RePositionCubeXZ, toggleIcon);
                     CustomSubMenu.AddRadialPuppet("X",RotateCubeX, x,radialIcon); //Rotation a bit borked
-                    CustomSubMenu.AddToggle("Test Toggle", testBool2, (b) => testBool2 = b);
+                    CustomSubMenu.AddToggle("Test Toggle", () => testBool2, (b) => testBool2 = b);
                     CustomSubMenu.AddRadialPuppet("Y",RotateCubeY, y,radialIcon);
                     CustomSubMenu.AddRadialPuppet("Z",RotateCubeZ, z,radialIcon);
                     CustomSubMenu.AddButton("Spawn Cube", CreateCube, buttonIcon);

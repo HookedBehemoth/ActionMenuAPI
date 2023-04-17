@@ -701,6 +701,11 @@ namespace ActionMenuApi.Helpers
             pedalOption.GetActionButton().prop_Texture2D_2 = icon; //No choice needs to be hardcoded in sadly
         }
 
+        public static void SetPlaying(this PedalOption pedalOption, bool active)
+        {
+            pedalOption.GetActionButton().field_Public_GameObject_0.SetActive(active);
+        }
+
         private delegate PedalOption AddOptionDelegate(ActionMenu actionMenu);
 
         private delegate ActionMenuPage PushPageDelegate(ActionMenu actionMenu, Il2CppSystem.Action openFunc, Il2CppSystem.Action closeFunc = null, Texture2D icon = null, string text = null);
