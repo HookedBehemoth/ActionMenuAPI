@@ -24,11 +24,11 @@ namespace ActionMenuApi.Helpers
         {
             get
             {
-                //Build 1121 menu.Method_Private_Void_PDM_11)
+                //Build 1296 menu.Method_Public_Void_PDM_2
                 if (refreshAMDelegate != null) return refreshAMDelegate;
                 var refreshAMMethod = typeof(ActionMenu).GetMethods().First(
                     m =>
-                        m.Name.StartsWith("Method_Private_Void_PDM_")
+                        m.Name.StartsWith("Method_Public_Void_PDM_")
                         && !m.HasStringLiterals()
                         && m.SameClassMethodCallCount(1)
                         && m.HasMethodCallWithName("ThrowArgumentOutOfRangeException")
