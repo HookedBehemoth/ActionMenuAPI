@@ -16,14 +16,14 @@ using ActionMenuType = MonoBehaviourPublicObAc1BoSiBoObObObUnique.EnumNPublicSea
 using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
 using ActionMenuPage = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique.ObjectNPublicAcTeAcStGaUnique;
 // using RadialPuppetMenu = MonoBehaviour2PublicObGaTeGaBoSiSiSiSiSiUnique;
-using RadialPuppetMenu = MonoBehaviour2PublicObGaTeGaBoSiVeSiSiSiUnique;
+using RadialPuppetMenu = MonoBehaviour2PublicObGaObTeGaFu2GaSiStUnique;
 // using AxisPuppetMenu = MonoBehaviour2PublicGaObBoObSiBoObSiObObUnique;
-using AxisPuppetMenu = MonoBehaviour2PublicGaObBoObSiBoVeObSiObUnique;
+using AxisPuppetMenu = MonoBehaviour2PublicGaObBoObSiBoVeObObObUnique;
 using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
-using ActionButton = MonoBehaviourPublicTrRaTeRaGaTeAcRaGaBoUnique;
+using ActionButton = MonoBehaviourPublicTrRaTeRaGaTeStRaGaAcUnique;
 using PedalGraphic = MaskableGraphicPublicSiTeSi_tSiTeSiTeSiUnique;
 // using PuppetMenu = MonoBehaviour1PublicTeCaObSiUnique;
-using PuppetMenu = MonoBehaviour1PublicTeGaTeCaObSiUnique;
+using PuppetMenu = MonoBehaviour1PublicTeGaTeCaObSiBoSiBoUnique;
 
 namespace ActionMenuApi.Helpers
 {
@@ -168,7 +168,7 @@ namespace ActionMenuApi.Helpers
 
         public static ActionButton GetActionButton(this PedalOption pedalOption)
         {
-            return pedalOption.field_Public_MonoBehaviourPublicTrRaTeRaGaTeAcRaGaBoUnique_0; //only one
+            return pedalOption.field_Public_MonoBehaviourPublicTrRaTeRaGaTeStRaGaAcUnique_0; //only one
         }
 
         private static void SetPedalTriggerEvent(this PedalOption pedalOption, Func<bool> triggerEvent)
