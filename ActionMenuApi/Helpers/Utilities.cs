@@ -11,7 +11,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 using ActionMenuDriver = MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
-using ActionMenuOpener = MonoBehaviourPublicObAc1BoSiBoObObObUnique;
+using ActionMenuOpener = MonoBehaviourPublicCaObAc1BoSiBoObObObUnique;
 using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
 
 namespace ActionMenuApi.Helpers

@@ -13,7 +13,8 @@ using UnhollowerBaseLib;
 // using ActionMenuDriver = MonoBehaviourPublicObGaObAcCoObMeEmObExUnique;
 using ActionMenuDriver = MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
 // using ActionMenuOpener = MonoBehaviourPublicObBoSiObObObUnique;
-using ActionMenuOpener = MonoBehaviourPublicObAc1BoSiBoObObObUnique;
+using ActionMenuOpener = MonoBehaviourPublicCaObAc1BoSiBoObObObUnique;
+
 using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
 
 namespace ActionMenuApi

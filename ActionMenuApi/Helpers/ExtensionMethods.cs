@@ -11,8 +11,8 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 using ActionMenuDriver = MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
-using ActionMenuOpener = MonoBehaviourPublicObAc1BoSiBoObObObUnique;
-using ActionMenuType = MonoBehaviourPublicObAc1BoSiBoObObObUnique.EnumNPublicSealedvaLeRi3vUnique;
+using ActionMenuOpener = MonoBehaviourPublicCaObAc1BoSiBoObObObUnique;
+using ActionMenuType = MonoBehaviourPublicCaObAc1BoSiBoObObObUnique.EnumNPublicSealedvaLeRi3vUnique;
 using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
 using ActionMenuPage = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique.ObjectNPublicAcTeAcStGaUnique;
 // using RadialPuppetMenu = MonoBehaviour2PublicObGaTeGaBoSiSiSiSiSiUnique;
@@ -187,21 +187,19 @@ namespace ActionMenuApi.Helpers
 
         public static ActionMenuOpener GetLeftOpener(this ActionMenuDriver actionMenuDriver)
         {
-            // var opener = actionMenuDriver.field_Public_MonoBehaviourPublicObBoSiObObObUnique_0;
-            var opener = actionMenuDriver.field_Public_MonoBehaviourPublicObAc1BoSiBoObObObUnique_0;
+            var opener = actionMenuDriver.field_Public_MonoBehaviourPublicCaObAc1BoSiBoObObObUnique_0;
             if (opener.GetActionMenuType() ==
                 ActionMenuType.Left)
                 return opener;
-            // return actionMenuDriver.field_Public_MonoBehaviourPublicObBoSiObObObUnique_1;
-            return actionMenuDriver.field_Public_MonoBehaviourPublicObAc1BoSiBoObObObUnique_1;
+            return actionMenuDriver.field_Public_MonoBehaviourPublicCaObAc1BoSiBoObObObUnique_1;
         }
 
         public static ActionMenuOpener GetRightOpener(this ActionMenuDriver actionMenuDriver)
         {
-            var opener = actionMenuDriver.field_Public_MonoBehaviourPublicObAc1BoSiBoObObObUnique_1;
+            var opener = actionMenuDriver.field_Public_MonoBehaviourPublicCaObAc1BoSiBoObObObUnique_1;
             if (opener.GetActionMenuType() == ActionMenuType.Right)
                 return opener;
-            return actionMenuDriver.field_Public_MonoBehaviourPublicObAc1BoSiBoObObObUnique_0;
+            return actionMenuDriver.field_Public_MonoBehaviourPublicCaObAc1BoSiBoObObObUnique_0;
         }
 
         public static ActionMenuType GetActionMenuType(this ActionMenuOpener opener)
