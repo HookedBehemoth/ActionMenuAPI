@@ -3,9 +3,9 @@ using System.IO;
 using System.Reflection;
 using ActionMenuApi.Api;
 using MelonLoader;
-using UnhollowerRuntimeLib;
+using Il2CppInterop.Runtime;
 using UnityEngine;
-using VRC;
+using Il2CppVRC;
 
 namespace ActionMenuUtils
 {
@@ -56,38 +56,41 @@ namespace ActionMenuUtils
 
         private static void SetupAMAPIButtons()
         {
-            VRCActionMenuPage.AddSubMenu(ActionMenuPage.Options, "SOS",
-                () =>
-                {
-                    //Respawn
-                    if (ModSettings.confirmRespawn)
-                        CustomSubMenu.AddSubMenu("Respawn",
-                            () => CustomSubMenu.AddButton("Confirm Respawn", Utils.Respawn, respawnIcon),
-                            respawnIcon
-                        );
-                    else
-                        CustomSubMenu.AddButton("Respawn", Utils.Respawn, respawnIcon);
+            VRCActionMenuPage.AddSubMenu(ActionMenuPage.Options, "SOS", DoShit, helpIcon);
+            VRCActionMenuPage.AddSubMenu(ActionMenuPage.Config, "SOS", DoShit, helpIcon);
+            VRCActionMenuPage.AddSubMenu(ActionMenuPage.Emojis, "SOS", DoShit, helpIcon);
+            VRCActionMenuPage.AddSubMenu(ActionMenuPage.Main, "SOS", DoShit, helpIcon);
+            VRCActionMenuPage.AddSubMenu(ActionMenuPage.Mods, "SOS", DoShit, helpIcon);
+            VRCActionMenuPage.AddSubMenu(ActionMenuPage.MenuSize, "SOS", DoShit, helpIcon);
+        }
 
-                    //Instance Rejoin
-                    if (ModSettings.confirmInstanceRejoin)
-                        CustomSubMenu.AddSubMenu("Rejoin Instance",
-                            () => CustomSubMenu.AddButton("Confirm Instance Rejoin", Utils.RejoinInstance, rejoinInstanceIcon),
-                            rejoinInstanceIcon
-                        );
-                    else
-                        CustomSubMenu.AddButton("Rejoin Instance", Utils.RejoinInstance, rejoinInstanceIcon);
+        private static void DoShit() {
+            //Respawn
+            if (ModSettings.confirmRespawn)
+                CustomSubMenu.AddSubMenu("Respawn",
+                    () => CustomSubMenu.AddButton("Confirm Respawn", Utils.Respawn, respawnIcon),
+                    respawnIcon
+                );
+            else
+                CustomSubMenu.AddButton("Respawn", Utils.Respawn, respawnIcon);
 
-                    //Go Home
-                    if (ModSettings.confirmGoHome)
-                        CustomSubMenu.AddSubMenu("Go Home",
-                            () => CustomSubMenu.AddButton("Confirm Go Home", Utils.Home, goHomeIcon),
-                            goHomeIcon
-                        );
-                    else
-                        CustomSubMenu.AddButton("Go Home", Utils.Home, goHomeIcon);
+            //Instance Rejoin
+            if (ModSettings.confirmInstanceRejoin)
+                CustomSubMenu.AddSubMenu("Rejoin Instance",
+                    () => CustomSubMenu.AddButton("Confirm Instance Rejoin", Utils.RejoinInstance, rejoinInstanceIcon),
+                    rejoinInstanceIcon
+                );
+            else
+                CustomSubMenu.AddButton("Rejoin Instance", Utils.RejoinInstance, rejoinInstanceIcon);
 
-                }, helpIcon
-            );
+            //Go Home
+            if (ModSettings.confirmGoHome)
+                CustomSubMenu.AddSubMenu("Go Home",
+                    () => CustomSubMenu.AddButton("Confirm Go Home", Utils.Home, goHomeIcon),
+                    goHomeIcon
+                );
+            else
+                CustomSubMenu.AddButton("Go Home", Utils.Home, goHomeIcon);
         }
 
         public override void OnPreferencesLoaded() => ModSettings.Apply();

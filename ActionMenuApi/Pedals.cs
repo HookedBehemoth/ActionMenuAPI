@@ -4,8 +4,8 @@ using ActionMenuApi.Managers;
 using ActionMenuApi.Types;
 using UnityEngine;
 
-using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
-using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
+using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
+using PedalOption = Il2Cpp.MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
 
 namespace ActionMenuApi.Pedals
 {

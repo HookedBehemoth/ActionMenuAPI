@@ -4,26 +4,26 @@ using System.Linq;
 using System.Reflection;
 using ActionMenuApi.Managers;
 using MelonLoader;
-using TMPro;
-using UnhollowerRuntimeLib;
-using UnhollowerRuntimeLib.XrefScans;
+using Il2CppTMPro;
+using Il2CppInterop.Common.XrefScans;
+using Il2CppInterop.Runtime.XrefScans;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-using ActionMenuDriver = MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
-using ActionMenuOpener = MonoBehaviourPublicCaObAc1BoSiBoObObObUnique;
-using ActionMenuType = MonoBehaviourPublicCaObAc1BoSiBoObObObUnique.EnumNPublicSealedvaLeRi3vUnique;
-using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
-using ActionMenuPage = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique.ObjectNPublicAcTeAcStGaUnique;
-// using RadialPuppetMenu = MonoBehaviour2PublicObGaTeGaBoSiSiSiSiSiUnique;
-using RadialPuppetMenu = MonoBehaviour2PublicObGaObTeGaFu2GaSiStUnique;
-// using AxisPuppetMenu = MonoBehaviour2PublicGaObBoObSiBoObSiObObUnique;
-using AxisPuppetMenu = MonoBehaviour2PublicGaObBoObSiBoVeObObObUnique;
-using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
-using ActionButton = MonoBehaviourPublicTrRaTeRaGaTeStRaGaAcUnique;
-using PedalGraphic = MaskableGraphicPublicSiTeSi_tSiTeSiTeSiUnique;
-// using PuppetMenu = MonoBehaviour1PublicTeCaObSiUnique;
-using PuppetMenu = MonoBehaviour1PublicTeGaTeCaObSiBoSiBoUnique;
+using ActionMenuDriver = Il2Cpp.MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
+using ActionMenuOpener = Il2Cpp.MonoBehaviourPublicCaObAc1BoSiBoObObObUnique;
+using ActionMenuType = Il2Cpp.MonoBehaviourPublicCaObAc1BoSiBoObObObUnique.EnumNPublicSealedvaLeRi3vUnique;
+using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
+using ActionMenuPage = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique.ObjectNPublicAcTeAcStGaUnique;
+// using RadialPuppetMenu = Il2Cpp.MonoBehaviour2PublicObGaTeGaBoSiSiSiSiSiUnique;
+using RadialPuppetMenu = Il2Cpp.MonoBehaviour2PublicObGaObTeGaFu2GaSiStUnique;
+// using AxisPuppetMenu = Il2Cpp.MonoBehaviour2PublicGaObBoObSiBoObSiObObUnique;
+using AxisPuppetMenu = Il2Cpp.MonoBehaviour2PublicGaObBoObSiBoVeObObObUnique;
+using PedalOption = Il2Cpp.MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
+using ActionButton = Il2Cpp.MonoBehaviourPublicTrRaTeRaGaTeStRaGaAcUnique;
+using PedalGraphic = Il2Cpp.MaskableGraphicPublicSiTeSi_tSiTeSiTeSiUnique;
+// using PuppetMenu = Il2Cpp.MonoBehaviour1PublicTeCaObSiUnique;
+using PuppetMenu = Il2Cpp.MonoBehaviour1PublicTeGaTeCaObSiBoSiBoUnique;
 
 namespace ActionMenuApi.Helpers
 {

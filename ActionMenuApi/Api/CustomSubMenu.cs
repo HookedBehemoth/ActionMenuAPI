@@ -3,9 +3,9 @@ using ActionMenuApi.Helpers;
 using ActionMenuApi.Managers;
 using MelonLoader;
 using UnityEngine;
-using VRC.SDK3.Avatars.ScriptableObjects;
+using Il2CppVRC.SDK3.Avatars.ScriptableObjects;
 
-using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
+using PedalOption = Il2Cpp.MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
 
 // ReSharper disable HeuristicUnreachableCode
 

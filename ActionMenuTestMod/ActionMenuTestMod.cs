@@ -3,10 +3,10 @@ using System.Reflection;
 using ActionMenuApi.Api;
 using ActionMenuApi.Pedals;
 using MelonLoader;
-using UnhollowerRuntimeLib;
+using Il2CppInterop.Runtime;
 using UnityEngine;
 
-using VRCPlayer = MonoBehaviour1PublicOb_pObGa_pStTeObBoSiUnique;
+using VRCPlayer = Il2Cpp.MonoBehaviour1PublicOb_pObGa_pStTeObBoSiUnique;
 
 [assembly: MelonInfo(typeof(ActionMenuTestMod.ActionMenuTestMod), "ActionMenuTestMod", "1.0.0", "gompo")]
 [assembly: MelonGame("VRChat", "VRChat")]

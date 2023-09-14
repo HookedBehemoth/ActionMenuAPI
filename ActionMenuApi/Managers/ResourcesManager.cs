@@ -2,12 +2,12 @@ using System.IO;
 using System.Reflection;
 using ActionMenuApi.Helpers;
 using MelonLoader;
-using UnhollowerRuntimeLib;
+using Il2CppInterop.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
 
-using ActionMenuDriver = MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
-using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
+using ActionMenuDriver = Il2Cpp.MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
+using PedalOption = Il2Cpp.MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
 
 namespace ActionMenuApi.Managers
 {

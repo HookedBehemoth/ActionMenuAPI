@@ -1,13 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>net472</TargetFramework>
-        <VrcReferences>true</VrcReferences>
-        <CopyToMods>true</CopyToMods>
-        <GenerateJson>true</GenerateJson>
-        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    </PropertyGroup>
-    
     <ItemGroup>
         <EmbeddedResource Include="icons" />
     </ItemGroup>

@@ -8,14 +8,14 @@ using ActionMenuApi.Managers;
 using ActionMenuApi.Pedals;
 using HarmonyLib;
 using MelonLoader;
-using UnhollowerBaseLib;
+//using UnhollowerBaseLib;
 
 // using ActionMenuDriver = MonoBehaviourPublicObGaObAcCoObMeEmObExUnique;
-using ActionMenuDriver = MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
+using ActionMenuDriver = Il2Cpp.MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
 // using ActionMenuOpener = MonoBehaviourPublicObBoSiObObObUnique;
-using ActionMenuOpener = MonoBehaviourPublicCaObAc1BoSiBoObObObUnique;
+using ActionMenuOpener = Il2Cpp.MonoBehaviourPublicCaObAc1BoSiBoObObObUnique;
 
-using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
+using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
 
 namespace ActionMenuApi
 {
@@ -242,7 +242,7 @@ namespace ActionMenuApi
             }
             catch (Exception e)
             {
-                MelonLogger.Warning($"Failed to Patch Method: {e}");
+                MelonLogger.Warning($"Failed to Patch Method: {preName} <-> {postName} with {string.Join(", ", keywords)}: {e}");
             }
         }
     }

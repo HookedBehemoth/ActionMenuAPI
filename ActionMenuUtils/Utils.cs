@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using UnhollowerRuntimeLib.XrefScans;
-using VRC.SDKBase;
+using Il2CppInterop.Common.XrefScans;
+using Il2CppInterop.Runtime.XrefScans;
+using Il2CppVRC.SDKBase;
 
-using VRCPlayer = MonoBehaviour1PublicOb_pObGa_pStTeObBoSiUnique;
-using VRCFlowManager = MonoBehaviour1PublicAc1BoSiBoObSiBoBoUnique;
-using VRCMotionState = MonoBehaviourPublicLaSiBoSiChBoObVeBoSiUnique;
-using RoomManager = MonoBehaviourPublicBoApSiApBoObStBo1ObUnique;
+using VRCPlayer = Il2Cpp.MonoBehaviour1PublicOb_pObGa_pStTeObBoSiUnique;
+using VRCFlowManager = Il2Cpp.MonoBehaviour1PublicAc1BoSiBoObSiStDiBoUnique;
+using VRCMotionState = Il2Cpp.MonoBehaviourPublicLaSiBoSiChBoObVeBoSiUnique;
+using RoomManager = Il2Cpp.MonoBehaviourPublicBoApSiApBoObStBo1ObUnique;
 
 namespace ActionMenuUtils
 {

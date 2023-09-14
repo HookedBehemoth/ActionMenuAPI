@@ -6,13 +6,15 @@ using ActionMenuApi.Pedals;
 using ActionMenuApi.Types;
 using HarmonyLib;
 using MelonLoader;
-using UnhollowerRuntimeLib.XrefScans;
+using Il2CppInterop.Common.XrefScans;
+using Il2CppInterop.Runtime.XrefScans;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-using ActionMenuDriver = MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
-using ActionMenuOpener = MonoBehaviourPublicCaObAc1BoSiBoObObObUnique;
-using ActionMenu = MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
+using ActionMenuDriver = Il2Cpp.MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
+using ActionMenuOpener = Il2Cpp.MonoBehaviourPublicCaObAc1BoSiBoObObObUnique;
+using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
+using Il2CppInterop.Runtime.Runtime;
 
 namespace ActionMenuApi.Helpers
 {
@@ -73,10 +75,27 @@ namespace ActionMenuApi.Helpers
                             .Equals(keyword, StringComparison.OrdinalIgnoreCase)))
                         return false;
 
+                    // if (!XrefScanner.XrefScan(m).Any(
+                    //     instance => {
+                    //         // if(instance.Type != XrefType.Global) return false;
+                    //         // if (instance.Pointer == IntPtr.Zero) return false;
+                    //         // var obj = instance.ReadAsObject(); 
+                    //         // if (obj == null) return false;
+                    //         // var klazz = Il2CppInterop.Runtime.IL2CPP.il2cpp_object_get_class(obj.Pointer);
+                    //         // if (klazz != Il2CppInterop.Runtime.Il2CppClassPointerStore<Il2CppSystem.String>.NativeClassPtr) return false;
+                    //         // var str = obj.TryCast<Il2CppSystem.String>();
+                    //         // if (str == null) return false;
+                    //         // Il2CppInterop.Runtime.IL2CPP.Il2CppObjectBaseToPtr()
+                    //         // var str2 = (string)new Il2CppSystem.String(obj.Pointer);
+                    //         // return str2.Equals(keyword, StringComparison.OrdinalIgnoreCase);
+                    //         return false;
+                    //     }))
+                    //     return false;
                 return true;
             }
-            catch
+            catch (Exception e)
             {
+                MelonLogger.Msg(e);
             }
 
             return false;

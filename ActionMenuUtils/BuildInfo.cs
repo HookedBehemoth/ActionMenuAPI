@@ -4,9 +4,9 @@ using MelonLoader;
 
 [assembly: MelonGame("VRChat", "VRChat")]
 [assembly: MelonInfo(typeof(ActionMenuUtils.Main), ModConstants.NAME, ModConstants.VERSION, ModConstants.AUTHOR, ModConstants.DOWNLOAD_LINK)]
-[assembly:AssemblyVersion(ModConstants.VERSION)]
-[assembly:AssemblyFileVersion(ModConstants.VERSION)]
-[assembly:AssemblyTitle(ModConstants.NAME)]
+// [assembly:AssemblyVersion(ModConstants.VERSION)]
+// [assembly:AssemblyFileVersion(ModConstants.VERSION)]
+// [assembly:AssemblyTitle(ModConstants.NAME)]
 [assembly:AssemblyDescription(ModConstants.NAME)]
 [assembly:AssemblyCopyright("Created by " + ModConstants.AUTHOR)]
 

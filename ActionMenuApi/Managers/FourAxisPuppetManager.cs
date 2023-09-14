@@ -5,8 +5,8 @@ using MelonLoader;
 using UnityEngine;
 using UnityEngine.XR;
 
-using AxisPuppetMenu = MonoBehaviour2PublicGaObBoObSiBoVeObObObUnique;
-using PedalOption = MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
+using AxisPuppetMenu = Il2Cpp.MonoBehaviour2PublicGaObBoObSiBoVeObObObUnique;
+using PedalOption = Il2Cpp.MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
 
 namespace ActionMenuApi.Managers
 {
