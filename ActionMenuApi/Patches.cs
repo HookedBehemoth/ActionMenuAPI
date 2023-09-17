@@ -8,12 +8,6 @@ using ActionMenuApi.Managers;
 using ActionMenuApi.Pedals;
 using HarmonyLib;
 using MelonLoader;
-//using UnhollowerBaseLib;
-
-// using ActionMenuDriver = MonoBehaviourPublicObGaObAcCoObMeEmObExUnique;
-using ActionMenuDriver = Il2Cpp.MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
-// using ActionMenuOpener = MonoBehaviourPublicObBoSiObObObUnique;
-using ActionMenuOpener = Il2Cpp.MonoBehaviourPublicCaObAc1BoSiBoObObObUnique;
 
 using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
 
@@ -34,14 +28,8 @@ namespace ActionMenuApi
             sdk2ExpressionPagePost = new(),
             mainPagePre = new(),
             mainPagePost = new(),
-            menuOpacityPagePre = new(),
-            menuOpacityPagePost = new(),
-            menuSizePagePre = new(),
-            menuSizePagePost = new(),
             nameplatesPagePre = new(),
             nameplatesPagePost = new(),
-            nameplatesOpacityPagePre = new(),
-            nameplatesOpacityPagePost = new(),
             nameplatesVisibilityPagePre = new(),
             nameplatesVisibilityPagePost = new(),
             nameplatesSizePagePre = new(),
@@ -49,18 +37,14 @@ namespace ActionMenuApi
             optionsPagePre = new(),
             optionsPagePost = new();
 
-        private static readonly List<string> openConfigPageKeyWords = new(new[] {"Menu Size", "Menu Opacity"});
+        private static readonly List<string> openConfigPageKeyWords = new() {"Avatar Overlay"}; // new(new[] {"Menu Size", "Menu Opacity"}); Those are in sub-functions now
         private static readonly List<string> openMainPageKeyWords = new(new[] {"Options", "Emojis"});
-        private static readonly List<string> openMenuOpacityPageKeyWords = new(new[] {"{0}%"});
         private static readonly List<string> openEmojisPageKeyWords = new(new[] {" ", "_"});
-        private static readonly List<string> openExpressionMenuKeyWords = new(new[] {"Reset Avatar"});
-        private static readonly List<string> openOptionsPageKeyWords = new(new[] {"Config"});
+        private static readonly List<string> openExpressionMenuKeyWords = new(new[] {"Reset Avatar", "Release Poses"});
+        private static readonly List<string> openOptionsPageKeyWords = new(new[] {"Chatbox", "Nameplates"});
         private static readonly List<string> openSDK2ExpressionPageKeyWords = new(new[] {"EMOTE{0}"});
 
-        private static readonly List<string> openNameplatesOpacityPageKeyWords =
-            new(new[] {"100%", "80%", "60%", "40%", "20%", "0%"});
-
-        private static readonly List<string> openNameplatesPageKeyWords = new(new[] {"Visibility", "Size", "Opacity"});
+        private static readonly List<string> openNameplatesPageKeyWords = new(new[] {"Visibility", "Size"});
 
         private static readonly List<string> openNameplatesVisibilityPageKeyWords =
             new(new[] {"Nameplates Shown", "Icons Only", "Nameplates Hidden"});
@@ -68,38 +52,28 @@ namespace ActionMenuApi
         private static readonly List<string> openNameplatesSizePageKeyWords =
             new(new[] {"Large", "Medium", "Normal", "Small", "Tiny"});
 
-        private static readonly List<string> openMenuSizePageKeyWords =
-            new(new[]
-            {
-                "XXXXXXXXX"
-            }); // No strings found :( Unusable for now. Scanning for methods doesnt help either as there are other functions that yield similar results
+        private static readonly List<string> openPhysbonesSettingsPageWords = new()
+        {
+            "None", "PhysBones Proximity", "PhysBones", "Contacts"
+        };
 
         private static HarmonyLib.Harmony Harmony;
 
         public static void PatchAll(HarmonyLib.Harmony harmonyInstance)
         {
-            Harmony = harmonyInstance;
-            PatchMethod(openMenuOpacityPageKeyWords, "OpenMenuOpacityPagePre", "OpenMenuOpacityPagePost");
-            PatchMethod(openExpressionMenuKeyWords, "OpenExpressionMenuPre", "OpenExpressionMenuPost");
-            PatchMethod(openConfigPageKeyWords, "OpenConfigPagePre", "OpenConfigPagePost");
-            PatchMethod(openMainPageKeyWords, "OpenMainPagePre", "OpenMainPagePost");
-            PatchMethod(openEmojisPageKeyWords, "OpenEmojisPagePre", "OpenEmojisPagePost");
-            PatchMethod(openNameplatesOpacityPageKeyWords, "OpenNameplatesOpacityPre", "OpenNameplatesOpacityPost");
-            PatchMethod(openNameplatesPageKeyWords, "OpenNameplatesPagePre", "OpenNameplatesPagePost");
-            PatchMethod(openNameplatesVisibilityPageKeyWords, "OpenNameplatesVisibilityPre", "OpenNameplatesVisibilityPost");
-            PatchMethod(openSDK2ExpressionPageKeyWords, "OpenSDK2ExpressionPre", "OpenSDK2ExpressionPost");
-            PatchMethod(openOptionsPageKeyWords, "OpenOptionsPre", "OpenOptionsPost");
 
-            //Method_Private_Void_PDM_11
-            //Special Child
-            /*harmonyInstance.Patch(
-                typeof(ActionMenu).GetMethods().Single(
-                    m => Utilities.checkXref(m, openNameplatesSizePageKeyWords)
-                         && m.CheckStringsCount(5)
-                ),
-                new HarmonyMethod(typeof(Patches).GetMethod("OpenNameplatesSizePre")),
-                new HarmonyMethod(typeof(Patches).GetMethod("OpenNameplatesSizePost"))
-            );*/
+            // Il2Cpp.MonoBehaviourPublicIPhysBoneDebugDrawerObSiObCoSiLiObCo1SiUnique.EnumNPublicSealedvaNoPhCoPh5vUnique
+            Harmony = harmonyInstance;
+            PatchMethod(openExpressionMenuKeyWords, nameof(OpenExpressionMenuPre), nameof(OpenExpressionMenuPost));
+            PatchMethod(openConfigPageKeyWords, nameof(OpenConfigPagePre), nameof(OpenConfigPagePost));
+            PatchMethod(openMainPageKeyWords, nameof(OpenMainPagePre), nameof(OpenMainPagePost));
+            PatchMethod(openEmojisPageKeyWords, nameof(OpenEmojisPagePre), nameof(OpenEmojisPagePost));
+            PatchMethod(openNameplatesPageKeyWords, nameof(OpenNameplatesPagePre), nameof(OpenNameplatesPagePost));
+            PatchMethod(openNameplatesSizePageKeyWords, nameof(OpenNameplatesSizePre), nameof(OpenNameplatesSizePost));
+            PatchMethod(openNameplatesVisibilityPageKeyWords, nameof(OpenNameplatesVisibilityPre), nameof(OpenNameplatesVisibilityPost));
+            PatchMethod(openSDK2ExpressionPageKeyWords, nameof(OpenSDK2ExpressionPre), nameof(OpenSDK2ExpressionPost));
+            PatchMethod(openOptionsPageKeyWords, nameof(OpenOptionsPre), nameof(OpenOptionsPost));
+
             MelonLogger.Msg("Patches Applied");
         }
 
@@ -124,16 +98,6 @@ namespace ActionMenuApi
             Utilities.AddPedalsInList(mainPagePost, __instance);
         }
 
-        public static void OpenMenuOpacityPagePre(ActionMenu __instance)
-        {
-            Utilities.AddPedalsInList(menuOpacityPagePre, __instance);
-        }
-
-        public static void OpenMenuOpacityPagePost(ActionMenu __instance)
-        {
-            Utilities.AddPedalsInList(menuOpacityPagePost, __instance);
-        }
-
         public static void OpenEmojisPagePre(ActionMenu __instance)
         {
             Utilities.AddPedalsInList(emojisPagePre, __instance);
@@ -152,16 +116,6 @@ namespace ActionMenuApi
         public static void OpenExpressionMenuPost(ActionMenu __instance)
         {
             Utilities.AddPedalsInList(expressionPagePost, __instance);
-        }
-
-        public static void OpenNameplatesOpacityPre(ActionMenu __instance)
-        {
-            Utilities.AddPedalsInList(nameplatesOpacityPagePre, __instance);
-        }
-
-        public static void OpenNameplatesOpacityPost(ActionMenu __instance)
-        {
-            Utilities.AddPedalsInList(nameplatesOpacityPagePost, __instance);
         }
 
         public static void OpenNameplatesPagePre(ActionMenu __instance)
@@ -212,16 +166,6 @@ namespace ActionMenuApi
         public static void OpenSDK2ExpressionPost(ActionMenu __instance)
         {
             Utilities.AddPedalsInList(sdk2ExpressionPagePost, __instance);
-        }
-
-        public static void OpenMenuSizePre(ActionMenu __instance)
-        {
-            Utilities.AddPedalsInList(menuSizePagePre, __instance);
-        }
-
-        public static void OpenMenuSizePost(ActionMenu __instance)
-        {
-            Utilities.AddPedalsInList(menuSizePagePost, __instance);
         }
 
         private static MethodInfo FindAMMethod(List<string> keywords)

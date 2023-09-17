@@ -177,32 +177,21 @@ namespace ActionMenuApi.Api
                     else if (insertion == Insertion.Post) Patches.mainPagePost.Add(customPedal);
                     return;
                 case ActionMenuPage.MenuOpacity:
-                    if (insertion == Insertion.Pre) Patches.menuOpacityPagePre.Add(customPedal);
-                    else if (insertion == Insertion.Post) Patches.menuOpacityPagePost.Add(customPedal);
-                    return;
+                    MelonLogger.Warning("Submenu \"Opacity\" doesn't exist anymore");
+                    goto case ActionMenuPage.Config;
                 case ActionMenuPage.MenuSize:
-                    MelonLogger.Warning(
-                        "Adding to the MenuSize page hasn't been implemented yet. Please use a different page");
-                #if false
-                    if (insertion == Insertion.Pre) Patches.menuSizePagePre.Add(customPedal);
-                    else if (insertion == Insertion.Post) Patches.menuSizePagePost.Add(customPedal);
-                #endif
-                    return;
+                    MelonLogger.Warning("Submenu \"MenuSize\" doesn't exist anymore");
+                    goto case ActionMenuPage.Config;
                 case ActionMenuPage.Nameplates:
                     if (insertion == Insertion.Pre) Patches.nameplatesPagePre.Add(customPedal);
                     else if (insertion == Insertion.Post) Patches.nameplatesPagePost.Add(customPedal);
                     return;
                 case ActionMenuPage.NameplatesOpacity:
-                    if (insertion == Insertion.Pre) Patches.nameplatesOpacityPagePre.Add(customPedal);
-                    else if (insertion == Insertion.Post) Patches.nameplatesOpacityPagePost.Add(customPedal);
-                    return;
+                    MelonLogger.Warning("Submenu \"NameplatesOpacity\" doesn't exist anymore");
+                    goto case ActionMenuPage.Nameplates;
                 case ActionMenuPage.NameplatesSize:
-                    MelonLogger.Warning(
-                        "Adding to the Nameplates size page isn't supported currently. Please use a different page");
-                #if false
                     if (insertion == Insertion.Pre) Patches.nameplatesSizePagePre.Add(customPedal);
                     else if (insertion == Insertion.Post) Patches.nameplatesSizePagePost.Add(customPedal);
-                #endif
                     return;
                 case ActionMenuPage.NameplatesVisibilty:
                     if (insertion == Insertion.Pre) Patches.nameplatesVisibilityPagePre.Add(customPedal);

@@ -75,22 +75,6 @@ namespace ActionMenuApi.Helpers
                             .Equals(keyword, StringComparison.OrdinalIgnoreCase)))
                         return false;
 
-                    // if (!XrefScanner.XrefScan(m).Any(
-                    //     instance => {
-                    //         // if(instance.Type != XrefType.Global) return false;
-                    //         // if (instance.Pointer == IntPtr.Zero) return false;
-                    //         // var obj = instance.ReadAsObject(); 
-                    //         // if (obj == null) return false;
-                    //         // var klazz = Il2CppInterop.Runtime.IL2CPP.il2cpp_object_get_class(obj.Pointer);
-                    //         // if (klazz != Il2CppInterop.Runtime.Il2CppClassPointerStore<Il2CppSystem.String>.NativeClassPtr) return false;
-                    //         // var str = obj.TryCast<Il2CppSystem.String>();
-                    //         // if (str == null) return false;
-                    //         // Il2CppInterop.Runtime.IL2CPP.Il2CppObjectBaseToPtr()
-                    //         // var str2 = (string)new Il2CppSystem.String(obj.Pointer);
-                    //         // return str2.Equals(keyword, StringComparison.OrdinalIgnoreCase);
-                    //         return false;
-                    //     }))
-                    //     return false;
                 return true;
             }
             catch (Exception e)

@@ -22,7 +22,7 @@ namespace ActionMenuApi
             }
             catch (Exception e)
             {
-                MelonLogger.Error($"Patching failed with exception: {e.Message}");
+                MelonLogger.Error($"Patching failed with exception", e);
             }
         }
 

@@ -1,3 +1,5 @@
+using System;
+
 namespace ActionMenuApi.Api
 {
     /// <summary>
@@ -33,11 +35,13 @@ namespace ActionMenuApi.Api
         /// <summary>
         ///     The menu opacity page. Has 25%, 50%, 75%, 100%
         /// </summary>
+        [Obsolete]
         MenuOpacity,
 
         /// <summary>
         ///     The menu size page. Has Small, Medium, Large
         /// </summary>
+        [Obsolete]
         MenuSize, //Not Implemented
 
         /// <summary>
@@ -48,6 +52,7 @@ namespace ActionMenuApi.Api
         /// <summary>
         ///     The nameplates opacity page 0%,20%,40%,60%,80%,100%
         /// </summary>
+        [Obsolete]
         NameplatesOpacity,
 
         /// <summary>
