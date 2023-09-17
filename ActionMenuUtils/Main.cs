@@ -57,11 +57,6 @@ namespace ActionMenuUtils
         private static void SetupAMAPIButtons()
         {
             VRCActionMenuPage.AddSubMenu(ActionMenuPage.Options, "SOS", DoShit, helpIcon);
-            VRCActionMenuPage.AddSubMenu(ActionMenuPage.Config, "SOS", DoShit, helpIcon);
-            VRCActionMenuPage.AddSubMenu(ActionMenuPage.Emojis, "SOS", DoShit, helpIcon);
-            VRCActionMenuPage.AddSubMenu(ActionMenuPage.Main, "SOS", DoShit, helpIcon);
-            VRCActionMenuPage.AddSubMenu(ActionMenuPage.Mods, "SOS", DoShit, helpIcon);
-            VRCActionMenuPage.AddSubMenu(ActionMenuPage.MenuSize, "SOS", DoShit, helpIcon);
         }
 
         private static void DoShit() {
