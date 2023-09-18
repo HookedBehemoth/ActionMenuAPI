@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using ActionMenuApi.Api;
 using ActionMenuApi.Helpers;
 
+using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
+
 namespace ActionMenuApi.Managers
 {
     internal static class ModsFolderManager
     {
-        public static List<Action> mods = new();
-        public static List<List<Action>> splitMods;
+        public static List<Action<CustomSubMenu>> mods = new();
+        public static List<List<Action<CustomSubMenu>>> splitMods;
 
-        private static readonly Action openFunc = () =>
+        private static readonly Action<CustomSubMenu> openFunc = subMenu =>
         {
             if (mods.Count <= Constants.MAX_PEDALS_PER_PAGE)
             {
-                foreach (var action in mods) action();
+                foreach (var action in mods) action(subMenu);
             }
             else
             {
@@ -22,15 +24,15 @@ namespace ActionMenuApi.Managers
                 for (var i = 0; i < splitMods.Count && i < Constants.MAX_PEDALS_PER_PAGE; i++)
                 {
                     var index = i;
-                    CustomSubMenu.AddSubMenu($"Page {i + 1}", () =>
+                    subMenu.AddSubMenu($"Page {i + 1}", subMenu =>
                     {
-                        foreach (var action in splitMods[index]) action();
+                        foreach (var action in splitMods[index]) action(subMenu);
                     }, ResourcesManager.GetPageIcon(i + 1));
                 }
             }
         };
 
-        public static void AddMod(Action openingAction)
+        public static void AddMod(Action<CustomSubMenu> openingAction)
         {
             mods.Add(openingAction);
         }
@@ -40,9 +42,10 @@ namespace ActionMenuApi.Managers
             mods.Remove(openingAction);
         }*/
 
-        public static void AddMainPageButton()
+        public static void AddMainPageButton(ActionMenu menu)
         {
-            CustomSubMenu.AddSubMenu(Constants.MODS_FOLDER_NAME, openFunc, ResourcesManager.GetModsSectionIcon());
+            new CustomSubMenu(menu)
+                .AddSubMenu(Constants.MODS_FOLDER_NAME, openFunc, ResourcesManager.GetModsSectionIcon());
         }
     }
 }

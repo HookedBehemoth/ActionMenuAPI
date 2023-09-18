@@ -15,23 +15,17 @@ using ActionMenuOpener = Il2Cpp.MonoBehaviourPublicCaObAc1BoSiBoObObObUnique;
 using ActionMenuType = Il2Cpp.MonoBehaviourPublicCaObAc1BoSiBoObObObUnique.EnumNPublicSealedvaLeRi3vUnique;
 using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
 using ActionMenuPage = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique.ObjectNPublicAcTeAcStGaUnique;
-// using RadialPuppetMenu = Il2Cpp.MonoBehaviour2PublicObGaTeGaBoSiSiSiSiSiUnique;
 using RadialPuppetMenu = Il2Cpp.MonoBehaviour2PublicObGaObTeGaFu2GaSiStUnique;
-// using AxisPuppetMenu = Il2Cpp.MonoBehaviour2PublicGaObBoObSiBoObSiObObUnique;
 using AxisPuppetMenu = Il2Cpp.MonoBehaviour2PublicGaObBoObSiBoVeObObObUnique;
 using PedalOption = Il2Cpp.MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
 using ActionButton = Il2Cpp.MonoBehaviourPublicTrRaTeRaGaTeStRaGaAcUnique;
 using PedalGraphic = Il2Cpp.MaskableGraphicPublicSiTeSi_tSiTeSiTeSiUnique;
-// using PuppetMenu = Il2Cpp.MonoBehaviour1PublicTeCaObSiUnique;
 using PuppetMenu = Il2Cpp.MonoBehaviour1PublicTeGaTeCaObSiBoSiBoUnique;
 
 namespace ActionMenuApi.Helpers
 {
     internal static class ExtensionMethods
     {
-        private static AddOptionDelegate addOptionDelegate;
-
-        private static PushPageDelegate pushPageDelegate;
 
         private static PropertyInfo actionButtonPercentProperty;
 
@@ -62,8 +56,6 @@ namespace ActionMenuApi.Helpers
         private static PropertyInfo pedalOptionPrefabProperty;
 
         private static ClosePuppetMenusDelegate closePuppetMenusDelegate;
-
-        private static DestroyPageDelegate destroyPageDelegate;
 
         private static Func<RadialPuppetMenu, GameObject> getRadialCursorGameObjectDelegate;
 
@@ -101,7 +93,7 @@ namespace ActionMenuApi.Helpers
                          && m.GetParameters()[0].IsOptional
                          && !m.Name.Contains("PDM")
                 );
-                closePuppetMenusDelegate = (ClosePuppetMenusDelegate) Delegate.CreateDelegate(
+                closePuppetMenusDelegate = (ClosePuppetMenusDelegate)Delegate.CreateDelegate(
                     typeof(ClosePuppetMenusDelegate),
                     null,
                     closePuppetMenusMethod);
@@ -122,8 +114,7 @@ namespace ActionMenuApi.Helpers
 
         public static string GetText(this PedalOption pedal)
         {
-            return
-                pedal.prop_String_0; //Only string prop on PedalOption. shouldnt change unless drastic changes are made to the action menu
+            return pedal.prop_String_0; //Only string prop on PedalOption. shouldnt change unless drastic changes are made to the action menu
         }
 
         public static void PushPage(this ActionMenu menu, Action openFunc, Action closeFunc = null, Texture2D icon = null, string text = null)
@@ -148,9 +139,7 @@ namespace ActionMenuApi.Helpers
             return actionMenuOpener.field_Private_Boolean_0; //only bool on action menu opener, shouldnt change
         }
 
-        public static void
-            SetButtonPercentText(this PedalOption pedalOption,
-                string text) //pedalOption.GetActionButton().prop_String_1
+        public static void SetButtonPercentText(this PedalOption pedalOption, string text) //pedalOption.GetActionButton().prop_String_1
         {
             if (actionButtonPercentProperty != null)
             {
@@ -161,7 +150,7 @@ namespace ActionMenuApi.Helpers
             var button = pedalOption.GetActionButton();
             actionButtonPercentProperty = typeof(ActionButton)
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance).Single(
-                    p => p.PropertyType == typeof(string) && ((string) p.GetValue(button)).Equals("100%")
+                    p => p.PropertyType == typeof(string) && ((string)p.GetValue(button)).Equals("100%")
                 );
             actionButtonPercentProperty.SetValue(pedalOption.GetActionButton(), text);
         }
@@ -175,7 +164,7 @@ namespace ActionMenuApi.Helpers
         {
             pedalOption.field_Public_Func_1_Boolean_0 = triggerEvent;
         }
-        
+
         public static void SetPedalAction(this PedalOption pedalOption, Action action)
         {
             pedalOption.SetPedalTriggerEvent(delegate
@@ -207,9 +196,19 @@ namespace ActionMenuApi.Helpers
             return opener.field_Public_EnumNPublicSealedvaLeRi3vUnique_0;
         }
 
+        public static ActionMenuType GetActionMenuType(this ActionMenu menu)
+        {
+            return menu.GetActionMenuOpener().field_Public_EnumNPublicSealedvaLeRi3vUnique_0;
+        }
+
         public static ActionMenu GetActionMenu(this ActionMenuOpener actionMenuOpener)
         {
             return actionMenuOpener.field_Public_MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique_0;
+        }
+
+        public static ActionMenuOpener GetActionMenuOpener(this ActionMenu menu)
+        {
+            return menu.field_Private_MonoBehaviourPublicCaObAc1BoSiBoObObObUnique_0;
         }
 
         private static GameObject
@@ -221,10 +220,10 @@ namespace ActionMenuApi.Helpers
             radialPuppetCursorProperty = typeof(RadialPuppetMenu)
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance).Single(
                     p => p.PropertyType == typeof(GameObject) &&
-                         ((GameObject) p.GetValue(radialPuppetMenu)).name.Equals("Cursor")
+                         ((GameObject)p.GetValue(radialPuppetMenu)).name.Equals("Cursor")
                 );
             getRadialCursorGameObjectDelegate =
-                (Func<RadialPuppetMenu, GameObject>) Delegate.CreateDelegate(typeof(Func<RadialPuppetMenu, GameObject>),
+                (Func<RadialPuppetMenu, GameObject>)Delegate.CreateDelegate(typeof(Func<RadialPuppetMenu, GameObject>),
                     radialPuppetCursorProperty.GetGetMethod());
             return getRadialCursorGameObjectDelegate(radialPuppetMenu);
         }
@@ -242,10 +241,10 @@ namespace ActionMenuApi.Helpers
             axisPuppetCursorProperty = typeof(AxisPuppetMenu).GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Single(
                     p => p.PropertyType == typeof(GameObject) &&
-                         ((GameObject) p.GetValue(axisPuppetMenu)).name.Equals("Cursor")
+                         ((GameObject)p.GetValue(axisPuppetMenu)).name.Equals("Cursor")
                 );
             getAxisCursorGameObjectDelegate =
-                (Func<AxisPuppetMenu, GameObject>) Delegate.CreateDelegate(typeof(Func<AxisPuppetMenu, GameObject>),
+                (Func<AxisPuppetMenu, GameObject>)Delegate.CreateDelegate(typeof(Func<AxisPuppetMenu, GameObject>),
                     axisPuppetCursorProperty.GetGetMethod());
             return getAxisCursorGameObjectDelegate(axisPuppetMenu);
         }
@@ -264,10 +263,10 @@ namespace ActionMenuApi.Helpers
             radialPuppetArrowProperty = typeof(RadialPuppetMenu)
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance).Single(
                     p => p.PropertyType == typeof(GameObject) &&
-                         ((GameObject) p.GetValue(radialPuppetMenu)).name.Equals("Arrow")
+                         ((GameObject)p.GetValue(radialPuppetMenu)).name.Equals("Arrow")
                 );
             getRadialArrowGameObjectDelegate =
-                (Func<RadialPuppetMenu, GameObject>) Delegate.CreateDelegate(typeof(Func<RadialPuppetMenu, GameObject>),
+                (Func<RadialPuppetMenu, GameObject>)Delegate.CreateDelegate(typeof(Func<RadialPuppetMenu, GameObject>),
                     radialPuppetArrowProperty.GetGetMethod());
             return getRadialArrowGameObjectDelegate(radialPuppetMenu);
         }
@@ -284,7 +283,7 @@ namespace ActionMenuApi.Helpers
 
         public static TextMeshProUGUI GetTitle(this RadialPuppetMenu radialPuppetMenu)
         {
-            return ((PuppetMenu) radialPuppetMenu).field_Public_TextMeshProUGUI_0; //only one
+            return ((PuppetMenu)radialPuppetMenu).field_Public_TextMeshProUGUI_0; //only one
         }
 
         public static TextMeshProUGUI GetTitle(this AxisPuppetMenu axisPuppetMenu)
@@ -305,10 +304,10 @@ namespace ActionMenuApi.Helpers
             axisPuppetFillUpProperty = typeof(AxisPuppetMenu).GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Single(
                     p => p.PropertyType == typeof(PedalGraphic) &&
-                         ((PedalGraphic) p.GetValue(axisPuppetMenu)).name.Equals("Fill Up")
+                         ((PedalGraphic)p.GetValue(axisPuppetMenu)).name.Equals("Fill Up")
                 );
             getAxisFillUpDelegate =
-                (Func<AxisPuppetMenu, PedalGraphic>) Delegate.CreateDelegate(typeof(Func<AxisPuppetMenu, PedalGraphic>),
+                (Func<AxisPuppetMenu, PedalGraphic>)Delegate.CreateDelegate(typeof(Func<AxisPuppetMenu, PedalGraphic>),
                     axisPuppetFillUpProperty.GetGetMethod());
             return getAxisFillUpDelegate(axisPuppetMenu);
         }
@@ -321,10 +320,10 @@ namespace ActionMenuApi.Helpers
             axisPuppetFillRightProperty = typeof(AxisPuppetMenu)
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance).Single(
                     p => p.PropertyType == typeof(PedalGraphic) &&
-                         ((PedalGraphic) p.GetValue(axisPuppetMenu)).name.Equals("Fill Right")
+                         ((PedalGraphic)p.GetValue(axisPuppetMenu)).name.Equals("Fill Right")
                 );
             getAxisFillRightDelegate =
-                (Func<AxisPuppetMenu, PedalGraphic>) Delegate.CreateDelegate(typeof(Func<AxisPuppetMenu, PedalGraphic>),
+                (Func<AxisPuppetMenu, PedalGraphic>)Delegate.CreateDelegate(typeof(Func<AxisPuppetMenu, PedalGraphic>),
                     axisPuppetFillRightProperty.GetGetMethod());
             return getAxisFillRightDelegate(axisPuppetMenu);
         }
@@ -337,10 +336,10 @@ namespace ActionMenuApi.Helpers
             axisPuppetFillDownProperty = typeof(AxisPuppetMenu)
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance).Single(
                     p => p.PropertyType == typeof(PedalGraphic) &&
-                         ((PedalGraphic) p.GetValue(axisPuppetMenu)).name.Equals("Fill Down")
+                         ((PedalGraphic)p.GetValue(axisPuppetMenu)).name.Equals("Fill Down")
                 );
             getAxisFillDownDelegate =
-                (Func<AxisPuppetMenu, PedalGraphic>) Delegate.CreateDelegate(typeof(Func<AxisPuppetMenu, PedalGraphic>),
+                (Func<AxisPuppetMenu, PedalGraphic>)Delegate.CreateDelegate(typeof(Func<AxisPuppetMenu, PedalGraphic>),
                     axisPuppetFillDownProperty.GetGetMethod());
             return getAxisFillDownDelegate(axisPuppetMenu);
         }
@@ -353,10 +352,10 @@ namespace ActionMenuApi.Helpers
             axisPuppetFillLeftProperty = typeof(AxisPuppetMenu)
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance).Single(
                     p => p.PropertyType == typeof(PedalGraphic) &&
-                         ((PedalGraphic) p.GetValue(axisPuppetMenu)).name.Equals("Fill Left")
+                         ((PedalGraphic)p.GetValue(axisPuppetMenu)).name.Equals("Fill Left")
                 );
             getAxisFillLeftDelegate =
-                (Func<AxisPuppetMenu, PedalGraphic>) Delegate.CreateDelegate(
+                (Func<AxisPuppetMenu, PedalGraphic>)Delegate.CreateDelegate(
                     typeof(Func<AxisPuppetMenu, PedalGraphic>), axisPuppetFillLeftProperty.GetGetMethod());
             return getAxisFillLeftDelegate(axisPuppetMenu);
         }
@@ -371,10 +370,10 @@ namespace ActionMenuApi.Helpers
 
             actionButtonTextProperty = typeof(ActionButton).GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Single(
-                    p => p.PropertyType == typeof(string) && ((string) p.GetValue(actionButton)).Equals("Button Text")
+                    p => p.PropertyType == typeof(string) && ((string)p.GetValue(actionButton)).Equals("Button Text")
                 );
             setActionButtonText =
-                (Action<ActionButton, string>) Delegate.CreateDelegate(typeof(Action<ActionButton, string>),
+                (Action<ActionButton, string>)Delegate.CreateDelegate(typeof(Action<ActionButton, string>),
                     actionButtonTextProperty.GetSetMethod());
             setActionButtonText(actionButton, text);
         }
@@ -387,10 +386,10 @@ namespace ActionMenuApi.Helpers
             axisPuppetButtonUpProperty = typeof(AxisPuppetMenu)
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance).Single(
                     p => p.PropertyType == typeof(ActionButton) &&
-                         ((ActionButton) p.GetValue(axisPuppetMenu)).name.Equals("ButtonUp")
+                         ((ActionButton)p.GetValue(axisPuppetMenu)).name.Equals("ButtonUp")
                 );
             getAxisPuppetButtonUpDelegate =
-                (Func<AxisPuppetMenu, ActionButton>) Delegate.CreateDelegate(typeof(Func<AxisPuppetMenu, ActionButton>),
+                (Func<AxisPuppetMenu, ActionButton>)Delegate.CreateDelegate(typeof(Func<AxisPuppetMenu, ActionButton>),
                     axisPuppetButtonUpProperty.GetGetMethod());
             return getAxisPuppetButtonUpDelegate(axisPuppetMenu);
         }
@@ -403,10 +402,10 @@ namespace ActionMenuApi.Helpers
             axisPuppetButtonRightProperty = typeof(AxisPuppetMenu)
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance).Single(
                     p => p.PropertyType == typeof(ActionButton) &&
-                         ((ActionButton) p.GetValue(axisPuppetMenu)).name.Equals("ButtonRight")
+                         ((ActionButton)p.GetValue(axisPuppetMenu)).name.Equals("ButtonRight")
                 );
             getAxisPuppetButtonRightDelegate =
-                (Func<AxisPuppetMenu, ActionButton>) Delegate.CreateDelegate(
+                (Func<AxisPuppetMenu, ActionButton>)Delegate.CreateDelegate(
                     typeof(Func<AxisPuppetMenu, ActionButton>), axisPuppetButtonRightProperty.GetGetMethod());
             return getAxisPuppetButtonRightDelegate(axisPuppetMenu);
         }
@@ -419,10 +418,10 @@ namespace ActionMenuApi.Helpers
             axisPuppetButtonDownProperty = typeof(AxisPuppetMenu)
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance).Single(
                     p => p.PropertyType == typeof(ActionButton) &&
-                         ((ActionButton) p.GetValue(axisPuppetMenu)).name.Equals("ButtonDown")
+                         ((ActionButton)p.GetValue(axisPuppetMenu)).name.Equals("ButtonDown")
                 );
             getAxisPuppetButtonDownDelegate =
-                (Func<AxisPuppetMenu, ActionButton>) Delegate.CreateDelegate(typeof(Func<AxisPuppetMenu, ActionButton>),
+                (Func<AxisPuppetMenu, ActionButton>)Delegate.CreateDelegate(typeof(Func<AxisPuppetMenu, ActionButton>),
                     axisPuppetButtonDownProperty.GetGetMethod());
             return getAxisPuppetButtonDownDelegate(axisPuppetMenu);
         }
@@ -435,10 +434,10 @@ namespace ActionMenuApi.Helpers
             axisPuppetButtonLeftProperty = typeof(AxisPuppetMenu)
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance).Single(
                     p => p.PropertyType == typeof(ActionButton) &&
-                         ((ActionButton) p.GetValue(axisPuppetMenu)).name.Equals("ButtonLeft")
+                         ((ActionButton)p.GetValue(axisPuppetMenu)).name.Equals("ButtonLeft")
                 );
             getAxisPuppetButtonLeftDelegate =
-                (Func<AxisPuppetMenu, ActionButton>) Delegate.CreateDelegate(typeof(Func<AxisPuppetMenu, ActionButton>),
+                (Func<AxisPuppetMenu, ActionButton>)Delegate.CreateDelegate(typeof(Func<AxisPuppetMenu, ActionButton>),
                     axisPuppetButtonLeftProperty.GetGetMethod());
 
             return getAxisPuppetButtonLeftDelegate(axisPuppetMenu);
@@ -448,13 +447,13 @@ namespace ActionMenuApi.Helpers
         public static GameObject
             GetPedalOptionPrefab(this ActionMenu actionMenu) //Build 1093 menu.field_Public_GameObject_1
         {
-            if (pedalOptionPrefabProperty != null) return (GameObject) pedalOptionPrefabProperty.GetValue(actionMenu);
+            if (pedalOptionPrefabProperty != null) return (GameObject)pedalOptionPrefabProperty.GetValue(actionMenu);
             pedalOptionPrefabProperty = typeof(ActionMenu).GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Single(
                     p => p.PropertyType == typeof(GameObject) &&
-                         ((GameObject) p.GetValue(actionMenu)).name.Equals("PedalOption")
+                         ((GameObject)p.GetValue(actionMenu)).name.Equals("PedalOption")
                 );
-            return (GameObject) pedalOptionPrefabProperty.GetValue(actionMenu);
+            return (GameObject)pedalOptionPrefabProperty.GetValue(actionMenu);
         }
 
         public static void SetAlpha(this PedalGraphic pedalGraphic, float amount)
@@ -663,14 +662,14 @@ namespace ActionMenuApi.Helpers
 
         private static PropertyInfo mainCanvasGroupProperty;
         private static Func<ActionMenu, CanvasGroup> getActionMenuMainMenuCanvasGroup;
-        private static CanvasGroup GetMainMenuCanvas(this ActionMenu actionMenu) 
+        private static CanvasGroup GetMainMenuCanvas(this ActionMenu actionMenu)
         {
             if (mainCanvasGroupProperty != null)
                 return getActionMenuMainMenuCanvasGroup(actionMenu);
 
             mainCanvasGroupProperty = typeof(ActionMenu).GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
-                .Single(p => p.PropertyType == typeof(CanvasGroup) && ((CanvasGroup) p.GetValue(actionMenu)).gameObject.name.Equals("Main"));
-            getActionMenuMainMenuCanvasGroup = (Func<ActionMenu, CanvasGroup>) Delegate.CreateDelegate(typeof(Func<ActionMenu, CanvasGroup>), mainCanvasGroupProperty.GetGetMethod());
+                .Single(p => p.PropertyType == typeof(CanvasGroup) && ((CanvasGroup)p.GetValue(actionMenu)).gameObject.name.Equals("Main"));
+            getActionMenuMainMenuCanvasGroup = (Func<ActionMenu, CanvasGroup>)Delegate.CreateDelegate(typeof(Func<ActionMenu, CanvasGroup>), mainCanvasGroupProperty.GetGetMethod());
             return getActionMenuMainMenuCanvasGroup(actionMenu);
         }
 
@@ -703,10 +702,6 @@ namespace ActionMenuApi.Helpers
         {
             pedalOption.GetActionButton().field_Public_GameObject_0.SetActive(active);
         }
-
-        private delegate PedalOption AddOptionDelegate(ActionMenu actionMenu);
-
-        private delegate ActionMenuPage PushPageDelegate(ActionMenu actionMenu, Il2CppSystem.Action openFunc, Il2CppSystem.Action closeFunc = null, Texture2D icon = null, string text = null);
 
         private delegate void ClosePuppetMenusDelegate(ActionMenu actionMenu, bool canResetValue);
 

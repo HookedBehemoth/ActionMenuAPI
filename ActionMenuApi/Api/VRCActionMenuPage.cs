@@ -45,9 +45,9 @@ namespace ActionMenuApi.Api
         ///     the target page
         /// </param>
         public static PedalRadial AddRadialPuppet(ActionMenuPage pageType, string text, Action<float> onUpdate,
-            float startingValue = 0, Texture2D icon = null, bool locked = false, Insertion insertion = Insertion.Post)
+            Action onOpen, Action onClose, float startingValue = 0, Texture2D icon = null, bool locked = false, Insertion insertion = Insertion.Post)
         {
-            var pedal = new PedalRadial(text, startingValue, icon, onUpdate, locked);
+            var pedal = new PedalRadial(text, startingValue, icon, onUpdate, onOpen, onClose, locked);
             AddPedalToList(pageType, pedal, insertion);
             return pedal;
         }
@@ -67,10 +67,10 @@ namespace ActionMenuApi.Api
         ///     the target page
         /// </param>
         public static PedalRadial AddRestrictedRadialPuppet(ActionMenuPage pageType, string text,
-            Action<float> onUpdate, float startingValue = 0, Texture2D icon = null, bool locked = false,
+            Action<float> onUpdate, Action onOpen, Action onClose, float startingValue = 0, Texture2D icon = null, bool locked = false,
             Insertion insertion = Insertion.Post)
         {
-            var pedal = new PedalRadial(text, startingValue, icon, onUpdate, locked, true);
+            var pedal = new PedalRadial(text, startingValue, icon, onUpdate, onOpen, onClose, locked, true);
             AddPedalToList(pageType, pedal, insertion);
             return pedal;
         }
@@ -95,11 +95,11 @@ namespace ActionMenuApi.Api
         /// <param name="downButtonText">(optional) Bottom Button Button text On Four Axis Puppet</param>
         /// <param name="leftButtonText">(optional) Left Button Button text On Four Axis Puppet</param>
         public static PedalFourAxis AddFourAxisPuppet(ActionMenuPage pageType, string text, Action<Vector2> onUpdate,
-            Texture2D icon = null, bool locked = false, string topButtonText = "Up",
+            Action onOpen, Action onClose = null, Texture2D icon = null, bool locked = false, string topButtonText = "Up",
             string rightButtonText = "Right", string downButtonText = "Down", string leftButtonText = "Left",
             Insertion insertion = Insertion.Post)
         {
-            var pedal = new PedalFourAxis(text, icon, onUpdate, topButtonText, rightButtonText, downButtonText,
+            var pedal = new PedalFourAxis(text, icon, onUpdate, onOpen, onClose, topButtonText, rightButtonText, downButtonText,
                 leftButtonText, locked);
             AddPedalToList(pageType, pedal, insertion);
             return pedal;
@@ -121,7 +121,7 @@ namespace ActionMenuApi.Api
         ///     (optional) Determines whether or not the button is added before or after VRChat's buttons for
         ///     the target page
         /// </param>
-        public static PedalSubMenu AddSubMenu(ActionMenuPage pageType, string text, Action openFunc,
+        public static PedalSubMenu AddSubMenu(ActionMenuPage pageType, string text, Action<CustomSubMenu> openFunc,
             Texture2D icon = null, bool locked = false, Action closeFunc = null, Insertion insertion = Insertion.Post)
         {
             var pedal = new PedalSubMenu(openFunc, text, icon, closeFunc, locked);

@@ -1,11 +1,10 @@
 using System;
 using ActionMenuApi.Helpers;
 using ActionMenuApi.Managers;
-using MelonLoader;
 using UnityEngine;
-using Il2CppVRC.SDK3.Avatars.ScriptableObjects;
 
 using PedalOption = Il2Cpp.MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
+using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
 
 // ReSharper disable HeuristicUnreachableCode
 
@@ -14,8 +13,15 @@ namespace ActionMenuApi.Api
     /// <summary>
     ///     Class for adding buttons,toggles,radial puppets inside of a custom submenu
     /// </summary>
-    public static class CustomSubMenu
+    public class CustomSubMenu
     {
+        private ActionMenu ActionMenu { get; }
+
+        internal CustomSubMenu(ActionMenu menu)
+        {
+            ActionMenu = menu;
+        }
+
         /// <summary>
         ///     Add a lockable button pedal to a custom submenu
         /// </summary>
@@ -27,12 +33,10 @@ namespace ActionMenuApi.Api
         ///     PedalOption Instance (Note: 1. can be null if both action menus are open 2. The gameobject that it is
         ///     attached to is destroyed when you change page on the action menu)
         /// </returns>
-        public static PedalOption AddButton(string text, Action triggerEvent, Texture2D icon = null,
+        public PedalOption AddButton(string text, Action triggerEvent, Texture2D icon = null,
             bool locked = false)
         {
-            var actionMenuOpener = Utilities.GetActionMenuOpener();
-            if (actionMenuOpener == null) return null;
-            var pedalOption = actionMenuOpener.GetActionMenu().AddOption();
+            var pedalOption = ActionMenu.AddOption();
             pedalOption.SetText(text);
             pedalOption.SetForegroundIcon(icon);
             if (!locked) pedalOption.SetPedalAction(triggerEvent);
@@ -53,12 +57,10 @@ namespace ActionMenuApi.Api
         ///     PedalOption Instance (Note: the gameobject that it is attached to is destroyed when you change page on the
         ///     action menu
         /// </returns>
-        public static PedalOption AddRadialPuppet(string text, Action<float> onUpdate, float startingValue = 0,
-            Texture2D icon = null, bool locked = false)
+        public PedalOption AddRadialPuppet(string text, Action<float> onUpdate, Action onOpen = null, Action onClose = null,
+            float startingValue = 0, Texture2D icon = null, bool locked = false)
         {
-            var actionMenuOpener = Utilities.GetActionMenuOpener();
-            if (actionMenuOpener == null) return null;
-            var pedalOption = actionMenuOpener.GetActionMenu().AddOption();
+            var pedalOption = ActionMenu.AddOption();
             pedalOption.SetText(text);
             pedalOption.SetBackgroundIcon(icon);
             pedalOption.SetButtonPercentText($"{Math.Round(startingValue * 100)}%");
@@ -67,12 +69,13 @@ namespace ActionMenuApi.Api
                 pedalOption.SetPedalAction(
                     delegate
                     {
-                        var combinedAction = (Action<float>) Delegate.Combine(new Action<float>(delegate(float f)
+                        onOpen?.Invoke();
+                        var combinedAction = (Action<float>)Delegate.Combine(new Action<float>(delegate (float f)
                         {
                             startingValue = f;
                             pedalOption.SetButtonPercentText($"{Math.Round(startingValue * 100)}%");
                         }), onUpdate);
-                        RadialPuppetManager.OpenRadialMenu(startingValue, combinedAction, text, pedalOption);
+                        RadialPuppetManager.OpenRadialMenu(ActionMenu.GetActionMenuType(), startingValue, combinedAction, onClose, text, pedalOption);
                     }
                 );
             else pedalOption.Lock();
@@ -92,12 +95,10 @@ namespace ActionMenuApi.Api
         ///     PedalOption Instance (Note: the gameobject that it is attached to is destroyed when you change page on the
         ///     action menu
         /// </returns>
-        public static PedalOption AddRestrictedRadialPuppet(string text, Action<float> onUpdate,
-            float startingValue = 0, Texture2D icon = null, bool locked = false)
+        public PedalOption AddRestrictedRadialPuppet(string text, Action<float> onUpdate, Action onOpen = null,
+            Action onClose = null, float startingValue = 0, Texture2D icon = null, bool locked = false)
         {
-            var actionMenuOpener = Utilities.GetActionMenuOpener();
-            if (actionMenuOpener == null) return null;
-            var pedalOption = actionMenuOpener.GetActionMenu().AddOption();
+            var pedalOption = ActionMenu.AddOption();
             pedalOption.SetText(text);
             pedalOption.SetBackgroundIcon(icon);
             pedalOption.SetButtonPercentText($"{Math.Round(startingValue * 100)}%");
@@ -106,12 +107,13 @@ namespace ActionMenuApi.Api
                 pedalOption.SetPedalAction(
                     delegate
                     {
-                        var combinedAction = (Action<float>) Delegate.Combine(new Action<float>(delegate(float f)
+                        onOpen?.Invoke();
+                        var combinedAction = (Action<float>)Delegate.Combine(new Action<float>(delegate (float f)
                         {
                             startingValue = f;
                             pedalOption.SetButtonPercentText($"{Math.Round(startingValue * 100)}%");
                         }), onUpdate);
-                        RadialPuppetManager.OpenRadialMenu(startingValue, combinedAction, text, pedalOption, true);
+                        RadialPuppetManager.OpenRadialMenu(ActionMenu.GetActionMenuType(), startingValue, combinedAction, onClose, text, pedalOption, true);
                     }
                 );
             else pedalOption.Lock();
@@ -136,13 +138,11 @@ namespace ActionMenuApi.Api
         ///     PedalOption Instance (Note: the gameobject that it is attached to is destroyed when you change page on the
         ///     action menu
         /// </returns>
-        public static PedalOption AddFourAxisPuppet(string text, Action<Vector2> onUpdate, Texture2D icon = null,
-            bool locked = false, string topButtonText = "Up",
+        public PedalOption AddFourAxisPuppet(string text, Action<Vector2> onUpdate, Action onOpen = null,
+            Action onClose = null, Texture2D icon = null, bool locked = false, string topButtonText = "Up",
             string rightButtonText = "Right", string downButtonText = "Down", string leftButtonText = "Left")
         {
-            var actionMenuOpener = Utilities.GetActionMenuOpener();
-            if (actionMenuOpener == null) return null;
-            var pedalOption = actionMenuOpener.GetActionMenu().AddOption();
+            var pedalOption = ActionMenu.AddOption();
             pedalOption.SetText(text);
             pedalOption.SetBackgroundIcon(icon);
             pedalOption.SetPedalTypeIcon(Utilities.GetExpressionsIcons().typeAxis);
@@ -150,11 +150,12 @@ namespace ActionMenuApi.Api
                 pedalOption.SetPedalAction(
                     delegate
                     {
-                        FourAxisPuppetManager.OpenFourAxisMenu(text, onUpdate, pedalOption);
-                        FourAxisPuppetManager.current.GetButtonUp().SetButtonText(topButtonText);
-                        FourAxisPuppetManager.current.GetButtonRight().SetButtonText(rightButtonText);
-                        FourAxisPuppetManager.current.GetButtonDown().SetButtonText(downButtonText);
-                        FourAxisPuppetManager.current.GetButtonLeft().SetButtonText(leftButtonText);
+                        onOpen?.Invoke();
+                        var puppet = FourAxisPuppetManager.OpenFourAxisMenu(ActionMenu.GetActionMenuType(), text, onUpdate, onClose, pedalOption);
+                        puppet.ButtonUp.SetButtonText(topButtonText);
+                        puppet.ButtonRight.SetButtonText(rightButtonText);
+                        puppet.ButtonDown.SetButtonText(downButtonText);
+                        puppet.ButtonLeft.SetButtonText(leftButtonText);
                     }
                 );
             else pedalOption.Lock();
@@ -176,18 +177,16 @@ namespace ActionMenuApi.Api
         ///     PedalOption Instance (Note: the gameobject that it is attached to is destroyed when you change page on the
         ///     action menu
         /// </returns>
-        public static PedalOption AddSubMenu(string text, Action openFunc, Texture2D icon = null, bool locked = false,
+        public PedalOption AddSubMenu(string text, Action<CustomSubMenu> openFunc, Texture2D icon = null, bool locked = false,
             Action closeFunc = null)
         {
-            var actionMenuOpener = Utilities.GetActionMenuOpener();
-            if (actionMenuOpener == null) return null;
-            var pedalOption = actionMenuOpener.GetActionMenu().AddOption();
+            var pedalOption = ActionMenu.AddOption();
             pedalOption.SetText(text);
             pedalOption.SetForegroundIcon(icon);
             //pedalOption.SetPedalTypeIcon(Utilities.GetExpressionsIcons().typeFolder);
             if (!locked)
                 pedalOption.SetPedalAction(
-                    delegate { actionMenuOpener.GetActionMenu().PushPage(openFunc, closeFunc, icon, text); }
+                    delegate { ActionMenu.PushPage(() => openFunc(this), closeFunc, icon, text); }
                 );
             else pedalOption.Lock();
             return pedalOption;
@@ -205,21 +204,18 @@ namespace ActionMenuApi.Api
         ///     PedalOption Instance (Note: the gameobject that it is attached to is destroyed when you change page on the
         ///     action menu
         /// </returns>
-        public static PedalOption AddToggle(string text, bool startingState, Action<bool> onToggle,
+        public PedalOption AddToggle(string text, bool startingState, Action<bool> onToggle,
             Texture2D icon = null, bool locked = false)
         {
             return AddToggle(text, () => startingState, (val) => { startingState = val; onToggle(startingState); }, icon, locked);
         }
 
-        public static PedalOption AddToggle(string text, Func<bool> getState, Action<bool> onToggle,
+        public PedalOption AddToggle(string text, Func<bool> getState, Action<bool> onToggle,
             Texture2D icon = null, bool locked = false)
         {
-            var actionMenuOpener = Utilities.GetActionMenuOpener();
-            if (actionMenuOpener == null) return null;
-            var pedalOption = actionMenuOpener.GetActionMenu().AddOption();
+            var pedalOption = ActionMenu.AddOption();
             pedalOption.SetText(text);
             pedalOption.SetBackgroundIcon(icon);
-
             pedalOption.SetActiveNoCallback(getState());
             if (!locked)
                 pedalOption.SetPedalAction(
@@ -231,12 +227,6 @@ namespace ActionMenuApi.Api
                 );
             else pedalOption.Lock();
             return pedalOption;
-        }
-
-        public static void SetActiveNoCallback(this PedalOption pedalOption, bool active) {
-            pedalOption.SetPedalTypeIcon(
-                active ? Utilities.GetExpressionsIcons().typePlayOn : Utilities.GetExpressionsIcons().typePlayOff);
-            pedalOption.SetPlaying(active);
         }
     }
 }

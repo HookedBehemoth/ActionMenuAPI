@@ -1,7 +1,9 @@
 ﻿using System;
+using ActionMenuApi.Api;
 using ActionMenuApi.Helpers;
 using ActionMenuApi.Managers;
 using ActionMenuApi.Types;
+using MelonLoader;
 using UnityEngine;
 
 using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
@@ -33,18 +35,26 @@ namespace ActionMenuApi.Pedals
 
     public sealed class PedalFourAxis : PedalStruct
     {
-        public PedalFourAxis(string text, Texture2D icon, Action<Vector2> onUpdate, string topButtonText,
-            string rightButtonText, string downButtonText, string leftButtonText, bool locked = false)
+        public PedalFourAxis(string text, Texture2D icon, Action<Vector2> onUpdate, Action onOpen, Action onClose,
+            string topButtonText, string rightButtonText, string downButtonText, string leftButtonText, bool locked = false)
         {
             this.text = text;
             this.icon = icon;
-            triggerEvent = delegate
+            triggerEvent = menu =>
             {
-                FourAxisPuppetManager.OpenFourAxisMenu(text, onUpdate, pedal);
-                FourAxisPuppetManager.current.GetButtonUp().SetButtonText(topButtonText);
-                FourAxisPuppetManager.current.GetButtonRight().SetButtonText(rightButtonText);
-                FourAxisPuppetManager.current.GetButtonDown().SetButtonText(downButtonText);
-                FourAxisPuppetManager.current.GetButtonLeft().SetButtonText(leftButtonText);
+                try
+                {
+                    onOpen?.Invoke();
+                }
+                catch (Exception e)
+                {
+                    MelonLogger.Error($"Exception caught in onOpen action passed to Four Axis Puppet: {e}");
+                }
+                var puppet = FourAxisPuppetManager.OpenFourAxisMenu(menu.GetActionMenuType(), text, onUpdate, onClose, pedal);
+                puppet.ButtonUp.SetButtonText(topButtonText);
+                puppet.ButtonRight.SetButtonText(rightButtonText);
+                puppet.ButtonDown.SetButtonText(downButtonText);
+                puppet.ButtonLeft.SetButtonText(leftButtonText);
             };
             Type = PedalType.FourAxisPuppet;
             this.locked = locked;
@@ -58,19 +68,28 @@ namespace ActionMenuApi.Pedals
         public float currentValue;
 
         public PedalRadial(string text, float startingValue, Texture2D icon, Action<float> onUpdate,
-            bool locked = false, bool restricted = false)
+            Action onOpen = null, Action onClose = null, bool locked = false, bool restricted = false)
         {
             this.text = text;
             currentValue = startingValue;
             this.icon = icon;
-            triggerEvent = delegate
+            triggerEvent = delegate (ActionMenu menu)
             {
-                var combinedAction = (Action<float>) Delegate.Combine(new Action<float>(delegate(float f)
+                try
+                {
+                    onOpen?.Invoke();
+                }
+                catch (Exception e)
+                {
+                    MelonLogger.Error($"Exception caught in onClose action passed to Radial Puppet", e);
+                }
+                var combinedAction = (Action<float>)Delegate.Combine(new Action<float>(delegate (float f)
                 {
                     startingValue = f;
                     pedal.SetButtonPercentText($"{Math.Round(startingValue * 100)}%");
                 }), onUpdate);
-                RadialPuppetManager.OpenRadialMenu(startingValue, combinedAction, text, pedal, restricted);
+                // var hand = menu.field_Private_MonoBehaviourPublicCaObAc1BoSiBoObObObUnique_0.GetActionMenuType();
+                RadialPuppetManager.OpenRadialMenu(menu.GetActionMenuType(), startingValue, combinedAction, onClose, text, pedal, restricted);
             };
             Type = PedalType.RadialPuppet;
             this.locked = locked;
@@ -83,7 +102,7 @@ namespace ActionMenuApi.Pedals
 
     public sealed class PedalSubMenu : PedalStruct
     {
-        public PedalSubMenu(Action onSubMenuOpen, string text = null, Texture2D icon = null, Action onSubMenuClose = null, bool locked = false)
+        public PedalSubMenu(Action<CustomSubMenu> onSubMenuOpen, string text = null, Texture2D icon = null, Action onSubMenuClose = null, bool locked = false)
         {
             this.text = text;
             this.icon = icon;
@@ -93,37 +112,37 @@ namespace ActionMenuApi.Pedals
             {
                 IsOpen = false;
             };
-            triggerEvent = delegate(ActionMenu menu)
+            triggerEvent = delegate (ActionMenu menu)
             {
                 IsOpen = true;
-                menu.PushPage(this._openFunc, this._closeFunc, icon, text);
+                menu.PushPage(() => _openFunc(new CustomSubMenu(menu)), _closeFunc, icon, text);
             };
             Type = PedalType.SubMenu;
             this.locked = locked;
         }
 
-        private Action _openFunc;
+        private Action<CustomSubMenu> _openFunc;
         /// <summary>
         /// Triggered when the submenu is opened *duh*
         /// </summary>
-        public event Action OnSubMenuOpen
+        public event Action<CustomSubMenu> OnSubMenuOpen
         {
             add
             {
                 if (_openFunc is null)
                     _openFunc = value;
                 else
-                    _openFunc = (Action)Delegate.Combine(_openFunc, value);
+                    _openFunc = (Action<CustomSubMenu>)Delegate.Combine(_openFunc, value);
             }
             remove
             {
                 if (_openFunc is not null)
-                    _openFunc = (Action)Delegate.Remove(_openFunc, value);
+                    _openFunc = (Action<CustomSubMenu>)Delegate.Remove(_openFunc, value);
             }
         }
 
         private Action _closeFunc;
-        
+
         /// <summary>
         /// Triggered when the sub menu is close *duh*
         /// </summary>

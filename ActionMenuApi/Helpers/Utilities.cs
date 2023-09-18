@@ -12,9 +12,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 using ActionMenuDriver = Il2Cpp.MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
-using ActionMenuOpener = Il2Cpp.MonoBehaviourPublicCaObAc1BoSiBoObObObUnique;
 using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
-using Il2CppInterop.Runtime.Runtime;
 
 namespace ActionMenuApi.Helpers
 {
@@ -146,11 +144,9 @@ namespace ActionMenuApi.Helpers
             return 0;
         }
 
-        public static GameObject CloneActionMenuGameObject(string pathToGameObject, string pathToParent)
+        public static GameObject CloneChild(Transform parent, string pathToGameObject)
         {
-            var driver = GetDriver().transform;
-            var go = driver.Find(pathToGameObject);
-            var parent = driver.Find(pathToParent);
+            var go = parent.Find(pathToGameObject);
             return Object
                 .Instantiate(go, parent)
                 .gameObject;
@@ -160,41 +156,6 @@ namespace ActionMenuApi.Helpers
         {
             var driver = GetDriver();
             return driver.field_Public_ExpressionIcons_0;
-        }
-
-        // Didnt know what to name this function
-        public static ActionMenuHand GetActionMenuHand()
-        {
-            var driver = GetDriver();
-            if (!driver.GetLeftOpener().isOpen() &&
-                driver.GetRightOpener().isOpen())
-                return ActionMenuHand.Right;
-
-            if (driver.GetLeftOpener().isOpen() &&
-                !driver.GetRightOpener().isOpen())
-                return ActionMenuHand.Left;
-
-            return ActionMenuHand.Invalid;
-        }
-
-        public static ActionMenuOpener GetActionMenuOpener()
-        {
-            var driver = GetDriver();
-            if (!driver.GetLeftOpener().isOpen() &&
-                driver.GetRightOpener().isOpen())
-                return driver.GetRightOpener();
-
-            if (driver.GetLeftOpener().isOpen() &&
-                !driver.GetRightOpener().isOpen())
-                return driver.GetLeftOpener();
-
-            return null;
-            /*
-            else if (ActionMenuDriver._instance.openerL.isOpen() && ActionMenuDriver._instance.openerR.isOpen())
-            {
-                return null; //Which one to return ¯\_(ツ)_/¯ Mystery till I figure something smart out
-            }
-            */
         }
 
         public static void ScanMethod(MethodInfo m)
@@ -275,7 +236,6 @@ namespace ActionMenuApi.Helpers
 
         public static ActionMenuDriver GetDriver()
         {
-            // return ActionMenuDriver.field_Public_Static_MonoBehaviourPublicObGaObAcCoObMeEmObExUnique_0;
             return ActionMenuDriver.field_Public_Static_MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique_0;
         }
 

@@ -26,11 +26,11 @@ namespace ActionMenuTestMod
         private static Texture2D radialIcon;
         private static Texture2D subMenuIcon;
         private static Texture2D buttonIcon;
-        
+
         public override void OnInitializeMelon()
         {
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("ActionMenuTestMod.customicons"))
-            using (var tempStream = new MemoryStream((int) stream.Length))
+            using (var tempStream = new MemoryStream((int)stream.Length))
             {
                 stream.CopyTo(tempStream);
                 iconsAssetBundle = AssetBundle.LoadFromMemory_Internal(tempStream.ToArray(), 0);
@@ -46,55 +46,55 @@ namespace ActionMenuTestMod
             buttonIcon = iconsAssetBundle.LoadAsset_Internal("Assets/Resources/Icons/cloud-data-download.png", Il2CppType.Of<Texture2D>()).Cast<Texture2D>();
             buttonIcon.hideFlags |= HideFlags.DontUnloadUnusedAsset;
 
-            VRCActionMenuPage.AddButton(ActionMenuPage.Main, "Button",() => MelonLogger.Msg("Pressed Button"), buttonIcon);
+            VRCActionMenuPage.AddButton(ActionMenuPage.Main, "Button", () => MelonLogger.Msg("Pressed Button"), buttonIcon);
 
-            PedalSubMenu subMenu = VRCActionMenuPage.AddSubMenu(ActionMenuPage.Config, "Toggle", () => { }, null, true);
+            PedalSubMenu subMenu = VRCActionMenuPage.AddSubMenu(ActionMenuPage.Config, "Toggle", m => { }, null, true);
             subMenu.locked = true;
-            
+
             AMUtils.AddToModsFolder(
                 "Test Stuff",
-                delegate
+                subMenu =>
                 {
-                    CustomSubMenu.AddToggle("Risky Functions", () => !riskyFunctionsAllowed, (b) =>
+                    subMenu.AddToggle("Risky Functions", () => !riskyFunctionsAllowed, (b) =>
                     {
                         riskyFunctionsAllowed = !b;
                     });
                     //No properties here are saved because I'm lazy af
-                    CustomSubMenu.AddToggle("Enable Hax", false, b => { }, buttonIcon,riskyFunctionsAllowed);
-                    CustomSubMenu.AddRadialPuppet("Volume", f => { }, 0, buttonIcon, riskyFunctionsAllowed);
-                    CustomSubMenu.AddRestrictedRadialPuppet("Volume Restricted", f => { }, 0, buttonIcon, riskyFunctionsAllowed);
-                    CustomSubMenu.AddSubMenu("Whatever", () => { }, buttonIcon, riskyFunctionsAllowed);
-                    CustomSubMenu.AddButton("Risky Function", () =>
+                    subMenu.AddToggle("Enable Hax", false, b => { }, buttonIcon, riskyFunctionsAllowed);
+                    subMenu.AddRadialPuppet("Volume", f => { }, icon: buttonIcon, locked: riskyFunctionsAllowed);
+                    subMenu.AddRestrictedRadialPuppet("Volume Restricted", f => { }, icon: buttonIcon, locked: riskyFunctionsAllowed);
+                    subMenu.AddSubMenu("Whatever", m => { }, buttonIcon, riskyFunctionsAllowed);
+                    subMenu.AddButton("Risky Function", () =>
                     {
                         MelonLogger.Msg("Locked Pedal Func ran");
                     }, buttonIcon, riskyFunctionsAllowed);
-                    CustomSubMenu.AddFourAxisPuppet("Move", vector2 => { }, toggleIcon, riskyFunctionsAllowed);
+                    subMenu.AddFourAxisPuppet("Move", vector2 => { }, icon: toggleIcon, locked: riskyFunctionsAllowed);
                 },
                 subMenuIcon
             );
-            
+
             AMUtils.AddToModsFolder(
                 "New Cube Stuff",
-                delegate
+                subMenu =>
                 {
-                    CustomSubMenu.AddFourAxisPuppet("Reposition cube X/Y", (v) => RePositionCubeXY(v), buttonIcon);
-                    CustomSubMenu.AddFourAxisPuppet("Reposition cube Z/Y", RePositionCubeZY, toggleIcon);
-                    CustomSubMenu.AddFourAxisPuppet("Reposition cube X/Z", RePositionCubeXZ, toggleIcon);
-                    CustomSubMenu.AddRadialPuppet("X",RotateCubeX, x,radialIcon); //Rotation a bit borked
-                    CustomSubMenu.AddToggle("Test Toggle", () => testBool2, (b) => testBool2 = b);
-                    CustomSubMenu.AddRadialPuppet("Y",RotateCubeY, y,radialIcon);
-                    CustomSubMenu.AddRadialPuppet("Z",RotateCubeZ, z,radialIcon);
-                    CustomSubMenu.AddButton("Spawn Cube", CreateCube, buttonIcon);
-                    CustomSubMenu.AddButton("Tp Cube To Player",() => _controllingGameObject.transform.localPosition = VRCPlayer.field_Internal_Static_MonoBehaviour1PublicOb_pObGa_pStTeObBoSiUnique_0.transform.localPosition, buttonIcon);
+                    subMenu.AddFourAxisPuppet("Reposition cube X/Y", (v) => RePositionCubeXY(v), icon: buttonIcon);
+                    subMenu.AddFourAxisPuppet("Reposition cube Z/Y", RePositionCubeZY, icon: toggleIcon);
+                    subMenu.AddFourAxisPuppet("Reposition cube X/Z", RePositionCubeXZ, icon: toggleIcon);
+                    subMenu.AddRadialPuppet("X", RotateCubeX, startingValue: x, icon: radialIcon); //Rotation a bit borked
+                    subMenu.AddToggle("Test Toggle", () => testBool2, (b) => testBool2 = b);
+                    subMenu.AddRadialPuppet("Y", RotateCubeY, startingValue: y, icon: radialIcon);
+                    subMenu.AddRadialPuppet("Z", RotateCubeZ, startingValue: z, icon: radialIcon);
+                    subMenu.AddButton("Spawn Cube", CreateCube, buttonIcon);
+                    subMenu.AddButton("Tp Cube To Player", () => _controllingGameObject.transform.localPosition = VRCPlayer.field_Internal_Static_MonoBehaviour1PublicOb_pObGa_pStTeObBoSiUnique_0.transform.localPosition, buttonIcon);
                 },
                 subMenuIcon,
                 false
             );
 
-            
+
             for (int i = 0; i < 2; i++) //Set to a high number if you want to test the page functionality 
             {
-                AMUtils.AddToModsFolder($"Example Mod {i+2}", () => {}, subMenuIcon); 
+                AMUtils.AddToModsFolder($"Example Mod {i + 2}", m => { }, subMenuIcon);
             }
         }
 
@@ -116,48 +116,48 @@ namespace ActionMenuTestMod
             _controllingGameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             _controllingGameObject.GetComponent<Collider>().enabled = false;
             var eulerAngles = _controllingGameObject.transform.eulerAngles;
-            x = eulerAngles.x*360;
-            y = eulerAngles.y*360;
-            z = eulerAngles.z*360;
+            x = eulerAngles.x * 360;
+            y = eulerAngles.y * 360;
+            z = eulerAngles.z * 360;
         }
 
 
         private static void RePositionCubeXY(Vector3 v)
         {
-            _controllingGameObject.transform.localPosition += v/25;
+            _controllingGameObject.transform.localPosition += v / 25;
         }
         private static void RePositionCubeZY(Vector2 v)
         {
-            _controllingGameObject.transform.localPosition += new Vector3(0, v.y/25, v.x/25);
+            _controllingGameObject.transform.localPosition += new Vector3(0, v.y / 25, v.x / 25);
         }
         private static void RePositionCubeXZ(Vector2 v)
         {
-            _controllingGameObject.transform.localPosition += new Vector3(v.x/25, 0, v.y/25);
+            _controllingGameObject.transform.localPosition += new Vector3(v.x / 25, 0, v.y / 25);
         }
-        
+
         private static void RotateCubeX(float rotation)
         {
             //This is the incorrect way of rotating the gameobject and it breaks from 90-270 as quaternions and euler angle conversions are a bit fucky
             Vector3 old = _controllingGameObject.transform.eulerAngles;
-            _controllingGameObject.transform.eulerAngles = new Vector3((rotation)*360, old.y, old.z);
+            _controllingGameObject.transform.eulerAngles = new Vector3((rotation) * 360, old.y, old.z);
             x = rotation;
         }
-        
+
         private static void RotateCubeY(float rotation)
         {
             Vector3 old = _controllingGameObject.transform.eulerAngles;
             //MelonLogger.Msg($"Old Angles: {old.ToString()}");
-            _controllingGameObject.transform.eulerAngles = new Vector3(old.x, (rotation)*360, old.z);
+            _controllingGameObject.transform.eulerAngles = new Vector3(old.x, (rotation) * 360, old.z);
             y = rotation;
         }
         private static void RotateCubeZ(float rotation)
         {
             Vector3 old = _controllingGameObject.transform.eulerAngles;
             //MelonLogger.Msg($"Old Angles: {old.ToString()}");
-            _controllingGameObject.transform.eulerAngles = new Vector3(old.x, old.y, (rotation)*360);
+            _controllingGameObject.transform.eulerAngles = new Vector3(old.x, old.y, (rotation) * 360);
             z = rotation;
         }
-        
+
         private static GameObject _controllingGameObject;
     }
 }

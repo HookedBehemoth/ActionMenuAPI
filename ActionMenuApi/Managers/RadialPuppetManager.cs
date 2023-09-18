@@ -1,142 +1,154 @@
 ﻿using System;
 using ActionMenuApi.Helpers;
-using ActionMenuApi.Types;
 using MelonLoader;
 using UnityEngine;
-using UnityEngine.XR;
 
+using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
+using ActionMenuType = Il2Cpp.MonoBehaviourPublicCaObAc1BoSiBoObObObUnique.EnumNPublicSealedvaLeRi3vUnique;
 using RadialPuppetMenu = Il2Cpp.MonoBehaviour2PublicObGaObTeGaFu2GaSiStUnique;
 using PedalOption = Il2Cpp.MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
 
-namespace ActionMenuApi.Managers
+namespace ActionMenuApi.Managers;
+
+internal static class RadialPuppetManager
 {
-    internal static class RadialPuppetManager
+    private static RadialPuppetImpl _leftImpl;
+    private static RadialPuppetImpl _rightImpl;
+
+    public static void Setup()
     {
-        private static RadialPuppetMenu radialPuppetMenuRight;
-        private static RadialPuppetMenu radialPuppetMenuLeft;
-        private static RadialPuppetMenu current;
-        private static ActionMenuHand hand;
-        private static bool open;
-        private static bool restricted;
-        private static float currentValue;
+        var driver = Utilities.GetDriver();
+        _leftImpl = new RadialPuppetImpl(driver.GetLeftOpener().GetActionMenu(), InputManager.Left);
+        _rightImpl = new RadialPuppetImpl(driver.GetRightOpener().GetActionMenu(), InputManager.Right);
+    }
 
-        public static float radialPuppetValue { get; set; }
-        public static Action<float> onUpdate { get; set; }
-
-        public static void Setup()
+    public static void OpenRadialMenu(ActionMenuType hand, float startingValue, Action<float> onUpdate, Action onClose, string title, PedalOption pedalOption, bool restricted = false)
+    {
+        var impl = hand switch
         {
-            radialPuppetMenuLeft = Utilities
-                .CloneActionMenuGameObject("Container/MenuL/ActionMenu/RadialPuppetMenu",
-                    "Container/MenuL/ActionMenu").GetComponent<RadialPuppetMenu>();
-            radialPuppetMenuRight = Utilities
-                .CloneActionMenuGameObject("Container/MenuR/ActionMenu/RadialPuppetMenu",
-                    "Container/MenuR/ActionMenu").GetComponent<RadialPuppetMenu>();
+            ActionMenuType.Left => _leftImpl,
+            ActionMenuType.Right => _rightImpl,
+            _ => throw new ArgumentOutOfRangeException(""),
+        };
+
+        impl.OpenRadialMenu(startingValue, onUpdate, onClose, title, pedalOption, restricted);
+    }
+
+    public static void OnUpdate()
+    {
+        _leftImpl?.OnUpdate();
+        _rightImpl?.OnUpdate();
+    }
+
+    public static void CloseRadialMenu()
+    {
+        _leftImpl?.CloseRadialMenu();
+        _rightImpl?.CloseRadialMenu();
+    }
+
+    private class RadialPuppetImpl
+    {
+        private readonly ActionMenu _actionMenu;
+        private readonly RadialPuppetMenu _current;
+        private readonly InputManager _input;
+
+        private bool restricted;
+        private float currentValue;
+
+        private Action<float> UpdateAction { get; set; }
+        private Action CloseAction { get; set; }
+
+        public RadialPuppetImpl(ActionMenu actionMenu, InputManager input)
+        {
+            _actionMenu = actionMenu;
+            _current = Utilities.CloneChild(_actionMenu.transform, "RadialPuppetMenu").GetComponent<RadialPuppetMenu>();
+            _input = input;
+
+            // Note: Might want to look into how these are supposed to be used
+            _current.transform.Find("Container/Limits").gameObject.SetActive(false);
+            _current.transform.Find("Container/Marker").gameObject.SetActive(false);
         }
 
-        public static void OnUpdate()
+        public void OnUpdate()
         {
             //Probably a better more efficient way to do all this
-            if (current != null && current.gameObject.gameObject.active)
+            if (!_current.isActiveAndEnabled)
             {
-                if (InputManager.IsXrPresent)
-                {
-                    if (hand == ActionMenuHand.Right)
-                    {
-                        if (Input.GetAxis(Constants.RIGHT_TRIGGER) >= 0.4f)
-                        {
-                            CloseRadialMenu();
-                            return;
-                        }
-                    }
-                    else if (hand == ActionMenuHand.Left)
-                    {
-                        if (Input.GetAxis(Constants.LEFT_TRIGGER) >= 0.4f)
-                        {
-                            CloseRadialMenu();
-                            return;
-                        }
-                    }
-                }
-                else if (Input.GetMouseButtonUp(0))
-                {
-                    CloseRadialMenu();
-                    return;
-                }
-
-                UpdateMathStuff();
-                CallUpdateAction();
+                return;
             }
+
+            if (_input.GetClicked())
+            {
+                CloseRadialMenu();
+                return;
+            }
+
+            UpdateMathStuff();
+            CallUpdateAction();
         }
 
-        public static void OpenRadialMenu(float startingValue, Action<float> onUpdate, string title, PedalOption pedalOption, bool restricted = false)
+        public void OpenRadialMenu(float startingValue, Action<float> onUpdate, Action onClose, string title, PedalOption pedalOption, bool restricted = false)
         {
-            if (open) return;
-            switch (Utilities.GetActionMenuHand())
-            {
-                case ActionMenuHand.Invalid:
-                    return;
-                case ActionMenuHand.Left:
-                    current = radialPuppetMenuLeft;
-                    hand = ActionMenuHand.Left;
-                    open = true;
-                    break;
-                case ActionMenuHand.Right:
-                    current = radialPuppetMenuRight;
-                    hand = ActionMenuHand.Right;
-                    open = true;
-                    break;
+            if (_current.isActiveAndEnabled) return;
 
-            }
-
-            RadialPuppetManager.restricted = restricted;
+            this.restricted = restricted;
             Input.ResetInputAxes();
             InputManager.ResetMousePos();
-            current.gameObject.SetActive(true);
-            current.GetFill().SetFillAngle(startingValue * 360); //Please dont break
-            RadialPuppetManager.onUpdate = onUpdate;
+            _current.gameObject.SetActive(true);
+            _current.GetFill().SetFillAngle(startingValue * 360); //Please dont break
+            UpdateAction = onUpdate;
+            CloseAction = onClose;
             currentValue = startingValue;
 
-            current.GetTitle().text = title;
-            current.GetCenterText().text = $"{Mathf.Round(startingValue * 100f)}%";
-            current.GetFill().UpdateGeometry();
-            current.transform.localPosition = pedalOption.GetActionButton().transform.localPosition; //new Vector3(-256f, 0, 0); 
+            _current.GetTitle().text = title;
+            _current.GetCenterText().text = $"{Mathf.Round(startingValue * 100f)}%";
+            _current.GetFill().UpdateGeometry();
+            _current.transform.localPosition = pedalOption.GetActionButton().transform.localPosition; //new Vector3(-256f, 0, 0); 
             var angleOriginal = Utilities.ConvertFromEuler(startingValue * 360);
             var eulerAngle = Utilities.ConvertFromDegToEuler(angleOriginal);
-            var actionMenu = Utilities.GetActionMenuOpener().GetActionMenu();
-            actionMenu.DisableInput();
-            actionMenu.SetMainMenuOpacity(0.5f);
-            current.UpdateArrow(angleOriginal, eulerAngle);
+            _actionMenu.DisableInput();
+            _actionMenu.SetMainMenuOpacity(0.5f);
+            _current.UpdateArrow(angleOriginal, eulerAngle);
         }
 
-        public static void CloseRadialMenu()
+        public void CloseRadialMenu()
         {
-            if (current == null) return;
+            if (!_current.isActiveAndEnabled) return;
             CallUpdateAction();
-            current.gameObject.SetActive(false);
-            current = null;
-            open = false;
-            hand = ActionMenuHand.Invalid;
-            var actionMenu = Utilities.GetActionMenuOpener().GetActionMenu();
-            actionMenu.EnableInput();
-            actionMenu.SetMainMenuOpacity();
+            CallCloseAction();
+            _current.gameObject.SetActive(false);
+            _actionMenu.EnableInput();
+            _actionMenu.SetMainMenuOpacity();
         }
 
-        private static void CallUpdateAction()
+        private void CallUpdateAction()
         {
             try
             {
-                onUpdate?.Invoke(current.GetFill().GetFillAngle() / 360f);
+                UpdateAction?.Invoke(_current.GetFill().GetFillAngle() / 360f);
             }
             catch (Exception e)
             {
-                MelonLogger.Error($"Exception caught in onUpdate action passed to Radial Puppet: {e}");
+                MelonLogger.Error($"Exception caught in onUpdate action passed to Radial Puppet", e);
             }
         }
 
-        private static void UpdateMathStuff()
+        private void CallCloseAction()
         {
-            var mousePos = hand == ActionMenuHand.Left ? InputManager.LeftInput : InputManager.RightInput;
-            radialPuppetMenuRight.GetCursor().transform.localPosition = mousePos * 4;
+            try
+            {
+                CloseAction?.Invoke();
+            }
+            catch (Exception e)
+            {
+                MelonLogger.Error($"Exception caught in onClose action passed to Radial Puppet", e);
+            }
+        }
+
+        private void UpdateMathStuff()
+        {
+            var mousePos = _input.GetStick();
+            _current.GetCursor().transform.localPosition = mousePos * 4;
 
             if (Vector2.Distance(mousePos, Vector2.zero) > 12)
             {
@@ -146,43 +158,26 @@ namespace ActionMenuApi.Managers
                 if (Math.Abs(normalisedAngle - currentValue) < 0.0001f) return;
                 if (!restricted)
                 {
-                    current.SetAngle(eulerAngle);
-                    current.UpdateArrow(angleOriginal, eulerAngle);
+                    _current.SetAngle(eulerAngle);
+                    _current.UpdateArrow(angleOriginal, eulerAngle);
                 }
                 else
                 {
-                    if (currentValue > normalisedAngle)
+                    var (euler, original, normalized) = (
+                            currentValue > normalisedAngle,
+                            currentValue - normalisedAngle < 0.5f,
+                            normalisedAngle - currentValue < 0.5f) switch
                     {
-                        if (currentValue - normalisedAngle < 0.5f)
-                        {
-                            current.SetAngle(eulerAngle);
-                            current.UpdateArrow(angleOriginal, eulerAngle);
-                            currentValue = normalisedAngle;
-                        }
-                        else
-                        {
-                            current.SetAngle(360);
-                            current.UpdateArrow(90, 360);
-                            currentValue = 1f;
-                        }
-                    }
-                    else
-                    {
-                        if (normalisedAngle - currentValue < 0.5f)
-                        {
-                            current.SetAngle(eulerAngle);
-                            current.UpdateArrow(angleOriginal, eulerAngle);
-                            currentValue = normalisedAngle;
-                        }
-                        else
-                        {
-                            current.SetAngle(0);
-                            current.UpdateArrow(90, 0);
-                            currentValue = 0;
-                        }
-                    }
+                        (true, true, _) or (false, _, true) => (eulerAngle, angleOriginal, normalisedAngle),
+                        (true, false, _) => (360, 90, 1),
+                        (false, _, false) => (0, 90, 0),
+                    };
+                    _current.SetAngle(euler);
+                    _current.UpdateArrow(original, euler);
+                    currentValue = normalized;
                 }
             }
         }
     }
+
 }

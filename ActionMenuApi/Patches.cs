@@ -94,7 +94,7 @@ namespace ActionMenuApi
 
         public static void OpenMainPagePost(ActionMenu __instance)
         {
-            if (ModsFolderManager.mods.Count > 0) ModsFolderManager.AddMainPageButton();
+            if (ModsFolderManager.mods.Count > 0) ModsFolderManager.AddMainPageButton(__instance);
             Utilities.AddPedalsInList(mainPagePost, __instance);
         }
 

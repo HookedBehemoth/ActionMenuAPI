@@ -59,33 +59,33 @@ namespace ActionMenuUtils
             VRCActionMenuPage.AddSubMenu(ActionMenuPage.Options, "SOS", DoShit, helpIcon);
         }
 
-        private static void DoShit() {
+        private static void DoShit(CustomSubMenu menu) {
             //Respawn
             if (ModSettings.confirmRespawn)
-                CustomSubMenu.AddSubMenu("Respawn",
-                    () => CustomSubMenu.AddButton("Confirm Respawn", Utils.Respawn, respawnIcon),
+                menu.AddSubMenu("Respawn",
+                    menu => menu.AddButton("Confirm Respawn", Utils.Respawn, respawnIcon),
                     respawnIcon
                 );
             else
-                CustomSubMenu.AddButton("Respawn", Utils.Respawn, respawnIcon);
+                menu.AddButton("Respawn", Utils.Respawn, respawnIcon);
 
             //Instance Rejoin
             if (ModSettings.confirmInstanceRejoin)
-                CustomSubMenu.AddSubMenu("Rejoin Instance",
-                    () => CustomSubMenu.AddButton("Confirm Instance Rejoin", Utils.RejoinInstance, rejoinInstanceIcon),
+                menu.AddSubMenu("Rejoin Instance",
+                    menu => menu.AddButton("Confirm Instance Rejoin", Utils.RejoinInstance, rejoinInstanceIcon),
                     rejoinInstanceIcon
                 );
             else
-                CustomSubMenu.AddButton("Rejoin Instance", Utils.RejoinInstance, rejoinInstanceIcon);
+                menu.AddButton("Rejoin Instance", Utils.RejoinInstance, rejoinInstanceIcon);
 
             //Go Home
             if (ModSettings.confirmGoHome)
-                CustomSubMenu.AddSubMenu("Go Home",
-                    () => CustomSubMenu.AddButton("Confirm Go Home", Utils.Home, goHomeIcon),
+                menu.AddSubMenu("Go Home",
+                    menu => menu.AddButton("Confirm Go Home", Utils.Home, goHomeIcon),
                     goHomeIcon
                 );
             else
-                CustomSubMenu.AddButton("Go Home", Utils.Home, goHomeIcon);
+                menu.AddButton("Go Home", Utils.Home, goHomeIcon);
         }
 
         public override void OnPreferencesLoaded() => ModSettings.Apply();

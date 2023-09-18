@@ -11,37 +11,14 @@
         <TargetFramework>net6.0</TargetFramework>
         <LangVersion>latest</LangVersion>
 
-        <!-- <AssemblySearchPaths>
-            $(AssemblySearchPaths);
-            $(VRChatPath)\MelonLoader;
-            $(VRChatPath)\MelonLoader\Managed;
-            $(VRChatPath)\MelonLoader\Il2CppAssemblies;
-            $(VRChatPath)\MelonLoader\SupportModules
-            ;{GAC}
-        </AssemblySearchPaths> -->
-    <AssemblySearchPaths Condition=" '$(AssemblySearchPaths)' == ''">
-      {CandidateAssemblyFiles};
-      $(ReferencePath);
-      {HintPathFromItem};
-      {TargetFrameworkDirectory};
-      $(AssemblyFoldersConfigFileSearchPath)
-      {Registry:$(FrameworkRegistryBase),$(TargetFrameworkVersion),$(AssemblyFoldersSuffix)$(AssemblyFoldersExConditions)};
-      {AssemblyFolders};
-      {GAC};
-      {RawFileName};
-        $(AssemblySearchPaths);
-        $(VRChatPath)\MelonLoader;
-        $(VRChatPath)\MelonLoader\Managed;
+    <AssemblySearchPaths>
+        {RawFileName};
         $(VRChatPath)\MelonLoader\Il2CppAssemblies;
-        $(VRChatPath)\MelonLoader\net6;
-        $(VRChatPath)\MelonLoader\SupportModules;
-      $(OutDir)
+        $(VRChatPath)\MelonLoader\net6
     </AssemblySearchPaths>
     </PropertyGroup>
 
     <ItemGroup>
-        <Reference Include="System"/>
-        <Reference Include="mscorelib"/>
         <Reference Include="MelonLoader">
             <Private>False</Private>
             <SpecificVersion>False</SpecificVersion>

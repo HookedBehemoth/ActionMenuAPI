@@ -4,6 +4,8 @@ using ActionMenuApi.Managers;
 using MelonLoader;
 using UnityEngine;
 
+using PedalOption = Il2Cpp.MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
+
 namespace ActionMenuApi.Api
 {
     /// <summary>
@@ -47,9 +49,18 @@ namespace ActionMenuApi.Api
         /// </param>
         /// <param name="icon">(optional) The Button Icon</param>
         /// <param name="locked">(optional) Starting state of pedal</param>
-        public static void AddToModsFolder(string text, Action openFunc, Texture2D icon = null, bool locked = false)
+        public static void AddToModsFolder(string text, Action<CustomSubMenu> openFunc, Texture2D icon = null, bool locked = false)
         {
-            ModsFolderManager.AddMod(() => { CustomSubMenu.AddSubMenu(text, openFunc, icon, locked); });
+            ModsFolderManager.AddMod(subMenu => { subMenu.AddSubMenu(text, openFunc, icon, locked); });
+        }
+
+        /// <summary>
+        /// Toggles the acitve/playing state of a pedal without notifying the event listeners.
+        /// </summary>
+        public static void SetActiveNoCallback(this PedalOption pedalOption, bool active) {
+            pedalOption.SetPedalTypeIcon(
+                active ? Utilities.GetExpressionsIcons().typePlayOn : Utilities.GetExpressionsIcons().typePlayOff);
+            pedalOption.SetPlaying(active);
         }
     }
 }
