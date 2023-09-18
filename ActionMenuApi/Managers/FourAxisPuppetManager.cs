@@ -37,7 +37,7 @@ namespace ActionMenuApi.Managers
             //Probably a better more efficient way to do all this
             if (current != null && current.gameObject.gameObject.active)
             {
-                if (XRDevice.isPresent)
+                if (InputManager.IsXrPresent)
                 {
                     if (hand == ActionMenuHand.Right)
                     {

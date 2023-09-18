@@ -1,5 +1,5 @@
 ﻿using ActionMenuApi.Helpers;
-using MelonLoader;
+using Il2CppSystem.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -12,7 +12,7 @@ namespace ActionMenuApi.Managers
         {
             get
             {
-                if (XRDevice.isPresent) 
+                if (IsXrPresent) 
                     return new Vector2(Input.GetAxis(Constants.LEFT_HORIZONTAL), Input.GetAxis(Constants.LEFT_VERTICAL)) * 16;
                 mouseAxis.x = Mathf.Clamp(mouseAxis.x+Input.GetAxis("Mouse X"), -16f, 16f);
                 mouseAxis.y = Mathf.Clamp(mouseAxis.y+Input.GetAxis("Mouse Y"), -16f, 16f);
@@ -26,7 +26,7 @@ namespace ActionMenuApi.Managers
         {
             get
             {
-                if (XRDevice.isPresent) 
+                if (IsXrPresent) 
                     return new Vector2(Input.GetAxis(Constants.RIGHT_HORIZONTAL), Input.GetAxis(Constants.RIGHT_VERTICAL)) * 16;
                 mouseAxis.x = Mathf.Clamp(mouseAxis.x+Input.GetAxis("Mouse X"), -16f, 16f);
                 mouseAxis.y = Mathf.Clamp(mouseAxis.y+Input.GetAxis("Mouse Y"), -16f, 16f);
@@ -43,5 +43,27 @@ namespace ActionMenuApi.Managers
             mouseAxis.y = 0f;
         }
         
+        public static bool? _isXrPresent = null;
+
+        public static bool IsXrPresent
+        {
+            get
+            {
+                if (_isXrPresent is bool present) {
+                    return present;
+                }
+
+                var xrDisplaySubsystems = new List<XRDisplaySubsystem>();
+                SubsystemManager.GetInstances(xrDisplaySubsystems);
+                foreach (var xrDisplay in xrDisplaySubsystems)
+                {
+                    if (xrDisplay.running)
+                    {
+                        return (_isXrPresent = true).Value;
+                    }
+                }
+                return (_isXrPresent = false).Value;
+            }
+        }
     }
 }

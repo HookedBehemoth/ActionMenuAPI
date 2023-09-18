@@ -170,6 +170,10 @@
             <Private>False</Private>
             <SpecificVersion>False</SpecificVersion>
         </Reference>
+        <Reference Include="UnityEngine.SubsystemsModule">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
         <Reference Include="Unity.TextMeshPro">
             <Private>False</Private>
             <SpecificVersion>False</SpecificVersion>
