@@ -40,23 +40,11 @@
             <Private>False</Private>
             <SpecificVersion>False</SpecificVersion>
         </Reference>
-        <Reference Include="Il2CppSystem.Runtime">
-            <Private>False</Private>
-            <SpecificVersion>False</SpecificVersion>
-        </Reference>
-        <Reference Include="Il2Cpp">
-            <Private>False</Private>
-            <SpecificVersion>False</SpecificVersion>
-        </Reference>
         <Reference Include="Il2CppInterop.Common">
             <Private>False</Private>
             <SpecificVersion>False</SpecificVersion>
         </Reference>
         <Reference Include="Il2CppInterop.Runtime">
-            <Private>False</Private>
-            <SpecificVersion>False</SpecificVersion>
-        </Reference>
-        <Reference Include="Il2CppInterop.HarmonySupport">
             <Private>False</Private>
             <SpecificVersion>False</SpecificVersion>
         </Reference>
