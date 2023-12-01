@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using ActionMenuApi.Api;
 using ActionMenuApi.Helpers;
 
-using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
-
 namespace ActionMenuApi.Managers
 {
     internal static class ModsFolderManager

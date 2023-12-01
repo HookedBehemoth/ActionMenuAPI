@@ -1,15 +1,17 @@
+using System.Reflection;
 using Il2CppInterop.Common.XrefScans;
 using Il2CppInterop.Runtime.XrefScans;
 using System.Text;
 using Il2CppInterop.Common;
 using System.Runtime.InteropServices;
+using HarmonyLib;
 
 var sb = new StringBuilder();
 
 void Xref(Type type) {
     sb.AppendLine($"Inspecting {type.FullDescription()}");
     foreach (var method in type.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static)) {
-        Logger.Log($"{method}");
+        LoggerInstance.Msg($"{method}");
         var fieldValue = Il2CppInteropUtils.GetIl2CppMethodInfoPointerFieldForGeneratedMethod(method)
             ?.GetValue(null);
         var address = string.Empty;
@@ -20,13 +22,21 @@ void Xref(Type type) {
         foreach (var xref in XrefScanner.XrefScan(method)) {
             if (xref.Type == XrefType.Global) {
                 if (xref.ReadAsObject() is var obj) {
+	try {
                     if (obj.ToString() is var str && str.Length < 0x1000)
                         sb.AppendLine($"\t\tstring: {str}");
+	} catch (Exception e) {
+		Logger.Log(e.ToString());
+	}
                 }
             } else {
                 if (xref.TryResolve() is var call && call != null) {
+	try {
                     if (call.ToString() is var str)
                         sb.AppendLine($"\t\tcalling: {str} @ 0x{xref.Pointer:X}");
+	} catch (Exception e) {
+		Logger.Log(e.ToString());
+	}
                 } else {
                     sb.AppendLine($"\t\tcalling: 0x{xref.Pointer:X}");
                 }
@@ -39,7 +49,11 @@ void Xref(Type type) {
 var am = typeof(ActionMenu);
 Xref(am);
 foreach (var subclasses in am.GetNestedTypes()) {
-    Xref(subclasses);
+	try {
+    	Xref(subclasses);
+	} catch (Exception e) {
+		Logger.Log(subclasses.ToString() + " " + e);
+	}
 }
 
 Logger.Log(sb.ToString());

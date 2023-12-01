@@ -11,9 +11,6 @@ using Il2CppInterop.Runtime.XrefScans;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-using ActionMenuDriver = Il2Cpp.MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
-using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
-
 namespace ActionMenuApi.Helpers
 {
     internal static class Utilities

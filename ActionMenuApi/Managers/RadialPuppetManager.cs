@@ -3,11 +3,6 @@ using ActionMenuApi.Helpers;
 using MelonLoader;
 using UnityEngine;
 
-using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
-using ActionMenuType = Il2Cpp.MonoBehaviourPublicCaObAc1BoSiBoObObObUnique.EnumNPublicSealedvaLeRi3vUnique;
-using RadialPuppetMenu = Il2Cpp.MonoBehaviour2PublicObGaObTeGaFu2GaSiStUnique;
-using PedalOption = Il2Cpp.MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
-
 namespace ActionMenuApi.Managers;
 
 internal static class RadialPuppetManager

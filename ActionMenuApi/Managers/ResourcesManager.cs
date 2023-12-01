@@ -6,8 +6,6 @@ using Il2CppInterop.Runtime;
 using UnityEngine;
 using UnityEngine.UI;
 
-using PedalOption = Il2Cpp.MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
-
 namespace ActionMenuApi.Managers
 {
     internal static class ResourcesManager

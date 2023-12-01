@@ -5,7 +5,7 @@ using Il2CppInterop.Common.XrefScans;
 using Il2CppInterop.Runtime.XrefScans;
 using Il2CppVRC.SDKBase;
 
-using VRCPlayer = Il2Cpp.MonoBehaviour1PublicOb_pObGa_pStTeObBoSiUnique;
+using VRCPlayer = Il2Cpp.MonoBehaviour1PublicOb_pObBo_pGaStObTeSiUnique;
 using VRCFlowManager = Il2Cpp.MonoBehaviour1PublicAc1BoSiBoObSiStDiBoUnique;
 using VRCMotionState = Il2Cpp.MonoBehaviourPublicLaSiBoSiChBoObVeBoSiUnique;
 using RoomManager = Il2Cpp.MonoBehaviourPublicBoApSiApBoObStBo1ObUnique;
@@ -31,7 +31,7 @@ namespace ActionMenuUtils
 
                 goHomeDelegate = (GoHomeDelegate)Delegate.CreateDelegate(
                     typeof(GoHomeDelegate),
-                    VRCFlowManager.prop_MonoBehaviourPublicStObStBoObInAcObGaStUnique_0,
+                    VRCFlowManager.prop_MonoBehaviourPublicStObBoObInStAcObGaStUnique_0,
                     goHomeMethod);
                 return goHomeDelegate;
             }
@@ -51,7 +51,7 @@ namespace ActionMenuUtils
 
                 respawnDelegate = (RespawnDelegate)Delegate.CreateDelegate(
                     typeof(RespawnDelegate),
-                    VRCPlayer.field_Internal_Static_MonoBehaviour1PublicOb_pObGa_pStTeObBoSiUnique_0,
+                    VRCPlayer.field_Internal_Static_MonoBehaviour1PublicOb_pObBo_pGaStObTeSiUnique_0,
                     respawnMethod);
                 return respawnDelegate;
             }
@@ -63,7 +63,7 @@ namespace ActionMenuUtils
         public static void Respawn()
         {
             GetRespawnDelegate();
-            VRCPlayer.field_Internal_Static_MonoBehaviour1PublicOb_pObGa_pStTeObBoSiUnique_0.GetComponent<VRCMotionState>().Reset();
+            VRCPlayer.field_Internal_Static_MonoBehaviour1PublicOb_pObBo_pGaStObTeSiUnique_0.GetComponent<VRCMotionState>().Reset();
         }
 
         public static void RejoinInstance()

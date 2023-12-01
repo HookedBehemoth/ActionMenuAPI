@@ -4,8 +4,6 @@ using ActionMenuApi.Managers;
 using MelonLoader;
 using UnityEngine;
 
-using PedalOption = Il2Cpp.MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
-
 namespace ActionMenuApi.Api
 {
     /// <summary>

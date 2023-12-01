@@ -5,22 +5,11 @@ using System.Reflection;
 using ActionMenuApi.Managers;
 using MelonLoader;
 using Il2CppTMPro;
+using Il2CppVRC.Localization;
 using Il2CppInterop.Common.XrefScans;
 using Il2CppInterop.Runtime.XrefScans;
 using UnityEngine;
 using Object = UnityEngine.Object;
-
-using ActionMenuDriver = Il2Cpp.MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
-using ActionMenuOpener = Il2Cpp.MonoBehaviourPublicCaObAc1BoSiBoObObObUnique;
-using ActionMenuType = Il2Cpp.MonoBehaviourPublicCaObAc1BoSiBoObObObUnique.EnumNPublicSealedvaLeRi3vUnique;
-using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
-using ActionMenuPage = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique.ObjectNPublicAcTeAcStGaUnique;
-using RadialPuppetMenu = Il2Cpp.MonoBehaviour2PublicObGaObTeGaFu2GaSiStUnique;
-using AxisPuppetMenu = Il2Cpp.MonoBehaviour2PublicGaObBoObSiBoVeObObObUnique;
-using PedalOption = Il2Cpp.MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
-using ActionButton = Il2Cpp.MonoBehaviourPublicTrRaTeRaGaTeStRaGaAcUnique;
-using PedalGraphic = Il2Cpp.MaskableGraphicPublicSiTeSi_tSiTeSiTeSiUnique;
-using PuppetMenu = Il2Cpp.MonoBehaviour1PublicTeGaTeCaObSiBoSiBoUnique;
 
 namespace ActionMenuApi.Helpers
 {
@@ -109,17 +98,17 @@ namespace ActionMenuApi.Helpers
 
         public static void SetText(this PedalOption pedal, string text)
         {
-            pedal.prop_String_0 = text;
+			pedal.prop_LocalizableString_0 = new LocalizableString(text, null, null, null, false);
         }
 
         public static string GetText(this PedalOption pedal)
         {
-            return pedal.prop_String_0; //Only string prop on PedalOption. shouldnt change unless drastic changes are made to the action menu
+            return pedal.prop_LocalizableString_0.ToString(); //Only string prop on PedalOption. shouldnt change unless drastic changes are made to the action menu
         }
 
         public static void PushPage(this ActionMenu menu, Action openFunc, Action closeFunc = null, Texture2D icon = null, string text = null)
         {
-            menu.Method_Public_ObjectNPublicAcTeAcStGaUnique_Action_Action_Texture2D_String_0(openFunc, closeFunc, icon, text);
+            menu.Method_Public_ObjectNPublicAcTeAcLoGaUnique_Action_Action_Texture2D_LocalizableString_0(openFunc, closeFunc, icon, new LocalizableString(text, null, null, null, false));
         }
 
 
@@ -139,25 +128,14 @@ namespace ActionMenuApi.Helpers
             return actionMenuOpener.field_Private_Boolean_0; //only bool on action menu opener, shouldnt change
         }
 
-        public static void SetButtonPercentText(this PedalOption pedalOption, string text) //pedalOption.GetActionButton().prop_String_1
+        public static void SetButtonPercentText(this PedalOption pedalOption, string text)
         {
-            if (actionButtonPercentProperty != null)
-            {
-                actionButtonPercentProperty.SetValue(pedalOption.GetActionButton(), text);
-                return;
-            }
-
-            var button = pedalOption.GetActionButton();
-            actionButtonPercentProperty = typeof(ActionButton)
-                .GetProperties(BindingFlags.Public | BindingFlags.Instance).Single(
-                    p => p.PropertyType == typeof(string) && ((string)p.GetValue(button)).Equals("100%")
-                );
-            actionButtonPercentProperty.SetValue(pedalOption.GetActionButton(), text);
+			pedalOption.GetActionButton().prop_LocalizableString_1 = LocalizableString.Method_Public_Static_LocalizableString_String_0(text);
         }
 
         public static ActionButton GetActionButton(this PedalOption pedalOption)
         {
-            return pedalOption.field_Public_MonoBehaviourPublicTrRaTeRaGaTeStRaGaAcUnique_0; //only one
+            return pedalOption.field_Public_MonoBehaviourPublicTrRaObRaGaObLoRaGaAcUnique_0; //only one
         }
 
         private static void SetPedalTriggerEvent(this PedalOption pedalOption, Func<bool> triggerEvent)
@@ -203,7 +181,7 @@ namespace ActionMenuApi.Helpers
 
         public static ActionMenu GetActionMenu(this ActionMenuOpener actionMenuOpener)
         {
-            return actionMenuOpener.field_Public_MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique_0;
+            return actionMenuOpener.field_Public_MonoBehaviourPublicGaObGaCaLiGaCaOb1BoUnique_0;
         }
 
         public static ActionMenuOpener GetActionMenuOpener(this ActionMenu menu)
@@ -283,17 +261,17 @@ namespace ActionMenuApi.Helpers
 
         public static TextMeshProUGUI GetTitle(this RadialPuppetMenu radialPuppetMenu)
         {
-            return ((PuppetMenu)radialPuppetMenu).field_Public_TextMeshProUGUI_0; //only one
+            return ((PuppetMenu)radialPuppetMenu).field_Public_TextMeshProUGUIPublicSt_lLo1StLoLoStStUnique_0; //only one
         }
 
         public static TextMeshProUGUI GetTitle(this AxisPuppetMenu axisPuppetMenu)
         {
-            return axisPuppetMenu.field_Public_TextMeshProUGUI_0; //only one
+            return axisPuppetMenu.field_Public_TextMeshProUGUIPublicSt_lLo1StLoLoStStUnique_0; //only one
         }
 
         public static TextMeshProUGUI GetCenterText(this RadialPuppetMenu radialPuppetMenu)
         {
-            return radialPuppetMenu.field_Public_TextMeshProUGUI_0; //only one
+            return radialPuppetMenu.field_Public_TextMeshProUGUIPublicSt_lLo1StLoLoStStUnique_0; //only one
         }
 
         public static PedalGraphic
@@ -508,7 +486,7 @@ namespace ActionMenuApi.Helpers
 
         public static void DestroyPage(this ActionMenu actionMenu, ActionMenuPage page)
         {
-            actionMenu.Method_Private_Void_ObjectNPublicAcTeAcStGaUnique_0(page);
+            actionMenu.Method_Private_Void_ObjectNPublicAcTeAcLoGaUnique_0(page);
         }
 
         public static void ResetMenu(this ActionMenu actionMenu)
@@ -516,7 +494,7 @@ namespace ActionMenuApi.Helpers
             RadialPuppetManager.CloseRadialMenu();
             FourAxisPuppetManager.CloseFourAxisMenu();
             actionMenu.ClosePuppetMenus(true);
-            var list = actionMenu.field_Private_List_1_ObjectNPublicAcTeAcStGaUnique_0;
+            var list = actionMenu.field_Private_List_1_ObjectNPublicAcTeAcLoGaUnique_0;
             for (var i = 0; i < list?.Count; i++)
                 actionMenu.DestroyPage(list._items[i]);
             list?.Clear();

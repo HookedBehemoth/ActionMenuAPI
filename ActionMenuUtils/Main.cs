@@ -5,7 +5,6 @@ using ActionMenuApi.Api;
 using MelonLoader;
 using Il2CppInterop.Runtime;
 using UnityEngine;
-using Il2CppVRC;
 
 namespace ActionMenuUtils
 {

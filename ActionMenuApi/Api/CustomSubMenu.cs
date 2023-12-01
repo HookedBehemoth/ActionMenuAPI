@@ -3,9 +3,6 @@ using ActionMenuApi.Helpers;
 using ActionMenuApi.Managers;
 using UnityEngine;
 
-using PedalOption = Il2Cpp.MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
-using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
-
 // ReSharper disable HeuristicUnreachableCode
 
 namespace ActionMenuApi.Api

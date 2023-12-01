@@ -5,13 +5,6 @@ using MelonLoader;
 using UnityEngine;
 using UnityEngine.XR;
 
-using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
-using ActionMenuType = Il2Cpp.MonoBehaviourPublicCaObAc1BoSiBoObObObUnique.EnumNPublicSealedvaLeRi3vUnique;
-using ActionButton = Il2Cpp.MonoBehaviourPublicTrRaTeRaGaTeStRaGaAcUnique;
-using AxisPuppetMenu = Il2Cpp.MonoBehaviour2PublicGaObBoObSiBoVeObObObUnique;
-using PedalOption = Il2Cpp.MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
-using PedalGraphic = Il2Cpp.MaskableGraphicPublicSiTeSi_tSiTeSiTeSiUnique;
-
 namespace ActionMenuApi.Managers;
 
 internal static class FourAxisPuppetManager

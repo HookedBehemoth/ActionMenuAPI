@@ -81,6 +81,14 @@
             <Private>False</Private>
             <SpecificVersion>False</SpecificVersion>
         </Reference>
+        <Reference Include="Il2CppDataModel">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
+        <Reference Include="Il2CppVRC.UI.Shared">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
         <!-- Game libraries -->
         <!-- Unity -->
         <Reference Include="UnityEngine.CoreModule">

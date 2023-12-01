@@ -1,0 +1,11 @@
+global using ActionMenu = Il2Cpp.MonoBehaviourPublicGaObGaCaLiGaCaOb1BoUnique;
+global using ActionMenuPage = Il2Cpp.MonoBehaviourPublicGaObGaCaLiGaCaOb1BoUnique.ObjectNPublicAcTeAcLoGaUnique;
+global using ActionMenuOpener = Il2Cpp.MonoBehaviourPublicCaObAc1BoSiBoObObObUnique;
+global using ActionMenuType = Il2Cpp.MonoBehaviourPublicCaObAc1BoSiBoObObObUnique.EnumNPublicSealedvaLeRi3vUnique;
+global using ActionMenuDriver = Il2Cpp.MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
+global using ActionButton = Il2Cpp.MonoBehaviourPublicTrRaObRaGaObLoRaGaAcUnique;
+global using PuppetMenu = Il2Cpp.MonoBehaviour1PublicObGaObCaSiBoSiObBoSiUnique;
+global using RadialPuppetMenu = Il2Cpp.MonoBehaviour2PublicObGaObTeGaSiVeGaSiSiUnique;
+global using AxisPuppetMenu = Il2Cpp.MonoBehaviour2PublicGaObBoObSiBoVeObObObUnique;
+global using PedalGraphic = Il2Cpp.MaskableGraphicPublicSiTeSi_tSiTeSiTeSiUnique;
+global using PedalOption = Il2Cpp.MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;

@@ -6,9 +6,6 @@ using ActionMenuApi.Types;
 using MelonLoader;
 using UnityEngine;
 
-using ActionMenu = Il2Cpp.MonoBehaviourPublicGaTeGaCaObGaCaLiOb1Unique;
-using PedalOption = Il2Cpp.MonoBehaviourPublicObSiObFuSi1ObBoSiAcUnique;
-
 namespace ActionMenuApi.Pedals
 {
     public abstract class PedalStruct

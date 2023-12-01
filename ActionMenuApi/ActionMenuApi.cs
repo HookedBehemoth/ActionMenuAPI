@@ -3,8 +3,6 @@ using System.Collections;
 using ActionMenuApi.Managers;
 using MelonLoader;
 
-using ActionMenuDriver = Il2Cpp.MonoBehaviourPublicObGaObAc1ObAcBoCoObUnique;
-
 #pragma warning disable 1591
 
 namespace ActionMenuApi
