@@ -130,7 +130,7 @@ namespace ActionMenuApi.Helpers
 
         public static void SetButtonPercentText(this PedalOption pedalOption, string text)
         {
-			pedalOption.GetActionButton().prop_LocalizableString_1 = LocalizableString.Method_Public_Static_LocalizableString_String_0(text);
+			pedalOption.GetActionButton().prop_LocalizableString_1 = LocalizableString.Method_Public_Static_LocalizableString_String_PDM_0(text);
         }
 
         public static ActionButton GetActionButton(this PedalOption pedalOption)
@@ -261,17 +261,17 @@ namespace ActionMenuApi.Helpers
 
         public static TextMeshProUGUI GetTitle(this RadialPuppetMenu radialPuppetMenu)
         {
-            return ((PuppetMenu)radialPuppetMenu).field_Public_TextMeshProUGUIPublicSt_lLo1StLoLoStStUnique_0; //only one
+            return ((PuppetMenu)radialPuppetMenu).field_Public_TextMeshProUGUIPublicLo_lSt1LoStLoStUnique_0; //only one
         }
 
         public static TextMeshProUGUI GetTitle(this AxisPuppetMenu axisPuppetMenu)
         {
-            return axisPuppetMenu.field_Public_TextMeshProUGUIPublicSt_lLo1StLoLoStStUnique_0; //only one
+            return axisPuppetMenu.field_Public_TextMeshProUGUIPublicLo_lSt1LoStLoStUnique_0; //only one
         }
 
         public static TextMeshProUGUI GetCenterText(this RadialPuppetMenu radialPuppetMenu)
         {
-            return radialPuppetMenu.field_Public_TextMeshProUGUIPublicSt_lLo1StLoLoStStUnique_0; //only one
+            return radialPuppetMenu.field_Public_TextMeshProUGUIPublicLo_lSt1LoStLoStUnique_0; //only one
         }
 
         public static PedalGraphic
