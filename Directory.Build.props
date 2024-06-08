@@ -89,6 +89,10 @@
             <Private>False</Private>
             <SpecificVersion>False</SpecificVersion>
         </Reference>
+        <Reference Include="Il2CppLocalization.LocalizableString">
+            <Private>False</Private>
+            <SpecificVersion>False</SpecificVersion>
+        </Reference>
         <!-- Game libraries -->
         <!-- Unity -->
         <Reference Include="UnityEngine.CoreModule">

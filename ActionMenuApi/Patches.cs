@@ -35,24 +35,24 @@ namespace ActionMenuApi
             optionsPagePre = new(),
             optionsPagePost = new();
 
-        private static readonly List<string> openConfigPageKeyWords = new() {"+General/Avatar Overlay"}; // new(new[] {"Menu Size", "Menu Opacity"}); Those are in sub-functions now
-        private static readonly List<string> openMainPageKeyWords = new(new[] {"+General/Options", "+General/Emojis"});
+        private static readonly List<string> openConfigPageKeyWords = new() {"Avatar Overlay"}; // new(new[] {"Menu Size", "Menu Opacity"}); Those are in sub-functions now
+        private static readonly List<string> openMainPageKeyWords = new(new[] {"Options", "Emojis"});
         private static readonly List<string> openEmojisPageKeyWords = new(new[] {" ", "_"});
-        private static readonly List<string> openExpressionMenuKeyWords = new(new[] {"+General/Reset Avatar", "+General/Release Poses"});
-        private static readonly List<string> openOptionsPageKeyWords = new(new[] {"+General/Chatbox", "+General/Nameplates"});
+        private static readonly List<string> openExpressionMenuKeyWords = new(new[] {"Reset Avatar", "Release Poses"});
+        private static readonly List<string> openOptionsPageKeyWords = new(new[] {"Chatbox", "Nameplates"});
         private static readonly List<string> openSDK2ExpressionPageKeyWords = new(new[] {"EMOTE{0}"});
 
-        private static readonly List<string> openNameplatesPageKeyWords = new(new[] {"+General/Visibility", "+General/Size"});
+        private static readonly List<string> openNameplatesPageKeyWords = new(new[] {"Visibility", "Size"});
 
         private static readonly List<string> openNameplatesVisibilityPageKeyWords =
-            new(new[] {"+General/Nameplates Shown", "+General/Icons Only", "+General/Nameplates Hidden"});
+            new(new[] {"Nameplates Shown", "Icons Only", "Nameplates Hidden"});
 
         private static readonly List<string> openNameplatesSizePageKeyWords =
-            new(new[] {"+General/Large", "+General/Medium", "+General/Normal", "+General/Small", "+General/Tiny"});
+            new(new[] {"Large", "Medium", "Normal", "Small", "Tiny"});
 
         private static readonly List<string> openPhysbonesSettingsPageWords = new()
         {
-            "+General/None", "+General/PhysBones Proximity", "+General/PhysBones", "+General/Contacts"
+            "None", "PhysBones Proximity", "PhysBones", "Contacts"
         };
 
         private static HarmonyLib.Harmony Harmony;

@@ -45,9 +45,17 @@ namespace ActionMenuApi.Helpers
             {
                 foreach (var keyword in keywords)
                     if (!XrefScanner.XrefScan(m).Any(
-                        instance => instance.Type == XrefType.Global && instance.ReadAsObject() != null && instance
-                            .ReadAsObject().ToString()
-                            .Equals(keyword, StringComparison.OrdinalIgnoreCase)))
+                        instance => {
+							if (instance.Type == XrefType.Global) {
+								var obj = instance.ReadAsObject();
+								if (obj != null) {
+									var targetClass = (IntPtr)System.Runtime.InteropServices.Marshal.ReadInt64(obj.Pointer);
+									if (targetClass == Il2CppInterop.Runtime.Il2CppClassPointerStore<string>.NativeClassPtr)
+										return obj.ToString().Equals(keyword, StringComparison.OrdinalIgnoreCase);
+								}
+							}
+							return false;
+						}))
                         return false;
 
                 return true;
@@ -65,9 +73,17 @@ namespace ActionMenuApi.Helpers
             {
                 foreach (var keyword in keywords)
                     if (!XrefScanner.XrefScan(m).Any(
-                        instance => instance.Type == XrefType.Global && instance.ReadAsObject() != null && instance
-                            .ReadAsObject().ToString()
-                            .Equals(keyword, StringComparison.OrdinalIgnoreCase)))
+                        instance => {
+							if (instance.Type == XrefType.Global) {
+								var obj = instance.ReadAsObject();
+								if (obj != null) {
+									var targetClass = (IntPtr)System.Runtime.InteropServices.Marshal.ReadInt64(obj.Pointer);
+									if (targetClass == Il2CppInterop.Runtime.Il2CppClassPointerStore<string>.NativeClassPtr)
+										return obj.ToString().Equals(keyword, StringComparison.OrdinalIgnoreCase);
+								}
+							}
+							return false;
+						}))
                         return false;
 
                 return true;
