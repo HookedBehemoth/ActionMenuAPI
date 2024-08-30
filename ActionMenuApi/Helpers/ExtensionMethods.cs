@@ -135,7 +135,7 @@ namespace ActionMenuApi.Helpers
 
         public static ActionButton GetActionButton(this PedalOption pedalOption)
         {
-            return pedalOption.field_Public_MonoBehaviourPublicTrRaObRaGaObLoRaGaAcUnique_0; //only one
+            return pedalOption.field_Public_MonoBehaviourPublicTrRaImObRaGaObLoRaGaUnique_0; //only one
         }
 
         private static void SetPedalTriggerEvent(this PedalOption pedalOption, Func<bool> triggerEvent)
@@ -261,17 +261,17 @@ namespace ActionMenuApi.Helpers
 
         public static TextMeshProUGUI GetTitle(this RadialPuppetMenu radialPuppetMenu)
         {
-            return ((PuppetMenu)radialPuppetMenu).field_Public_TextMeshProUGUIPublicLo_l1StLoLoUnique_0; //only one
+            return ((PuppetMenu)radialPuppetMenu).field_Public_TextMeshProUGUIPublicLo_l1LaLo_cStLoUnique_0; //only one
         }
 
         public static TextMeshProUGUI GetTitle(this AxisPuppetMenu axisPuppetMenu)
         {
-            return axisPuppetMenu.field_Public_TextMeshProUGUIPublicLo_l1StLoLoUnique_0; //only one
+            return axisPuppetMenu.field_Public_TextMeshProUGUIPublicLo_l1LaLo_cStLoUnique_0; //only one
         }
 
         public static TextMeshProUGUI GetCenterText(this RadialPuppetMenu radialPuppetMenu)
         {
-            return radialPuppetMenu.field_Public_TextMeshProUGUIPublicLo_l1StLoLoUnique_0; //only one
+            return radialPuppetMenu.field_Public_TextMeshProUGUIPublicLo_l1LaLo_cStLoUnique_0; //only one
         }
 
         public static PedalGraphic

@@ -6,9 +6,10 @@ using Il2CppInterop.Runtime.XrefScans;
 using Il2CppVRC.SDKBase;
 
 using VRCPlayer = Il2Cpp.MonoBehaviour1PublicOb_pOb_s_pBoGaOb_pStUnique;
-using VRCFlowManager = Il2Cpp.MonoBehaviour1PublicAc1BoSiBoObSiStDiBoUnique;
+using VRCFlowManager = Il2Cpp.MonoBehaviourPublicStObBoObLoInObLoAcGaUnique;
 using VRCMotionState = Il2Cpp.MonoBehaviourPublicLaSiBoSiChBoObVeBoSiUnique;
 using RoomManager = Il2Cpp.MonoBehaviourPublicBoApSiApBoObStApBo1Unique;
+using UnityEngine;
 
 namespace ActionMenuUtils
 {
